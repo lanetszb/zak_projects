@@ -1,0 +1,16 @@
+timeStep 0.2 sec
+
+time 20 sec
+
+tempLeft 1000 deg
+
+tempRight 100 deg
+
+tempIni 20 deg
+
+length 1 m
+
+gridsNumber 200
+
+
+

@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.8)
+project(heatDiffusion)
+set(CMAKE_CXX_STANDARD 11)
+set(SOURCE_FILES main.cpp GetFromFile.h)
+add_executable(heatDiffusion ${SOURCE_FILES})
