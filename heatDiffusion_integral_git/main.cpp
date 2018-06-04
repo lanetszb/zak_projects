@@ -1,15 +1,16 @@
 #include <iostream>
 #include <cmath>
 #include <vector>
-#include "GetFromFile.h"
+#include <GetFromFile.h>
 #include <iomanip>
 #include <iostream>
 
-void funcJacobi(const std::vector<double> &val, const std::vector<int> &col, const std::vector<int> &poi, const std::vector<double> &B,
+void funcJacobi(const std::vector<double> &val, const std::vector<int> &col,
+                const std::vector<int> &poi, const std::vector<double> &B,
                 std::vector<double> &X, const double &maxTolerance);
 
 int main(int narg, char **arg) {
-    //reading data file
+    // reading data file
 
     GetFromFile dataFile(arg[1]);
 
@@ -42,7 +43,8 @@ int main(int narg, char **arg) {
 
         if (tN % eachWhich == 0) {
             {
-                std::string fileName5 = "file_no_" + std::to_string(tN) + ".plt";
+                std::string fileName5 =
+                        "file_no_" + std::to_string(tN) + ".plt";
 
                 oStream.open(fileName5.c_str());
 
@@ -54,7 +56,8 @@ int main(int narg, char **arg) {
                 double L = 0;
                 oStream << "plot '-' using 1:2 w l" << std::endl;
                 for (int i = 0; i < T.size(); i++, L += dx)
-                    oStream << std::setw(w) << L << std::setw(w) << T[i] << std::endl;
+                    oStream << std::setw(w) << L << std::setw(w) << T[i]
+                            << std::endl;
                 oStream << "end" << std::endl;
                 oStream << "pause -1" << std::endl;
                 oStream.close();
@@ -68,7 +71,9 @@ int main(int narg, char **arg) {
         for (int i = 0; i < T.size(); i++) {
 
             if (T[i] >= 0 && T[i] < 600)
-                cond[i] = 425 + 7.73 * 1E-1 * T[i] - 1.69 * 1E-3 * T[i] * T[i] + 2.22 * 1E-6 * T[i] * T[i] * T[i];
+                cond[i] =
+                        425 + 7.73 * 1E-1 * T[i] - 1.69 * 1E-3 * T[i] * T[i] +
+                        2.22 * 1E-6 * T[i] * T[i] * T[i];
 
             else if (T[i] >= 600 && T[i] < 735)
                 cond[i] = 666 + 13002 / (738 - T[i]);
@@ -117,11 +122,13 @@ int main(int narg, char **arg) {
 
         std::vector<double> lambMinus(N + 1, 0);
         for (int i = 0; i < T.size(); i++)
-            lambMinus[i] = (2 * lamb[i] * lamb[i - 1]) / (lamb[i - 1] + lamb[i]);
+            lambMinus[i] =
+                    (2 * lamb[i] * lamb[i - 1]) / (lamb[i - 1] + lamb[i]);
 
         std::vector<double> lambPlus(N + 1, 0);
         for (int i = 0; i < T.size(); i++)
-            lambPlus[i] = (2 * lamb[i] * lamb[i + 1]) / (lamb[i + 1] + lamb[i]);
+            lambPlus[i] =
+                    (2 * lamb[i] * lamb[i + 1]) / (lamb[i + 1] + lamb[i]);
 
         // Ai coeff vector
 
@@ -231,11 +238,13 @@ int main(int narg, char **arg) {
         oStream.setf(std::ios::scientific, std::ios::floatfield);
 
         double L = 0;
+        oStream << "set term png" << std::endl;
+        oStream << "set output 'out.png'" << std::endl;
         oStream << "plot '-' using 1:2 w l" << std::endl;
         for (int i = 0; i < T.size(); i++, L += dx)
             oStream << std::setw(w) << L << std::setw(w) << T[i] << std::endl;
         oStream << "end" << std::endl;
-        oStream << "pause -1" << std::endl;
+        // oStream << "pause -1" << std::endl;
         oStream.close();
     }
 
@@ -265,7 +274,8 @@ int main(int narg, char **arg) {
         oStream << "plot '-' using 1:2 w l" << std::endl;
 
         for (int i = 0; i < T.size(); i++)
-            oStream << std::setw(w) << T[i] << std::setw(w) << dens[i] << std::endl;
+            oStream << std::setw(w) << T[i] << std::setw(w) << dens[i]
+                    << std::endl;
         oStream << "end" << std::endl;
         oStream << "pause -1" << std::endl;
         oStream.close();
@@ -287,7 +297,9 @@ int main(int narg, char **arg) {
         for (int i = 0; i < T.size(); i++) {
 
             if (T[i] >= 0 && T[i] < 600)
-                cond[i] = 425 + 7.73 * 1E-1 * T[i] - 1.69 * 1E-3 * T[i] * T[i] + 2.22 * 1E-6 * T[i] * T[i] * T[i];
+                cond[i] =
+                        425 + 7.73 * 1E-1 * T[i] - 1.69 * 1E-3 * T[i] * T[i] +
+                        2.22 * 1E-6 * T[i] * T[i] * T[i];
 
             else if (T[i] >= 600 && T[i] < 735)
                 cond[i] = 666 + 13002 / (738 - T[i]);
@@ -301,7 +313,8 @@ int main(int narg, char **arg) {
         oStream << "plot '-' using 1:2 w l" << std::endl;
 
         for (int i = 0; i < T.size(); i++)
-            oStream << std::setw(w) << T[i] << std::setw(w) << cond[i] << std::endl;
+            oStream << std::setw(w) << T[i] << std::setw(w) << cond[i]
+                    << std::endl;
         oStream << "end" << std::endl;
         oStream << "pause -1" << std::endl;
         oStream.close();
@@ -330,13 +343,14 @@ int main(int narg, char **arg) {
         oStream << "plot '-' using 1:2 w l" << std::endl;
 
         for (int i = 0; i < T.size(); i++)
-            oStream << std::setw(w) << T[i] << std::setw(w) << lamb[i] << std::endl;
+            oStream << std::setw(w) << T[i] << std::setw(w) << lamb[i]
+                    << std::endl;
         oStream << "end" << std::endl;
         oStream << "pause -1" << std::endl;
         oStream.close();
     }
 
-    std::string command1 = "gnuplot " + fileName1;
+    std::string command1 = "gnuplot " + fileName1 + "&& open out.png";
     std::string command2 = "gnuplot " + fileName2;
     std::string command3 = "gnuplot " + fileName3;
     std::string command4 = "gnuplot " + fileName4;
@@ -351,7 +365,8 @@ int main(int narg, char **arg) {
 }
 
 
-void funcJacobi(const std::vector<double> &val, const std::vector<int> &col, const std::vector<int> &poi, const std::vector<double> &B,
+void funcJacobi(const std::vector<double> &val, const std::vector<int> &col,
+                const std::vector<int> &poi, const std::vector<double> &B,
                 std::vector<double> &X, const double &maxTolerance) {
 
     double curTolerance = 0;
@@ -382,7 +397,9 @@ void funcJacobi(const std::vector<double> &val, const std::vector<int> &col, con
 
         curTolerance = 0;
         for (int i = 0; i < poi.size() - 1; i++)
-            curTolerance += fabs(2. * (Xcur[(k + 1) % 2][i] - Xcur[k % 2][i]) / (Xcur[(k + 1) % 2][i] + Xcur[k % 2][i])) / B.size();
+            curTolerance += fabs(2. * (Xcur[(k + 1) % 2][i] - Xcur[k % 2][i]) /
+                                 (Xcur[(k + 1) % 2][i] + Xcur[k % 2][i])) /
+                            B.size();
 
         k++;
 

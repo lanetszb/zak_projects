@@ -18,13 +18,16 @@ public:
 
 
     template<typename T>
-    T getWord(const std::string &variableKey, const int &count); // метод для считывания слова с параметром
+    T getWord(const std::string &variableKey,
+              const int &count); // метод для считывания слова с параметром
 
     template<typename T>
-    T getWord(const std::string &variableKey); // метод для считывания слова без параметра
+    T
+    getWord(const std::string &variableKey); // метод для считывания слова без параметра
 
     template<typename T>
-    std::vector<T> getVector(const std::string &variableKey); // метод для считывания вектора
+    std::vector<T>
+    getVector(const std::string &variableKey); // метод для считывания вектора
 
 
 private:
