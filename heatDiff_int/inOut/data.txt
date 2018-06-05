@@ -1,6 +1,6 @@
 timeStep 0.2 sec
 
-time 20 sec
+time 1 sec
 
 tempLeft 1000 deg
 
@@ -10,7 +10,6 @@ tempIni 20 deg
 
 length 1 m
 
-gridsNumber 200
+gridsNumber 500
 
-
-
+MAX_TOLERANCE 1.E-7
