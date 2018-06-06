@@ -10,6 +10,6 @@ tempIni 20 deg
 
 length 1 m
 
-gridsNumber 500
+N 600
 
 MAX_TOLERANCE 1.E-7

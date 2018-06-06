@@ -38,11 +38,14 @@ int main(int narg, char **arg) {
     auto Tr = dataFile.getWord<double>("tempRight");
     auto T0 = dataFile.getWord<double>("tempIni");
     auto l = dataFile.getWord<double>("length");
-    auto N = dataFile.getWord<double>("gridsNumber");
+    auto N = dataFile.getWord<double>("N");
     auto maxTolerance = dataFile.getWord<double>("MAX_TOLERANCE");
 
     // ***Numerical solution for heat diffusion begins here***
     double dx = l / (N + 1); // (m);
+
+    std::cout << dx << std::endl;
+
     double V = dx * dx;
 
     // Temp vector
