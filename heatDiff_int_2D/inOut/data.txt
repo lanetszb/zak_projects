@@ -1,0 +1,35 @@
+timeStep 0.2 sec
+
+time 1 sec
+
+tempLeft 1000 deg
+
+tempBot 1000 deg
+
+tempRight 100 deg
+
+tempTop 100 deg
+
+tempIni 20 deg
+
+lengthX 1 m
+
+lenghtY 0.8 m
+
+Nx 4
+
+Ny 3
+
+MAX_TOLERANCE 1.E-7
+
+X0              0 m
+
+Y0              0 m
+
+XL              1000 m
+
+YL              1200 m
+
+NODES_NUM_X     6
+
+NODES_NUM_Y     6

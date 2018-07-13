@@ -1,0 +1,12 @@
+X0              0 m
+
+Y0              0 m
+
+XL              1000 m
+
+YL              1200 m
+
+NODES_NUM_X     6
+
+NODES_NUM_Y     6
+
