@@ -14,14 +14,10 @@ int main(int narg, char **arg) {
     auto Y0 = dataFile.getWord<double>("Y0");
     auto XL = dataFile.getWord<double>("XL");
     auto YL = dataFile.getWord<double>("YL");
-    auto Nx = dataFile.getWord<double>("NODES_NUM_X");
-    auto Ny = dataFile.getWord<double>("NODES_NUM_Y");
+    int Nx = dataFile.getWord<double>("NODES_NUM_X");
+    int Ny = dataFile.getWord<double>("NODES_NUM_Y");
 
     // ***Numerical solution for heat diffusion begins here***
-
-    std::cout << X0 << std::endl;
-    std::cout << YL << std::endl;
-    std::cout << Ny << std::endl;
 
     char response;
 
@@ -39,31 +35,39 @@ int main(int narg, char **arg) {
             X_coord[i] = X_coord[i - 1] + dx;
 
         auto dy = (YL - Y0) / (Ny - 1);
-        std::vector<double> Y_coord(Ny, 0);
+        std::vector<double> Y_coord(Nx * Ny, 0);
 
         for (int i = 0; i < 1; i++)
             Y_coord[i] = Y0;
 
-        for (int i = 1; i < Nx; i++)
-            Y_coord[i] = Y_coord[i - 1] + dy;
+
+        for (int i = 1; i < Ny * Nx; i++) {
+            Y_coord[i] = Y_coord[i-1];
+            if (i % Nx == 0)
+                Y_coord[i] = Y_coord[i] + dy;
+        }
 
         // ***data output***
+
         std::ofstream oStream;
 
         oStream.open("out.txt");
 
-        oStream << "Node_X" << std:: endl;
+        oStream << "Node_X" << std::endl;
 
         for (int i = 0; i < Nx; i++)
             for (int j = 0; j < Nx; j++)
                 oStream << X_coord[j] << " ";
+        oStream << std::endl;
+        oStream << "/" << std::endl;
         oStream << std::endl << std::endl;
 
-        oStream << "Node_Y" << std:: endl;
+        oStream << "Node_Y" << std::endl;
 
-        for (int i = 0; i < Ny; i++)
-            for (int j = 0; j < Ny; j++)
-                oStream << Y_coord[j] << " ";
+        for (int i = 0; i < Ny*Nx; i++)
+                oStream << Y_coord[i] << " ";
+        oStream << std::endl;
+        oStream << "/" << std::endl;
         oStream << std::endl << std::endl;
 
         oStream << std::endl;

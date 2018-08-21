@@ -12,24 +12,15 @@ tempTop 100 deg
 
 tempIni 20 deg
 
-lengthX 1 m
+NODES_NUM  ../gridMaker/inOut/data.txt
 
-lenghtY 0.8 m
+density 7800 kg/m3
 
-Nx 4
+thermalCond 46 W/(m*C)
 
-Ny 3
+heatCapac 460 J/(kg*C)
 
 MAX_TOLERANCE 1.E-7
 
-X0              0 m
+GRID_DATA ../gridMaker/inOut/out.txt
 
-Y0              0 m
-
-XL              1000 m
-
-YL              1200 m
-
-NODES_NUM_X     6
-
-NODES_NUM_Y     6
