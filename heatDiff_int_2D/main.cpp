@@ -14,6 +14,9 @@ std::vector<double> func_omega_jPlus(std::vector<double> &X_coord, const int &Nx
 
 std::vector<double> func_omega_jMin(std::vector<double> &X_coord, const int &Nx);
 
+std::vector<double> func_omega_iPlus(std::vector<double> &Y_coord, const int &Nx);
+
+
 
 int main(int narg, char **arg) {
 
@@ -88,6 +91,7 @@ int main(int narg, char **arg) {
         std::cout << T[i] << std::endl;
     std::cout << std::endl;
 
+
     // ***Grid block centre***
 
     // Centre of blocks in X directions
@@ -97,6 +101,7 @@ int main(int narg, char **arg) {
     // Centre of blocks in Y directions
 
     auto gridYcent = func_Ycenter(Y_coord, Nx);
+
 
     // ***Surface area determination***
 
@@ -110,13 +115,7 @@ int main(int narg, char **arg) {
 
     // Omega i Plus
 
-    std::vector<double> omega_iPlus(gridN, 0);
-
-    for (int j = 0, i = 0; i < gridN; i++) {
-        omega_iPlus[i] = (Y_coord[i + Nx + 1 + j] - Y_coord[i + 1 + j]);
-        if (i % (Nx - 1) == 0 && i != 0)
-            j++;
-    }
+    auto omega_iPlus = func_omega_iPlus(Y_coord, Nx);
 
     // Omega i Minus
 
@@ -382,4 +381,15 @@ std::vector<double> func_omega_jMin(std::vector<double> &X_coord, const int &Nx)
     return omega_jMin;
 }
 
+std::vector<double> func_omega_iPlus(std::vector<double> &Y_coord, const int &Nx) {
 
+int gridN = (Nx - 1) * (Y_coord.size() / Nx - 1);
+std::vector<double> omega_iPlus(gridN, 0);
+
+for (int j = 0, i = 0; i < gridN; i++) {
+omega_iPlus[i] = (Y_coord[i + Nx + 1 + j] - Y_coord[i + 1 + j]);
+if (i % (Nx - 1) == 0 && i != 0)
+j++;
+}
+    return omega_iPlus;
+}
