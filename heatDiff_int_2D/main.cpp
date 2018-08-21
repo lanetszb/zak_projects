@@ -16,6 +16,7 @@ std::vector<double> func_omega_jMin(std::vector<double> &X_coord, const int &Nx)
 
 std::vector<double> func_omega_iPlus(std::vector<double> &Y_coord, const int &Nx);
 
+std::vector<double> func_omega_iMin(std::vector<double> &Y_coord, const int &Nx);
 
 
 int main(int narg, char **arg) {
@@ -94,6 +95,7 @@ int main(int narg, char **arg) {
 
     // ***Grid block centre***
 
+
     // Centre of blocks in X directions
 
     auto gridXcent = func_Xcenter(X_coord, Nx);
@@ -104,6 +106,7 @@ int main(int narg, char **arg) {
 
 
     // ***Surface area determination***
+
 
     // Omega j Plus
 
@@ -119,13 +122,7 @@ int main(int narg, char **arg) {
 
     // Omega i Minus
 
-    std::vector<double> omega_iMinus(gridN, 0);
-
-    for (int j = 0, i = 0; i < gridN; i++) {
-        omega_iMinus[i] = (Y_coord[i + Nx + j] - Y_coord[i + j]);
-        if (i % (Nx - 1) == 0 && i != 0)
-            j++;
-    }
+    auto omega_iMin = func_omega_iMin(Y_coord, Nx);
 
     // A coefficient
 
@@ -299,8 +296,8 @@ int main(int narg, char **arg) {
     std::cout << std::endl;
 
     std::cout << "omega_iMinus[i]" << std::endl;
-    for (int i = 0; i < omega_iMinus.size(); i++)
-        std::cout << omega_iMinus[i] << std::endl;
+    for (int i = 0; i < omega_iMin.size(); i++)
+        std::cout << omega_iMin[i] << std::endl;
     std::cout << std::endl;
 
 
@@ -383,13 +380,26 @@ std::vector<double> func_omega_jMin(std::vector<double> &X_coord, const int &Nx)
 
 std::vector<double> func_omega_iPlus(std::vector<double> &Y_coord, const int &Nx) {
 
-int gridN = (Nx - 1) * (Y_coord.size() / Nx - 1);
-std::vector<double> omega_iPlus(gridN, 0);
+    int gridN = (Nx - 1) * (Y_coord.size() / Nx - 1);
+    std::vector<double> omega_iPlus(gridN, 0);
 
-for (int j = 0, i = 0; i < gridN; i++) {
-omega_iPlus[i] = (Y_coord[i + Nx + 1 + j] - Y_coord[i + 1 + j]);
-if (i % (Nx - 1) == 0 && i != 0)
-j++;
-}
+    for (int j = 0, i = 0; i < gridN; i++) {
+        omega_iPlus[i] = (Y_coord[i + Nx + 1 + j] - Y_coord[i + 1 + j]);
+        if (i % (Nx - 1) == 0 && i != 0)
+            j++;
+    }
     return omega_iPlus;
+}
+
+std::vector<double> func_omega_iMin(std::vector<double> &Y_coord, const int &Nx) {
+
+    int gridN = (Nx - 1) * (Y_coord.size() / Nx - 1);
+    std::vector<double> omega_iMin(gridN, 0);
+
+    for (int j = 0, i = 0; i < gridN; i++) {
+        omega_iMin[i] = (Y_coord[i + Nx + j] - Y_coord[i + j]);
+        if (i % (Nx - 1) == 0 && i != 0)
+            j++;
+    }
+    return omega_iMin;
 }
