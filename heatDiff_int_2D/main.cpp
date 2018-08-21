@@ -8,7 +8,7 @@
 
 std::vector<double> func_Xcenter(std::vector<double> &X_coord, const int &Nx);
 
-void func_Ycenter(std::vector<double> &gridYcent, std::vector<double> &Y_coord, const int &gridN, const int &Nx);
+std::vector<double> func_Ycenter(std::vector<double> &Y_coord, const int &Nx);
 
 void func_omega_jPl(std::vector<double> &omega_iPl, std::vector<double> &X_coord, const int &gridN, const int &Nx);
 
@@ -96,8 +96,7 @@ int main(int narg, char **arg) {
 
     // Centre of blocks in Y directions
 
-    std::vector<double> gridYcent(gridN, 0);
-    func_Ycenter(gridYcent, Y_coord, gridN, Nx);
+    auto gridYcent = func_Ycenter(Y_coord, Nx);
 
     // ***Surface area determination***
 
@@ -339,12 +338,17 @@ std::vector<double> func_Xcenter(std::vector<double> &X_coord, const int &Nx) {
     return gridXcent;
 }
 
-void func_Ycenter(std::vector<double> &gridYcent, std::vector<double> &Y_coord, const int &gridN, const int &Nx) {
+std::vector<double> func_Ycenter(std::vector<double> &Y_coord, const int &Nx) {
+
+    int gridN = (Nx - 1) * (Y_coord.size() / Nx - 1);
+    std::vector<double> gridYcent(gridN, 0);
+
     for (int j = 0, i = 0; i < gridN; i++) {
         gridYcent[i] = (Y_coord[i + Nx + 1 + j] + Y_coord[i + 1 + j]) / 2;
         if (i % (Nx - 1) == 0 && i != 0)
             j++;
     }
+    return gridYcent;
 }
 
 void func_omega_jPl(std::vector<double> &omega_iPl, std::vector<double> &X_coord, const int &gridN, const int &Nx) {
