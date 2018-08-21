@@ -10,7 +10,7 @@ std::vector<double> func_Xcenter(std::vector<double> &X_coord, const int &Nx);
 
 std::vector<double> func_Ycenter(std::vector<double> &Y_coord, const int &Nx);
 
-void func_omega_jPl(std::vector<double> &omega_iPl, std::vector<double> &X_coord, const int &gridN, const int &Nx);
+std::vector<double> func_omega_jPlus(std::vector<double> &X_coord, const int &Nx);
 
 void func_omega_jMin(std::vector<double> &omega_iMin, std::vector<double> &X_coord, const int &gridN, const int &Nx);
 
@@ -102,8 +102,7 @@ int main(int narg, char **arg) {
 
     // Omega j Plus
 
-    std::vector<double> omega_jPlus(gridN, 0);
-    func_omega_jPl(omega_jPlus, X_coord, gridN, Nx);
+    auto omega_jPlus = func_omega_jPlus(X_coord, Nx);
 
     // Omega j Minus
     std::vector<double> omega_jMin(gridN, 0);
@@ -351,14 +350,20 @@ std::vector<double> func_Ycenter(std::vector<double> &Y_coord, const int &Nx) {
     return gridYcent;
 }
 
-void func_omega_jPl(std::vector<double> &omega_iPl, std::vector<double> &X_coord, const int &gridN, const int &Nx) {
+std::vector<double> func_omega_jPlus(std::vector<double> &X_coord, const int &Nx) {
+
+    int gridN = (Nx - 1) * (X_coord.size() / Nx - 1);
+    std::vector<double> omega_jPlus(gridN, 0);
+
     for (int j = 0, i = 0; i < gridN; i++) {
-        omega_iPl[i] = X_coord[i + 1 + j + Nx] - X_coord[i + j + Nx];
+        omega_jPlus[i] = X_coord[i + 1 + j + Nx] - X_coord[i + j + Nx];
         if (i % (Nx - 1) == 0 && i != 0)
             j++;
     }
     for (int i = (Nx - 1), j = 0; i < gridN; i += (Nx - 1), j++)
-        omega_iPl[i] = X_coord[i + 2 + j] - X_coord[i + 1 + j];
+        omega_jPlus[i] = X_coord[i + 2 + j] - X_coord[i + 1 + j];
+
+    return omega_jPlus;
 }
 
 void func_omega_jMin(std::vector<double> &omega_iMin, std::vector<double> &X_coord, const int &gridN, const int &Nx) {
