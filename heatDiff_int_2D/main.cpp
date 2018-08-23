@@ -21,6 +21,10 @@ std::vector<double> func_omega_iMin(std::vector<double> &Y_coord, const int &Nx)
 std::vector<double> func_gridVolume(std::vector<double> omega_iPlus, std::vector<double> omega_iMin, std::vector<double> omega_jPlus,
                                     std::vector<double> omega_jMin, const int gridN);
 
+std::vector<double> func_omega_iPlus_Xcent(std::vector<double> &X_coord, const int &Nx);
+
+std::vector<double> func_omega_iPlus_Ycent(std::vector<double> &Y_coord, const int &Nx);
+
 
 int main(int narg, char **arg) {
 
@@ -89,7 +93,7 @@ int main(int narg, char **arg) {
     std::cout << std::endl;
 
 
-    // ***Grid block centre***
+    // ***Grid block centres***
 
 
     // Centre of blocks in X directions
@@ -101,7 +105,7 @@ int main(int narg, char **arg) {
     auto gridYcent = func_Ycenter(Y_coord, Nx);
 
 
-    // ***Surface area determination***
+    // ***Surface area and volume determination***
 
 
     // Omega j Plus
@@ -120,20 +124,21 @@ int main(int narg, char **arg) {
 
     auto omega_iMin = func_omega_iMin(Y_coord, Nx);
 
-    // ***Grids volume determination***
-
-    // Grid area
+    // Grid volume
 
     auto gridVolume = func_gridVolume(omega_iPlus, omega_iMin, omega_jPlus,
-            omega_jMin, gridN);
+                                      omega_jMin, gridN);
 
+    // ***Grid surface centres***
 
-    int width = 5;
+    // Omega i Plus center X coordinate
 
-    std::cout << "gridAr[i]" << std::endl;
-    for (int i = 0; i < gridVolume.size(); i++)
-        std::cout << std::setw(width) << gridVolume[i];
-    std::cout << std::endl;
+    auto omega_iPlus_Xcent = func_omega_iPlus_Xcent(X_coord, Nx);
+
+    // Omega i Plus center Y coordinate
+
+    auto omega_iPlus_Ycent = func_omega_iPlus_Ycent(Y_coord, Nx);
+
 
     /*
 
@@ -255,7 +260,7 @@ int main(int narg, char **arg) {
 
     // check output
 
-    int width = 5;
+
 
 
     std::cout << "B[i]" << std::endl;
@@ -279,6 +284,8 @@ int main(int narg, char **arg) {
     std::cout << std::endl;
 
     */
+
+    int width = 5;
 
     std::cout << "gridXcent[i]" << std::endl;
     for (int i = 0; i < gridXcent.size(); i++)
@@ -315,6 +322,15 @@ int main(int narg, char **arg) {
         std::cout << omega_iMin[i] << std::endl;
     std::cout << std::endl;
 
+    std::cout << "omega_iMinus[i]" << std::endl;
+    for (int i = 0; i < omega_iPlus_Ycent.size(); i++)
+        std::cout << omega_iPlus_Ycent[i] << std::endl;
+    std::cout << std::endl;
+
+    std::cout << "omega_X[i]" << std::endl;
+    for (int i = 0; i < omega_iPlus_Xcent.size(); i++)
+        std::cout << omega_iPlus_Xcent[i] << std::endl;
+    std::cout << std::endl;
 
     double ZH = 1;
     std::cout << "ZH " << gridXcent[1] << std::endl;
@@ -440,5 +456,34 @@ std::vector<double> func_gridVolume(std::vector<double> omega_iPlus, std::vector
     for (int i = 0; i < gridN; i++)
         gridVolume[i] = gridArea[i] * gridZheight[i];
 
-return gridVolume;
+    return gridVolume;
+}
+
+std::vector<double> func_omega_iPlus_Xcent(std::vector<double> &X_coord, const int &Nx) {
+
+    int gridN = (Nx - 1) * (X_coord.size() / Nx - 1);
+    std::vector<double> omega_iPlus_Xcent(gridN, 0);
+
+    for (int j = 0, i = 0; i < gridN; i++) {
+        omega_iPlus_Xcent[i] = (X_coord[i + 1 + j + Nx] + X_coord[i + j + 1]) / 2;
+        if (i % (Nx - 1) == 0 && i != 0)
+            j++;
+    }
+    for (int i = (Nx - 1), j = 0; i < gridN; i += (Nx - 1), j++)
+        omega_iPlus_Xcent[i] = (X_coord[i + 2 + j + Nx] + X_coord[i + 2 + j]) / 2;
+
+    return omega_iPlus_Xcent;
+}
+
+std::vector<double> func_omega_iPlus_Ycent(std::vector<double> &Y_coord, const int &Nx) {
+
+    int gridN = (Nx - 1) * (Y_coord.size() / Nx - 1);
+    std::vector<double> omega_iPlus_Ycent(gridN, 0);
+
+    for (int j = 0, i = 0; i < gridN; i++) {
+        omega_iPlus_Ycent[i] = ((Y_coord[i + Nx + 1 + j] + Y_coord[i + 1 + j])) / 2;
+        if (i % (Nx - 1) == 0 && i != 0)
+            j++;
+    }
+    return omega_iPlus_Ycent;
 }
