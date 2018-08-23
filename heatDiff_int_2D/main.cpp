@@ -18,6 +18,9 @@ std::vector<double> func_omega_iPlus(std::vector<double> &Y_coord, const int &Nx
 
 std::vector<double> func_omega_iMin(std::vector<double> &Y_coord, const int &Nx);
 
+std::vector<double> func_gridVolume(std::vector<double> omega_iPlus, std::vector<double> omega_iMin, std::vector<double> omega_jPlus,
+                                    std::vector<double> omega_jMin, const int gridN);
+
 
 int main(int narg, char **arg) {
 
@@ -58,18 +61,11 @@ int main(int narg, char **arg) {
     std::vector<double> lamb(gridN, lambda);
 
     std::vector<double> gridInd(gridN, 0);
-    std::vector<double> omega_iP(gridN, 0);
-    std::vector<double> omega_jP(gridN, 0);
-    std::vector<double> omega_iM(gridN, 0);
-    std::vector<double> omega_jM(gridN, 0);
     std::vector<double> vol(gridN, 0);
 
     for (int i = 0; i < gridN; i++) {
 
-        omega_jM[i] = omega_jP[i];
-        omega_iM[i] = omega_iP[i];
-
-        vol[i] = omega_jP[i] * omega_iP[i];
+        vol[i] = 1;
     }
 
     // Temp vector
@@ -123,6 +119,23 @@ int main(int narg, char **arg) {
     // Omega i Minus
 
     auto omega_iMin = func_omega_iMin(Y_coord, Nx);
+
+    // ***Grids volume determination***
+
+    // Grid area
+
+    auto gridVolume = func_gridVolume(omega_iPlus, omega_iMin, omega_jPlus,
+            omega_jMin, gridN);
+
+
+    int width = 5;
+
+    std::cout << "gridAr[i]" << std::endl;
+    for (int i = 0; i < gridVolume.size(); i++)
+        std::cout << std::setw(width) << gridVolume[i];
+    std::cout << std::endl;
+
+    /*
 
     // A coefficient
 
@@ -203,7 +216,7 @@ int main(int narg, char **arg) {
     // С coefficient
     std::vector<double> C(gridN, 0);
     for (int j = 0, i = 0; i < gridN; i++) {
-        C[i] = /*-1 * vol[i] * dens * capac / dt + */lamb[i - (Nx - 1)] * omega_jM[i] / (((Y_coord[i + 1 + Nx] - Y_coord[i + 1]) +
+        C[i] = /*-1 * vol[i] * dens * capac / dt + lamb[i - (Nx - 1)] * omega_jM[i] / (((Y_coord[i + 1 + Nx] - Y_coord[i + 1]) +
                                                                                           (Y_coord[i + 1] - Y_coord[i + 1 - Nx])) / 2) +
                                                      lamb[i - 1] * omega_iM[i] / abs((X_coord[i + 1 + j] - X_coord[i + j]) +
                                                                                      (X_coord[i + 2 + j] - X_coord[i + 1 + j])) / 2 +
@@ -218,7 +231,7 @@ int main(int narg, char **arg) {
     }
 
     for (int i = (Nx - 1), j = 0; i < gridN; i += (Nx - 1), j++)
-        C[i] = /*-1 * vol[i] * dens * capac / dt + */lamb[i - (Nx - 1)] * omega_jM[i] / (((Y_coord[i + 1 + Nx] - Y_coord[i + 1]) +
+        C[i] = /*-1 * vol[i] * dens * capac / dt + lamb[i - (Nx - 1)] * omega_jM[i] / (((Y_coord[i + 1 + Nx] - Y_coord[i + 1]) +
                                                                                           (Y_coord[i + 1] - Y_coord[i + 1 - Nx])) / 2) +
                                                      lamb[i - 1] * omega_iM[i] / abs((X_coord[i + 1 + j] - X_coord[i + 2 + j]) +
                                                                                      (X_coord[i + 2 + j] - X_coord[i + 3 + j])) / 2 +
@@ -230,7 +243,7 @@ int main(int narg, char **arg) {
 
 
     for (int i = (Nx - 2), j = 0; i < gridN; i += (Nx - 1), j++)
-        C[i] = /*-1 * vol[i] * dens * capac / dt + */lamb[i - (Nx - 1)] * omega_jM[i] / (((Y_coord[i + 1 + Nx] - Y_coord[i + 1]) +
+        C[i] = /*-1 * vol[i] * dens * capac / dt + lamb[i - (Nx - 1)] * omega_jM[i] / (((Y_coord[i + 1 + Nx] - Y_coord[i + 1]) +
                                                                                           (Y_coord[i + 1] - Y_coord[i + 1 - Nx])) / 2) +
                                                      lamb[i - 1] * omega_iM[i] / abs((X_coord[i + j] - X_coord[i + 1 + j]) +
                                                                                      (X_coord[i + 2 + j] - X_coord[i + 3 + j])) / 2 +
@@ -264,6 +277,8 @@ int main(int narg, char **arg) {
     for (int i = 0; i < C.size(); i++)
         std::cout << C[i] << std::endl;
     std::cout << std::endl;
+
+    */
 
     std::cout << "gridXcent[i]" << std::endl;
     for (int i = 0; i < gridXcent.size(); i++)
@@ -402,4 +417,28 @@ std::vector<double> func_omega_iMin(std::vector<double> &Y_coord, const int &Nx)
             j++;
     }
     return omega_iMin;
+}
+
+std::vector<double> func_gridVolume(std::vector<double> omega_iPlus, std::vector<double> omega_iMin, std::vector<double> omega_jPlus,
+                                    std::vector<double> omega_jMin, const int gridN) {
+
+    std::vector<double> semiPerimeter(gridN, 0);
+
+    for (int i = 0; i < gridN; i++)
+        semiPerimeter[i] = (omega_iPlus[i] + omega_iMin[i] + omega_jPlus[i] + omega_jMin[i]) / 2;
+
+    std::vector<double> gridArea(gridN, 0);
+    for (int i = 0; i < gridN; i++)
+        gridArea[i] = sqrt((semiPerimeter[i] - omega_iPlus[i]) * (semiPerimeter[i] - omega_iMin[i]) * (semiPerimeter[i] - omega_jPlus[i]) *
+                           (semiPerimeter[i] - omega_jMin[i]));
+
+    // Grid volume
+
+    std::vector<double> gridZheight(gridN, 1);
+    std::vector<double> gridVolume(gridN, 0);
+
+    for (int i = 0; i < gridN; i++)
+        gridVolume[i] = gridArea[i] * gridZheight[i];
+
+return gridVolume;
 }
