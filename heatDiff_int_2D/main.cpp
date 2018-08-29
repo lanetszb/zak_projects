@@ -25,6 +25,10 @@ std::vector<double> func_omega_iPlus_Xcent(std::vector<double> &X_coord, const i
 
 std::vector<double> func_omega_iPlus_Ycent(std::vector<double> &Y_coord, const int &Nx);
 
+std::vector<double> func_omega_iMinus_Xcent(std::vector<double> &X_coord, const int &Nx);
+
+std::vector<double> func_omega_iMinus_Ycent(const std::vector<double> &Y_coord, const int &Nx);
+
 
 int main(int narg, char **arg) {
 
@@ -92,36 +96,23 @@ int main(int narg, char **arg) {
         std::cout << T[i] << std::endl;
     std::cout << std::endl;
 
-
-    // ***Grid block centres***
-
-
-    // Centre of blocks in X directions
+    // Centre of blocks in X and Y directions
 
     auto gridXcent = func_Xcenter(X_coord, Nx);
-
-    // Centre of blocks in Y directions
-
     auto gridYcent = func_Ycenter(Y_coord, Nx);
 
 
     // ***Surface area and volume determination***
 
 
-    // Omega j Plus
+    // Omega j Plus and Minus
 
     auto omega_jPlus = func_omega_jPlus(X_coord, Nx);
-
-    // Omega j Minus
-
     auto omega_jMin = func_omega_jMin(X_coord, Nx);
 
-    // Omega i Plus
+    // Omega i Plus and Minus
 
     auto omega_iPlus = func_omega_iPlus(Y_coord, Nx);
-
-    // Omega i Minus
-
     auto omega_iMin = func_omega_iMin(Y_coord, Nx);
 
     // Grid volume
@@ -131,15 +122,15 @@ int main(int narg, char **arg) {
 
     // ***Grid surface centres***
 
-    // Omega i Plus center X coordinate
+    // Omega i Plus center, X and Y coordinates
 
     auto omega_iPlus_Xcent = func_omega_iPlus_Xcent(X_coord, Nx);
-
-    // Omega i Plus center Y coordinate
-
     auto omega_iPlus_Ycent = func_omega_iPlus_Ycent(Y_coord, Nx);
 
+    // Omega i Minus center, X and Y coordinates
 
+    auto omega_iMinus_Xcent = func_omega_iMinus_Xcent(X_coord, Nx);
+    auto omega_iMinus_Ycent = func_omega_iMinus_Ycent(Y_coord, Nx);
     /*
 
     // A coefficient
@@ -323,14 +314,10 @@ int main(int narg, char **arg) {
     std::cout << std::endl;
 
     std::cout << "omega_iMinus[i]" << std::endl;
-    for (int i = 0; i < omega_iPlus_Ycent.size(); i++)
-        std::cout << omega_iPlus_Ycent[i] << std::endl;
+    for (int i = 0; i < omega_iMinus_Ycent.size(); i++)
+        std::cout << std::setw(width) << omega_iMinus_Ycent[i];
     std::cout << std::endl;
 
-    std::cout << "omega_X[i]" << std::endl;
-    for (int i = 0; i < omega_iPlus_Xcent.size(); i++)
-        std::cout << omega_iPlus_Xcent[i] << std::endl;
-    std::cout << std::endl;
 
     double ZH = 1;
     std::cout << "ZH " << gridXcent[1] << std::endl;
@@ -486,4 +473,67 @@ std::vector<double> func_omega_iPlus_Ycent(std::vector<double> &Y_coord, const i
             j++;
     }
     return omega_iPlus_Ycent;
+}
+
+std::vector<double> func_omega_iMinus_Xcent(std::vector<double> &X_coord, const int &Nx) {
+
+    int gridN = (Nx - 1) * (X_coord.size() / Nx - 1);
+    std::vector<double> omega_iMinus_Xcent(gridN, 0);
+    int width = 7;
+
+    for (int j = 0, i = 0; i < gridN; i++) {
+        omega_iMinus_Xcent[i] = (X_coord[i + j + Nx] + X_coord[i + j]) / 2;
+
+        std::cout << X_coord[i + j + Nx] << "  ";
+        std::cout << X_coord[i + j] << "  ";
+        std::cout << j << " ";
+
+        if (i % (Nx - 1) == 0 && i != 0)
+            j++;
+
+
+        std::cout << " vector: " << std::setw(width) << omega_iMinus_Xcent[i];
+        std::cout << " formula: " << std::setw(width) << (X_coord[i + j + Nx] + X_coord[i + j]) / 2;
+
+        std::cout << " " << j;
+        std::cout << std::endl;
+    }
+
+
+    for (int i = (Nx - 1), j = 0; i < gridN; i += (Nx - 1), j++)
+        omega_iMinus_Xcent[i] = (X_coord[i + 1 + j + Nx] + X_coord[i + 1 + j]) / 2;
+
+    std::cout << std::endl;
+
+
+    return omega_iMinus_Xcent;
+}
+
+std::vector<double> func_omega_iMinus_Ycent(const std::vector<double> &Y_coord, const int &Nx) {
+
+    int gridN = (Nx - 1) * (Y_coord.size() / Nx - 1);
+    std::vector<double> omega_iMinus_Ycent(gridN, 0);
+    int width = 5;
+
+    for (int j = 0, i = 0; i < omega_iMinus_Ycent.size(); i++) {
+        omega_iMinus_Ycent[i] = (Y_coord[i + Nx + j] + Y_coord[i + j]) / 2;
+
+        std::cout << j << " ";
+        std::cout << i << " ";
+
+
+        if (i % (Nx - 1) == 0 && i != 0)
+            j++;
+
+        std::cout << " vector: " << std::setw(width) << omega_iMinus_Ycent[i];
+        std::cout << " formula: " << std::setw(width) << (Y_coord[i + Nx + j] + Y_coord[i + j]) / 2;
+
+        std::cout << " " << j;
+        std::cout << std::endl;
+    }
+
+    for (int i = (Nx - 1), j = 0; i < gridN; i += (Nx - 1), j++)
+        omega_iMinus_Ycent[i] = (Y_coord[i + 1 + j + Nx] + Y_coord[i + 1 + j]) / 2;
+
+    return omega_iMinus_Ycent;
 }
