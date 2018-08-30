@@ -552,7 +552,7 @@ std::vector<double> func_getLeft_lambda(const std::vector<double> &lamb, const i
         getLeft_lambda[i] = lamb[i - 1];
 
     }
-    
+
     for (int i = 0; i < lamb.size(); i += Nx - 1)
         getLeft_lambda[i] = 0;
 
