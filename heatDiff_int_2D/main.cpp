@@ -29,6 +29,8 @@ std::vector<double> func_omega_iMinus_Xcent(std::vector<double> &X_coord, const 
 
 std::vector<double> func_omega_iMinus_Ycent(const std::vector<double> &Y_coord, const int &Nx);
 
+std::vector<double> func_getLeft_lambda(const std::vector<double> &lamb, const int &Nx);
+
 
 int main(int narg, char **arg) {
 
@@ -66,6 +68,7 @@ int main(int narg, char **arg) {
 
     auto gridN = (Nx - 1) * (Ny - 1);
     auto nodeN = Nx * Ny;
+
     std::vector<double> lamb(gridN, lambda);
 
     std::vector<double> gridInd(gridN, 0);
@@ -131,6 +134,9 @@ int main(int narg, char **arg) {
 
     auto omega_iMinus_Xcent = func_omega_iMinus_Xcent(X_coord, Nx);
     auto omega_iMinus_Ycent = func_omega_iMinus_Ycent(Y_coord, Nx);
+
+    // Getting left lambda
+    auto getLeft_lambda = func_getLeft_lambda(lamb, Nx);
     /*
 
     // A coefficient
@@ -323,10 +329,7 @@ int main(int narg, char **arg) {
     std::cout << "ZH " << gridXcent[1] << std::endl;
     std::cout << std::endl;
 
-
-
     // data output
-
 
     return 0;
 
@@ -355,7 +358,6 @@ std::vector<double> func_Xcenter(std::vector<double> &X_coord, const int &Nx) {
 
 
 }
-
 
 std::vector<double> func_Ycenter(std::vector<double> &Y_coord, const int &Nx) {
 
@@ -439,11 +441,11 @@ std::vector<double> func_gridVolume(std::vector<double> omega_iPlus, std::vector
 
     std::vector<double> semiPerimeter(gridN, 0);
 
-    for (int i = 0; i < gridN; i++)
+    for (int i = 0; i < semiPerimeter.size(); i++)
         semiPerimeter[i] = (omega_iPlus[i] + omega_iMin[i] + omega_jPlus[i] + omega_jMin[i]) / 2;
 
     std::vector<double> gridArea(gridN, 0);
-    for (int i = 0; i < gridN; i++)
+    for (int i = 0; i < gridArea.size(); i++)
         gridArea[i] = sqrt((semiPerimeter[i] - omega_iPlus[i]) * (semiPerimeter[i] - omega_iMin[i]) * (semiPerimeter[i] - omega_jPlus[i]) *
                            (semiPerimeter[i] - omega_jMin[i]));
 
@@ -452,7 +454,7 @@ std::vector<double> func_gridVolume(std::vector<double> omega_iPlus, std::vector
     std::vector<double> gridZheight(gridN, 1);
     std::vector<double> gridVolume(gridN, 0);
 
-    for (int i = 0; i < gridN; i++)
+    for (int i = 0; i < gridArea.size(); i++)
         gridVolume[i] = gridArea[i] * gridZheight[i];
 
     return gridVolume;
@@ -530,22 +532,29 @@ std::vector<double> func_omega_iMinus_Ycent(const std::vector<double> &Y_coord, 
     for (int j = 0, i = 0; i < omega_iMinus_Ycent.size(); i++) {
         omega_iMinus_Ycent[i] = (Y_coord[i + Nx + j] + Y_coord[i + j]) / 2;
 
-        std::cout << j << " ";
-        std::cout << i << " ";
-
-
         if (i % (Nx - 1) == 0 && i != 0)
             j++;
 
-        std::cout << " vector: " << std::setw(width) << omega_iMinus_Ycent[i];
-        std::cout << " formula: " << std::setw(width) << (Y_coord[i + Nx + j] + Y_coord[i + j]) / 2;
-
-        std::cout << " " << j;
-        std::cout << std::endl;
     }
 
     for (int i = (Nx - 1), j = 0; i < gridN; i += (Nx - 1), j++)
         omega_iMinus_Ycent[i] = (Y_coord[i + 1 + j + Nx] + Y_coord[i + 1 + j]) / 2;
 
     return omega_iMinus_Ycent;
+}
+
+std::vector<double> func_getLeft_lambda(const std::vector<double> &lamb, const int &Nx) {
+
+    std::vector<double> getLeft_lambda(lamb.size(), 0);
+    int width = 5;
+
+    for (int i = 0, j = 0; i < lamb.size(); i++) {
+        getLeft_lambda[i] = lamb[i - 1];
+
+    }
+    
+    for (int i = 0; i < lamb.size(); i += Nx - 1)
+        getLeft_lambda[i] = 0;
+
+    return getLeft_lambda;
 }
