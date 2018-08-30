@@ -340,16 +340,22 @@ std::vector<double> func_Xcenter(std::vector<double> &X_coord, const int &Nx) {
     std::vector<double> gridXcent(gridN, 0);
 
     for (int j = 0, i = 0; i < gridXcent.size(); i++) {
-        gridXcent[i] = abs(X_coord[i + 1 + j] + X_coord[i + j]) / 2;
+        gridXcent[i] = abs(X_coord[i + 1 + j] + X_coord[i + j] + X_coord[i + 1 + j + Nx] + X_coord[i + j + Nx]) / 4;
+
         if (i % (Nx - 1) == 0 && i != 0)
             j++;
     }
 
     for (int i = (Nx - 1), j = 0; i < gridN; i += (Nx - 1), j++)
-        gridXcent[i] = abs(X_coord[i + 1 + j] - X_coord[i + 2 + j]) / 2;
+        gridXcent[i] = abs(X_coord[i + 1 + j] + X_coord[i + 2 + j] + X_coord[i + 1 + j + Nx] + X_coord[i + 2 + j + Nx]) / 4;
+
+    std::cout << std::endl;
 
     return gridXcent;
+
+
 }
+
 
 std::vector<double> func_Ycenter(std::vector<double> &Y_coord, const int &Nx) {
 
@@ -357,10 +363,16 @@ std::vector<double> func_Ycenter(std::vector<double> &Y_coord, const int &Nx) {
     std::vector<double> gridYcent(gridN, 0);
 
     for (int j = 0, i = 0; i < gridN; i++) {
-        gridYcent[i] = (Y_coord[i + Nx + 1 + j] + Y_coord[i + 1 + j]) / 2;
+        gridYcent[i] = (Y_coord[i + Nx + 1 + j] + Y_coord[i + 1 + j] + Y_coord[i + Nx + j] + Y_coord[i + j]) / 4;
+
         if (i % (Nx - 1) == 0 && i != 0)
             j++;
     }
+
+    for (int i = (Nx - 1), j = 0; i < gridN; i += (Nx - 1), j++)
+        gridYcent[i] = (Y_coord[i + 1 + j + Nx] + Y_coord[i + 1 + j] + Y_coord[i + 2 + j + Nx] + Y_coord[i + 2 + j]) / 4;
+
+
     return gridYcent;
 }
 
