@@ -5,6 +5,29 @@
 #include <iomanip>
 #include <iostream>
 
+struct Grid {
+    std::vector<double> Xcenter;
+    std::vector<double> Ycenter;
+    std::vector<double> omega_jPlus;
+    std::vector<double> omega_jMin;
+    std::vector<double> omega_iPlus;
+    std::vector<double> omega_iMin;
+    std::vector<double> gridVolume;
+    std::vector<double> omega_iPlus_Xcent;
+    std::vector<double> omega_iPlus_Ycent;
+    std::vector<double> omega_iMinus_Xcent;
+    std::vector<double> omega_iMinus_Ycent;
+    std::vector<double> getLeft_lambda;
+    std::vector<double> getRight_lambda;
+    std::vector<double> getTop_lambda;
+    std::vector<double> getBot_lambda;
+    std::vector<double> getLeft_dL;
+    std::vector<double> getRight_dL;
+    std::vector<double> getTop_dL;
+    std::vector<double> getBot_dL;
+    std::vector<double> heatDistrib_ini;
+};
+
 
 std::vector<double> func_Xcenter(std::vector<double> &X_coord, const int &Nx);
 
@@ -88,13 +111,6 @@ int main(int narg, char **arg) {
 
     std::vector<double> lamb(gridN, lambda);
 
-    std::vector<double> gridInd(gridN, 0);
-    std::vector<double> vol(gridN, 0);
-
-    for (int i = 0; i < gridN; i++) {
-
-        vol[i] = 1;
-    }
 
     // Temp vector
 
@@ -299,7 +315,7 @@ int main(int narg, char **arg) {
         std::cout << C[i] << std::endl;
     std::cout << std::endl;
 
-    */
+
 
     int width = 5;
 
@@ -347,6 +363,8 @@ int main(int narg, char **arg) {
     double ZH = 1;
     std::cout << "ZH " << gridXcent[1] << std::endl;
     std::cout << std::endl;
+
+      */
 
     // data output
 
@@ -546,14 +564,12 @@ std::vector<double> func_omega_iMinus_Ycent(const std::vector<double> &Y_coord, 
 
     int gridN = (Nx - 1) * (Y_coord.size() / Nx - 1);
     std::vector<double> omega_iMinus_Ycent(gridN, 0);
-    int width = 5;
 
     for (int j = 0, i = 0; i < omega_iMinus_Ycent.size(); i++) {
         omega_iMinus_Ycent[i] = (Y_coord[i + Nx + j] + Y_coord[i + j]) / 2;
 
         if (i % (Nx - 1) == 0 && i != 0)
             j++;
-
     }
 
     for (int i = (Nx - 1), j = 0; i < gridN; i += (Nx - 1), j++)
@@ -565,11 +581,9 @@ std::vector<double> func_omega_iMinus_Ycent(const std::vector<double> &Y_coord, 
 std::vector<double> func_getLeft_lambda(const std::vector<double> &lamb, const int &Nx) {
 
     std::vector<double> getLeft_lambda(lamb.size(), 0);
-    int width = 5;
 
     for (int i = 0; i < lamb.size(); i++) {
         getLeft_lambda[i] = lamb[i - 1];
-
     }
 
     for (int i = 0; i < lamb.size(); i += Nx - 1)
@@ -581,7 +595,6 @@ std::vector<double> func_getLeft_lambda(const std::vector<double> &lamb, const i
 std::vector<double> func_getRight_lambda(const std::vector<double> &lamb, const int &Nx) {
 
     std::vector<double> getRight_lambda(lamb.size(), 0);
-    int width = 5;
 
     for (int i = 0; i < lamb.size(); i++)
         getRight_lambda[i] = lamb[i + 1];
@@ -595,20 +608,13 @@ std::vector<double> func_getRight_lambda(const std::vector<double> &lamb, const 
 std::vector<double> func_getTop_lambda(const std::vector<double> &lamb, const int &Nx) {
 
     std::vector<double> getTop_lambda(lamb.size(), 0);
-    int width = 5;
 
     for (int i = 0; i < getTop_lambda.size(); i++) {
         getTop_lambda[i] = lamb[i + Nx - 1];
-
     }
 
     for (int i = getTop_lambda.size() - (Nx - 1); i < getTop_lambda.size(); i++)
         getTop_lambda[i] = 0;
-
-    for (int i = 0; i < lamb.size(); i++)
-        std::cout << std::setw(width) << getTop_lambda[i];
-
-    std::cout << std::endl;
 
     return getTop_lambda;
 }
@@ -617,20 +623,13 @@ std::vector<double> func_getTop_lambda(const std::vector<double> &lamb, const in
 std::vector<double> func_getBot_lambda(const std::vector<double> &lamb, const int &Nx) {
 
     std::vector<double> getBot_lambda(lamb.size(), 0);
-    int width = 5;
 
     for (int i = 0; i < getBot_lambda.size(); i++) {
         getBot_lambda[i] = lamb[i - (Nx - 1)];
-
     }
 
     for (int i = 0; i < Nx - 1; i++)
         getBot_lambda[i] = 0;
-
-    for (int i = 0; i < lamb.size(); i++)
-        std::cout << std::setw(width) << getBot_lambda[i];
-
-    std::cout << std::endl;
 
     return getBot_lambda;
 }
@@ -638,20 +637,13 @@ std::vector<double> func_getBot_lambda(const std::vector<double> &lamb, const in
 std::vector<double> func_getLeft_dL(const std::vector<double> &gridXcent, const int &Nx) {
 
     std::vector<double> getLeft_dL(gridXcent.size(), 0);
-    int width = 5;
 
     for (int i = 0; i < getLeft_dL.size(); i++) {
         getLeft_dL[i] = gridXcent[i] - gridXcent[i - 1];
-
     }
 
     for (int i = 0; i < getLeft_dL.size(); i += Nx - 1)
         getLeft_dL[i] = 0;
-
-    for (int i = 0; i < getLeft_dL.size(); i++)
-        std::cout << std::setw(width) << getLeft_dL[i];
-
-    std::cout << std::endl;
 
     return getLeft_dL;
 }
@@ -659,20 +651,13 @@ std::vector<double> func_getLeft_dL(const std::vector<double> &gridXcent, const 
 std::vector<double> func_getRight_dL(const std::vector<double> &gridXcent, const int &Nx) {
 
     std::vector<double> getRight_dL(gridXcent.size(), 0);
-    int width = 5;
 
     for (int i = 0; i < getRight_dL.size(); i++) {
         getRight_dL[i] = gridXcent[i + 1] - gridXcent[i];
-
     }
 
     for (int i = Nx - 2; i < getRight_dL.size(); i += Nx - 1)
         getRight_dL[i] = 0;
-
-    for (int i = 0; i < getRight_dL.size(); i++)
-        std::cout << std::setw(width) << getRight_dL[i];
-
-    std::cout << std::endl;
 
     return getRight_dL;
 }
@@ -680,17 +665,12 @@ std::vector<double> func_getRight_dL(const std::vector<double> &gridXcent, const
 std::vector<double> func_getTop_dL(const std::vector<double> &gridYcent, const int &Nx) {
 
     std::vector<double> getTop_dL(gridYcent.size(), 0);
-    int width = 5;
 
     for (int i = 0; i < getTop_dL.size(); i++)
         getTop_dL[i] = gridYcent[i + (Nx - 1)] - gridYcent[i];
 
     for (int i = getTop_dL.size() - (Nx - 1); i < getTop_dL.size(); i++)
         getTop_dL[i] = 0;
-
-    for (int i = 0; i < getTop_dL.size(); i++)
-        std::cout << std::setw(width) << getTop_dL[i];
-    std::cout << std::endl;
 
     return getTop_dL;
 
@@ -699,7 +679,6 @@ std::vector<double> func_getTop_dL(const std::vector<double> &gridYcent, const i
 std::vector<double> func_getBot_dL(const std::vector<double> &gridYcent, const int &Nx) {
 
     std::vector<double> getBot_dL(gridYcent.size(), 0);
-    int width = 5;
 
     for (int i = 0; i < getBot_dL.size(); i++)
         getBot_dL[i] = gridYcent[i] - gridYcent[i - (Nx - 1)];
@@ -707,12 +686,7 @@ std::vector<double> func_getBot_dL(const std::vector<double> &gridYcent, const i
     for (int i = 0; i < Nx - 1; i++)
         getBot_dL[i] = 0;
 
-    for (int i = 0; i < getBot_dL.size(); i++)
-        std::cout << std::setw(width) << getBot_dL[i];
-    std::cout << std::endl;
-
     return getBot_dL;
-
 }
 
 std::vector<double>
