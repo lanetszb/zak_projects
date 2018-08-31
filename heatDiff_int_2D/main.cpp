@@ -45,6 +45,9 @@ std::vector<double> func_getTop_dL(const std::vector<double> &gridYcent, const i
 
 std::vector<double> func_getBot_dL(const std::vector<double> &gridYcent, const int &Nx);
 
+std::vector<double> func_heatDistrib_ini(const int &Ny, const int &Nx, const double &T0, const double &Tl,
+                                         const double &Tr);
+
 
 int main(int narg, char **arg) {
 
@@ -95,22 +98,10 @@ int main(int narg, char **arg) {
 
     // Temp vector
 
-    std::vector<double> T(gridN, T0);
+    auto heatDistr_ini = func_heatDistrib_ini(Ny, Nx, T0, Tl, Tr);
 
-    for (int i = 0; i < Nx; i++)
-        T[i] = Tl;
-
-    for (int i = (Nx - 1); i < T.size() - (Nx - 1); i += Nx - 1)
-        T[i] = Tl;
-
-    for (int i = T.size() - (Nx - 1); i < T.size(); i++)
-        T[i] = Tr;
-
-    for (int i = 2 * (Nx - 1) - 1; i < T.size() - (Nx - 1); i += Nx - 1)
-        T[i] = Tr;
-
-    for (int i = 0; i < T.size(); i++)
-        std::cout << T[i] << std::endl;
+    for (int i = 0; i < heatDistr_ini.size(); i++)
+        std::cout << heatDistr_ini[i] << std::endl;
     std::cout << std::endl;
 
     // Centre of blocks in X and Y directions
@@ -711,7 +702,7 @@ std::vector<double> func_getBot_dL(const std::vector<double> &gridYcent, const i
     int width = 5;
 
     for (int i = 0; i < getBot_dL.size(); i++)
-        getBot_dL[i] = gridYcent[i] - gridYcent[i - (Nx - 1)] ;
+        getBot_dL[i] = gridYcent[i] - gridYcent[i - (Nx - 1)];
 
     for (int i = 0; i < Nx - 1; i++)
         getBot_dL[i] = 0;
@@ -721,5 +712,28 @@ std::vector<double> func_getBot_dL(const std::vector<double> &gridYcent, const i
     std::cout << std::endl;
 
     return getBot_dL;
+
+}
+
+std::vector<double>
+func_heatDistrib_ini(const int &Ny, const int &Nx, const double &T0, const double &Tl,
+                     const double &Tr) {
+
+    int gridN = (Nx - 1) * (Ny - 1);
+    std::vector<double> heatDistrib_ini(gridN, T0);
+
+    for (int i = 0; i < (Nx - 2); i++)
+        heatDistrib_ini[i] = Tl;
+
+    for (int i = (Nx - 1); i < heatDistrib_ini.size() - (Nx - 2); i += Nx - 1)
+        heatDistrib_ini[i] = Tl;
+
+    for (int i = heatDistrib_ini.size() - (Nx - 2); i < heatDistrib_ini.size(); i++)
+        heatDistrib_ini[i] = Tr;
+
+    for (int i = (Nx - 2); i < heatDistrib_ini.size() - (Nx - 1); i += Nx - 1)
+        heatDistrib_ini[i] = Tr;
+
+    return heatDistrib_ini;
 
 }
