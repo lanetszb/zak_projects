@@ -41,6 +41,10 @@ std::vector<double> func_getLeft_dL(const std::vector<double> &gridXcent, const 
 
 std::vector<double> func_getRight_dL(const std::vector<double> &gridXcent, const int &Nx);
 
+std::vector<double> func_getTop_dL(const std::vector<double> &gridYcent, const int &Nx);
+
+std::vector<double> func_getBot_dL(const std::vector<double> &gridYcent, const int &Nx);
+
 
 int main(int narg, char **arg) {
 
@@ -156,6 +160,10 @@ int main(int narg, char **arg) {
     // Getting left and right dL
     auto getLeft_dL = func_getLeft_dL(gridXcent, Nx);
     auto getRight_dL = func_getRight_dL(gridXcent, Nx);
+
+    // Getting Top and Bot dL
+    auto getTop_dL = func_getTop_dL(gridYcent, Nx);
+    auto getBot_dL = func_getBot_dL(gridYcent, Nx);
 
     /*
 
@@ -676,4 +684,42 @@ std::vector<double> func_getRight_dL(const std::vector<double> &gridXcent, const
     std::cout << std::endl;
 
     return getRight_dL;
+}
+
+std::vector<double> func_getTop_dL(const std::vector<double> &gridYcent, const int &Nx) {
+
+    std::vector<double> getTop_dL(gridYcent.size(), 0);
+    int width = 5;
+
+    for (int i = 0; i < getTop_dL.size(); i++)
+        getTop_dL[i] = gridYcent[i + (Nx - 1)] - gridYcent[i];
+
+    for (int i = getTop_dL.size() - (Nx - 1); i < getTop_dL.size(); i++)
+        getTop_dL[i] = 0;
+
+    for (int i = 0; i < getTop_dL.size(); i++)
+        std::cout << std::setw(width) << getTop_dL[i];
+    std::cout << std::endl;
+
+    return getTop_dL;
+
+}
+
+std::vector<double> func_getBot_dL(const std::vector<double> &gridYcent, const int &Nx) {
+
+    std::vector<double> getBot_dL(gridYcent.size(), 0);
+    int width = 5;
+
+    for (int i = 0; i < getBot_dL.size(); i++)
+        getBot_dL[i] = gridYcent[i] - gridYcent[i - (Nx - 1)] ;
+
+    for (int i = 0; i < Nx - 1; i++)
+        getBot_dL[i] = 0;
+
+    for (int i = 0; i < getBot_dL.size(); i++)
+        std::cout << std::setw(width) << getBot_dL[i];
+    std::cout << std::endl;
+
+    return getBot_dL;
+
 }
