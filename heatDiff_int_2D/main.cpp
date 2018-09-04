@@ -7,22 +7,21 @@
 #include <grid.h>
 
 
-std::vector<double>
-func_getLeft_lambda(const std::vector<double> &lamb, const int &Nx);
+std::vector<double> func_getLeft_lambda(const std::vector<double> &lamb,
+                                        const int &Nx);
 
-std::vector<double>
-func_getRight_lambda(const std::vector<double> &lamb, const int &Nx);
+std::vector<double> func_getRight_lambda(const std::vector<double> &lamb,
+                                         const int &Nx);
 
-std::vector<double>
-func_getTop_lambda(const std::vector<double> &lamb, const int &Nx);
+std::vector<double> func_getTop_lambda(const std::vector<double> &lamb,
+                                       const int &Nx);
 
-std::vector<double>
-func_getBot_lambda(const std::vector<double> &lamb, const int &Nx);
+std::vector<double> func_getBot_lambda(const std::vector<double> &lamb,
+                                       const int &Nx);
 
-std::vector<double>
-func_heatDistrib_ini(const int &Ny, const int &Nx, const double &T0,
-                     const double &Tl,
-                     const double &Tr);
+std::vector<double> func_heatDistrib_ini(const int &Ny, const int &Nx,
+                                         const double &T0, const double &Tl,
+                                         const double &Tr);
 
 
 int main(int narg, char **arg) {
@@ -268,8 +267,8 @@ int main(int narg, char **arg) {
 
 // ***all the functions are listed below***
 
-std::vector<double>
-func_getLeft_lambda(const std::vector<double> &lamb, const int &Nx) {
+std::vector<double> func_getLeft_lambda(const std::vector<double> &lamb,
+                                        const int &Nx) {
 
     std::vector<double> getLeft_lambda(lamb.size(), 0);
 
@@ -283,8 +282,8 @@ func_getLeft_lambda(const std::vector<double> &lamb, const int &Nx) {
     return getLeft_lambda;
 }
 
-std::vector<double>
-func_getRight_lambda(const std::vector<double> &lamb, const int &Nx) {
+std::vector<double> func_getRight_lambda(const std::vector<double> &lamb,
+                                         const int &Nx) {
 
     std::vector<double> getRight_lambda(lamb.size(), 0);
 
@@ -297,8 +296,8 @@ func_getRight_lambda(const std::vector<double> &lamb, const int &Nx) {
     return getRight_lambda;
 }
 
-std::vector<double>
-func_getTop_lambda(const std::vector<double> &lamb, const int &Nx) {
+std::vector<double> func_getTop_lambda(const std::vector<double> &lamb,
+                                       const int &Nx) {
 
     std::vector<double> getTop_lambda(lamb.size(), 0);
 
@@ -313,8 +312,8 @@ func_getTop_lambda(const std::vector<double> &lamb, const int &Nx) {
 }
 
 
-std::vector<double>
-func_getBot_lambda(const std::vector<double> &lamb, const int &Nx) {
+std::vector<double> func_getBot_lambda(const std::vector<double> &lamb,
+                                       const int &Nx) {
 
     std::vector<double> getBot_lambda(lamb.size(), 0);
 
@@ -328,10 +327,9 @@ func_getBot_lambda(const std::vector<double> &lamb, const int &Nx) {
     return getBot_lambda;
 }
 
-std::vector<double>
-func_heatDistrib_ini(const int &Ny, const int &Nx, const double &T0,
-                     const double &Tl,
-                     const double &Tr) {
+std::vector<double> func_heatDistrib_ini(const int &Ny, const int &Nx,
+                                         const double &T0, const double &Tl,
+                                         const double &Tr) {
 
     int gridN = (Nx - 1) * (Ny - 1);
     std::vector<double> heatDistrib_ini(gridN, T0);

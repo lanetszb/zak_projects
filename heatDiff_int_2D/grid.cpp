@@ -112,8 +112,8 @@ std::vector<double> func_Ycenter(std::vector<double> &Y_coord, const int &Nx) {
     return gridYcent;
 }
 
-std::vector<double>
-func_omega_jPlus(std::vector<double> &X_coord, const int &Nx) {
+std::vector<double> func_omega_jPlus(std::vector<double> &X_coord,
+                                     const int &Nx) {
 
     int gridN = (Nx - 1) * (X_coord.size() / Nx - 1);
     std::vector<double> omega_jPlus(gridN, 0);
@@ -129,8 +129,8 @@ func_omega_jPlus(std::vector<double> &X_coord, const int &Nx) {
     return omega_jPlus;
 }
 
-std::vector<double>
-func_omega_jMin(std::vector<double> &X_coord, const int &Nx) {
+std::vector<double> func_omega_jMin(std::vector<double> &X_coord,
+                                    const int &Nx) {
 
     int gridN = (Nx - 1) * (X_coord.size() / Nx - 1);
     std::vector<double> omega_jMin(gridN, 0);
@@ -146,8 +146,8 @@ func_omega_jMin(std::vector<double> &X_coord, const int &Nx) {
     return omega_jMin;
 }
 
-std::vector<double>
-func_omega_iPlus(std::vector<double> &Y_coord, const int &Nx) {
+std::vector<double> func_omega_iPlus(std::vector<double> &Y_coord,
+                                     const int &Nx) {
 
     int gridN = (Nx - 1) * (Y_coord.size() / Nx - 1);
     std::vector<double> omega_iPlus(gridN, 0);
@@ -160,8 +160,8 @@ func_omega_iPlus(std::vector<double> &Y_coord, const int &Nx) {
     return omega_iPlus;
 }
 
-std::vector<double>
-func_omega_iMin(std::vector<double> &Y_coord, const int &Nx) {
+std::vector<double> func_omega_iMin(std::vector<double> &Y_coord,
+                                    const int &Nx) {
 
     int gridN = (Nx - 1) * (Y_coord.size() / Nx - 1);
     std::vector<double> omega_iMin(gridN, 0);
@@ -174,10 +174,11 @@ func_omega_iMin(std::vector<double> &Y_coord, const int &Nx) {
     return omega_iMin;
 }
 
-std::vector<double>
-func_gridVolume(std::vector<double> omega_iPlus, std::vector<double> omega_iMin,
-                std::vector<double> omega_jPlus,
-                std::vector<double> omega_jMin, const int gridN) {
+std::vector<double> func_gridVolume(std::vector<double> omega_iPlus,
+                                    std::vector<double> omega_iMin,
+                                    std::vector<double> omega_jPlus,
+                                    std::vector<double> omega_jMin,
+                                    const int gridN) {
 
     std::vector<double> semiPerimeter(gridN, 0);
 
@@ -203,8 +204,8 @@ func_gridVolume(std::vector<double> omega_iPlus, std::vector<double> omega_iMin,
     return gridVolume;
 }
 
-std::vector<double>
-func_omega_iPlus_Xcent(std::vector<double> &X_coord, const int &Nx) {
+std::vector<double> func_omega_iPlus_Xcent(std::vector<double> &X_coord,
+                                           const int &Nx) {
 
     int gridN = (Nx - 1) * (X_coord.size() / Nx - 1);
     std::vector<double> omega_iPlus_Xcent(gridN, 0);
@@ -222,8 +223,8 @@ func_omega_iPlus_Xcent(std::vector<double> &X_coord, const int &Nx) {
     return omega_iPlus_Xcent;
 }
 
-std::vector<double>
-func_omega_iPlus_Ycent(std::vector<double> &Y_coord, const int &Nx) {
+std::vector<double> func_omega_iPlus_Ycent(std::vector<double> &Y_coord,
+                                           const int &Nx) {
 
     int gridN = (Nx - 1) * (Y_coord.size() / Nx - 1);
     std::vector<double> omega_iPlus_Ycent(gridN, 0);
@@ -237,8 +238,8 @@ func_omega_iPlus_Ycent(std::vector<double> &Y_coord, const int &Nx) {
     return omega_iPlus_Ycent;
 }
 
-std::vector<double>
-func_omega_iMinus_Xcent(std::vector<double> &X_coord, const int &Nx) {
+std::vector<double> func_omega_iMinus_Xcent(std::vector<double> &X_coord,
+                                            const int &Nx) {
 
     int gridN = (Nx - 1) * (X_coord.size() / Nx - 1);
     std::vector<double> omega_iMinus_Xcent(gridN, 0);
@@ -274,8 +275,8 @@ func_omega_iMinus_Xcent(std::vector<double> &X_coord, const int &Nx) {
     return omega_iMinus_Xcent;
 }
 
-std::vector<double>
-func_omega_iMinus_Ycent(const std::vector<double> &Y_coord, const int &Nx) {
+std::vector<double> func_omega_iMinus_Ycent(const std::vector<double> &Y_coord,
+                                            const int &Nx) {
 
     int gridN = (Nx - 1) * (Y_coord.size() / Nx - 1);
     std::vector<double> omega_iMinus_Ycent(gridN, 0);
@@ -294,8 +295,8 @@ func_omega_iMinus_Ycent(const std::vector<double> &Y_coord, const int &Nx) {
     return omega_iMinus_Ycent;
 }
 
-std::vector<double>
-func_getLeft_dL(const std::vector<double> &gridXcent, const int &Nx) {
+std::vector<double> func_getLeft_dL(const std::vector<double> &gridXcent,
+                                    const int &Nx) {
 
     std::vector<double> getLeft_dL(gridXcent.size(), 0);
 
@@ -309,8 +310,8 @@ func_getLeft_dL(const std::vector<double> &gridXcent, const int &Nx) {
     return getLeft_dL;
 }
 
-std::vector<double>
-func_getRight_dL(const std::vector<double> &gridXcent, const int &Nx) {
+std::vector<double> func_getRight_dL(const std::vector<double> &gridXcent,
+                                     const int &Nx) {
 
     std::vector<double> getRight_dL(gridXcent.size(), 0);
 
@@ -324,8 +325,8 @@ func_getRight_dL(const std::vector<double> &gridXcent, const int &Nx) {
     return getRight_dL;
 }
 
-std::vector<double>
-func_getTop_dL(const std::vector<double> &gridYcent, const int &Nx) {
+std::vector<double> func_getTop_dL(const std::vector<double> &gridYcent,
+                                   const int &Nx) {
 
     std::vector<double> getTop_dL(gridYcent.size(), 0);
 
@@ -339,8 +340,8 @@ func_getTop_dL(const std::vector<double> &gridYcent, const int &Nx) {
 
 }
 
-std::vector<double>
-func_getBot_dL(const std::vector<double> &gridYcent, const int &Nx) {
+std::vector<double> func_getBot_dL(const std::vector<double> &gridYcent,
+                                   const int &Nx) {
 
     std::vector<double> getBot_dL(gridYcent.size(), 0);
 
