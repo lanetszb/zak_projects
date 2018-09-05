@@ -65,6 +65,10 @@ int main(int narg, char **arg) {
         std::cout << heatDistr_ini[i] << std::endl;
     std::cout << std::endl;
 
+    for (int i = 0; i < heatDistr_ini.size(); i++)
+        std::cout << grd.omega_jPlus_Ycent[i] << std::endl;
+    std::cout << std::endl;
+
     /*
 
     // A coefficient
