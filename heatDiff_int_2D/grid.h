@@ -57,6 +57,12 @@ struct Grid {
     // y center of j+ surface.
     std::vector<double> omega_jPlus_Ycent;
 
+    // x center of j- surface.
+    std::vector<double> omega_jMinus_Xcent;
+
+    // y center of j- surface.
+    std::vector<double> omega_jMinus_Ycent;
+
     // distance between grid i and i - 1.
     std::vector<double> getLeft_dL;
 
@@ -108,6 +114,12 @@ std::vector<double> func_omega_jPlus_Xcent(const std::vector<double> &X_coord,
                                             const int &Nx);
 
 std::vector<double> func_omega_jPlus_Ycent(const std::vector<double> &Y_coord,
+                                           const int &Nx);
+
+std::vector<double> func_omega_jMinus_Xcent(const std::vector<double> &X_coord,
+                                           const int &Nx);
+
+std::vector<double> func_omega_jMinus_Ycent(const std::vector<double> &Y_coord,
                                            const int &Nx);
 
 

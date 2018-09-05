@@ -59,6 +59,10 @@ Grid func_gridCalculation(const std::string &gridFileName,
     grd.omega_jPlus_Xcent = func_omega_jPlus_Xcent(grd.X_coord, grd.Nx);
     grd.omega_jPlus_Ycent = func_omega_jPlus_Ycent(grd.Y_coord, grd.Nx);
 
+    // Omega j Minus center, X and Y coordinates.
+    grd.omega_jMinus_Xcent = func_omega_jMinus_Xcent(grd.X_coord, grd.Nx);
+    grd.omega_jMinus_Ycent = func_omega_jMinus_Ycent(grd.Y_coord, grd.Nx);
+
     // Getting left and right dL
     grd.getLeft_dL = func_getLeft_dL(grd.Xcenter, grd.Nx);
     grd.getRight_dL = func_getRight_dL(grd.Xcenter, grd.Nx);
@@ -306,7 +310,8 @@ std::vector<double> func_omega_jPlus_Xcent(const std::vector<double> &X_coord,
     std::vector<double> omega_jPlus_Xcent(gridN, 0);
 
     for (int j = 0, i = 0; i < omega_jPlus_Xcent.size(); i++) {
-        omega_jPlus_Xcent[i] = (X_coord[i + 1 + j] + X_coord[i + j]) / 2;
+        omega_jPlus_Xcent[i] =
+                (X_coord[i + 1 + j + Nx] + X_coord[i + j + Nx]) / 2;
 
         if (i % (Nx - 1) == 0 && i != 0)
             j++;
@@ -315,7 +320,7 @@ std::vector<double> func_omega_jPlus_Xcent(const std::vector<double> &X_coord,
     for (int i = (Nx - 1), j = 0;
          i < omega_jPlus_Xcent.size(); i += (Nx - 1), j++)
         omega_jPlus_Xcent[i] =
-                (X_coord[i + 1 + j] + X_coord[i + 2 + j]) / 2;
+                (X_coord[i + 1 + j + Nx] + X_coord[i + 2 + j + Nx]) / 2;
 
     return omega_jPlus_Xcent;
 
@@ -340,6 +345,49 @@ std::vector<double> func_omega_jPlus_Ycent(const std::vector<double> &Y_coord,
                 (Y_coord[i + 2 + j + Nx] + Y_coord[i + 1 + j + Nx]) / 2;
 
     return omega_jPlus_Ycent;
+}
+
+std::vector<double> func_omega_jMinus_Xcent(const std::vector<double> &X_coord,
+                                            const int &Nx) {
+
+    int gridN = (Nx - 1) * (X_coord.size() / Nx - 1);
+    std::vector<double> omega_jMinus_Xcent(gridN, 0);
+
+    for (int j = 0, i = 0; i < omega_jMinus_Xcent.size(); i++) {
+        omega_jMinus_Xcent[i] = (X_coord[i + 1 + j] + X_coord[i + j]) / 2;
+
+        if (i % (Nx - 1) == 0 && i != 0)
+            j++;
+    }
+
+    for (int i = (Nx - 1), j = 0;
+         i < omega_jMinus_Xcent.size(); i += (Nx - 1), j++)
+        omega_jMinus_Xcent[i] =
+                (X_coord[i + 1 + j] + X_coord[i + 2 + j]) / 2;
+
+    return omega_jMinus_Xcent;
+
+}
+
+std::vector<double> func_omega_jMinus_Ycent(const std::vector<double> &Y_coord,
+                                            const int &Nx) {
+
+    int gridN = (Nx - 1) * (Y_coord.size() / Nx - 1);
+    std::vector<double> omega_jMinus_Ycent(gridN, 0);
+
+    for (int j = 0, i = 0; i < Y_coord.size(); i++) {
+        omega_jMinus_Ycent[i] =
+                ((Y_coord[i + 1 + j] + Y_coord[i + j])) / 2;
+        if (i % (Nx - 1) == 0 && i != 0)
+            j++;
+    }
+
+    for (int i = (Nx - 1), j = 0;
+         i < omega_jMinus_Ycent.size(); i += (Nx - 1), j++)
+        omega_jMinus_Ycent[i] =
+                (Y_coord[i + 2 + j] + Y_coord[i + 1 + j]) / 2;
+
+    return omega_jMinus_Ycent;
 }
 
 
