@@ -12,6 +12,12 @@ struct Grid {
     // total number of grid blocks.
     int gridN;
 
+    // dx
+    double dx;
+
+    // dy
+    double dy;
+
     // x coordinates of grid blocks.
     std::vector<double> X_coord;
 
@@ -135,7 +141,7 @@ std::vector<double> func_getTop_dL(const std::vector<double> &gridYcent,
 std::vector<double> func_getBot_dL(const std::vector<double> &gridYcent,
                                    const int &Nx);
 
-Grid func_gridCalculation(const std::string &gridFileName,
+void func_gridCalculation(Grid &grd, const std::string &gridFileName,
                           const std::string &nodesFileName);
 
 #endif

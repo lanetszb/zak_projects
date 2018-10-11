@@ -3,8 +3,8 @@
 #include <vector>
 #include <GetFromFile.h>
 #include <iomanip>
-#include <iostream>
 #include <grid.h>
+#include <plot.h>
 
 
 std::vector<double> func_getLeft_lambda(const std::vector<double> &lamb,
@@ -47,7 +47,10 @@ int main(int narg, char **arg) {
 
     auto maxTolerance = dataFile.getWord<double>("MAX_TOLERANCE");
 
-    Grid grd = func_gridCalculation(grdFileNm, nodesFileNm);
+    Grid grd;
+
+    func_gridCalculation(grd, grdFileNm, nodesFileNm);
+
 
 
 
@@ -61,15 +64,21 @@ int main(int narg, char **arg) {
 
     auto heatDistr_ini = func_heatDistrib_ini(grd.Ny, grd.Nx, T0, Tl, Tr);
 
+    Plot plt;
+
+    func_plot(grd, plt, heatDistr_ini);
+
+
+    /*
     for (int i = 0; i < heatDistr_ini.size(); i++)
         std::cout << heatDistr_ini[i] << std::endl;
     std::cout << std::endl;
+
 
     for (int i = 0; i < heatDistr_ini.size(); i++)
         std::cout << grd.omega_jMinus_Ycent[i] << std::endl;
     std::cout << std::endl;
 
-    /*
 
     // A coefficient
 
@@ -263,11 +272,10 @@ int main(int narg, char **arg) {
 
       */
 
-    // data output
-
     return 0;
 
 }
+
 
 // ***all the functions are listed below***
 
@@ -309,7 +317,8 @@ std::vector<double> func_getTop_lambda(const std::vector<double> &lamb,
         getTop_lambda[i] = lamb[i + Nx - 1];
     }
 
-    for (int i = getTop_lambda.size() - (Nx - 1); i < getTop_lambda.size(); i++)
+    for (int i = getTop_lambda.size() - (Nx - 1);
+         i < getTop_lambda.size(); i++)
         getTop_lambda[i] = 0;
 
     return getTop_lambda;
@@ -341,14 +350,16 @@ std::vector<double> func_heatDistrib_ini(const int &Ny, const int &Nx,
     for (int i = 0; i < (Nx - 2); i++)
         heatDistrib_ini[i] = Tl;
 
-    for (int i = (Nx - 1); i < heatDistrib_ini.size() - (Nx - 2); i += Nx - 1)
+    for (int i = (Nx - 1);
+         i < heatDistrib_ini.size() - (Nx - 2); i += Nx - 1)
         heatDistrib_ini[i] = Tl;
 
     for (int i = heatDistrib_ini.size() - (Nx - 2);
          i < heatDistrib_ini.size(); i++)
         heatDistrib_ini[i] = Tr;
 
-    for (int i = (Nx - 2); i < heatDistrib_ini.size() - (Nx - 1); i += Nx - 1)
+    for (int i = (Nx - 2);
+         i < heatDistrib_ini.size() - (Nx - 1); i += Nx - 1)
         heatDistrib_ini[i] = Tr;
 
     return heatDistrib_ini;
