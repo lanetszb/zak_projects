@@ -69,208 +69,104 @@ int main(int narg, char **arg) {
     func_plot(grd, plt, heatDistr_ini);
 
 
-    /*
-    for (int i = 0; i < heatDistr_ini.size(); i++)
-        std::cout << heatDistr_ini[i] << std::endl;
-    std::cout << std::endl;
-
-
-    for (int i = 0; i < heatDistr_ini.size(); i++)
-        std::cout << grd.omega_jMinus_Ycent[i] << std::endl;
-    std::cout << std::endl;
-
-
     // A coefficient
 
-    std::vector<double> A(gridN, 0);
-    for (int i = 0; i < gridN; i++)
-        A[i] = (-lamb[i - (Nx - 1)] * omega_jM[i]) / (((Y_coord[i + 1 + Nx] - Y_coord[i + 1]) +
-                                                       (Y_coord[i + 1] - Y_coord[i + 1 - Nx])) / 2);
+    auto getBot_lambda = func_getBot_lambda(lamb, grd.Nx);
+    auto getTop_lambda = func_getTop_lambda(lamb, grd.Nx);
+    auto getLeft_lambda = func_getLeft_lambda(lamb, grd.Nx);
+    auto getRight_lambda = func_getRight_lambda(lamb, grd.Nx);
+
+
+    std::cout << "test" << std::endl;
+
+    std::vector<double> A(grd.gridN, 0);
+    for (int i = 0; i < grd.gridN; i++)
+        A[i] = (-1 * getBot_lambda[i] * grd.omega_jMin[i]) / grd.getBot_dL[i];
+
+    for (int i = 0; i < grd.Nx - 1; i++)
+        A[i] = 0;
 
     std::cout << "A[i]" << std::endl;
     for (int i = 0; i < A.size(); i++)
         std::cout << A[i] << std::endl;
     std::cout << std::endl;
 
-    // E coefficient
+
+// E coefficient
 
 
-    std::vector<double> E(gridN, 0);
-    for (int i = 0; i < gridN; i++)
-        E[i] = (-lamb[i + (Nx - 1)] * omega_jP[i]) / (((Y_coord[i + 1 + 2 * Nx] - Y_coord[i + 1 + Nx]) +
-                                                       (Y_coord[i + 1 + Nx] - Y_coord[i + 1])) / 2);
+    std::vector<double> E(grd.gridN, 0);
+    for (int i = 0; i < grd.gridN; i++)
+        E[i] = (-1 * getTop_lambda[i] * grd.omega_jPlus[i]) / grd.getTop_dL[i];
+
+    for (int i = grd.gridN - (grd.Nx - 1); i < grd.gridN; i++)
+        E[i] = 0;
 
     std::cout << "E[i]" << std::endl;
     for (int i = 0; i < E.size(); i++)
         std::cout << E[i] << std::endl;
     std::cout << std::endl;
 
-    // B coefficient
-
-    std::vector<double> B(gridN, 0);
 
 
-    for (int j = 0, i = 0; i < gridN; i++) {
+// B coefficient
 
+    std::vector<double> B(grd.gridN, 0);
+    for (int j = 0, i = 0; i < grd.gridN; i++)
+        B[i] = (-1 * getLeft_lambda[i] * grd.omega_iMin[i]) / grd.getLeft_dL[i];
 
-        B[i] = -1 * lamb[i - 1] * omega_iM[i] / abs((X_coord[i + 1 + j] - X_coord[i + j]) +
-                                                    (X_coord[i + 2 + j] - X_coord[i + 1 + j])) / 2;
-
-        if (i % (Nx - 1) == 0 && i != 0)
-            j++;
-
-    }
-
-    for (int i = (Nx - 1), j = 0; i < gridN; i += (Nx - 1), j++)
-        B[i] = (-1 * lamb[i - 1] * omega_iM[i]) / (abs(((X_coord[i + 1 + j] - X_coord[i + 2 + j]) +
-                                                        (X_coord[i + 2 + j]) - X_coord[i + 3 + j])) / 2);
-
-    for (int i = (Nx - 2), j = 0; i < gridN; i += (Nx - 1), j++)
-        B[i] = (-1 * lamb[i - 1] * omega_iM[i]) / abs((((X_coord[i + j] - X_coord[i + 1 + j]) +
-                                                        (X_coord[i + 2 + j]) - X_coord[i + 3 + j])) / 2);
-
-    // D coefficient
-
-    std::vector<double> D(gridN, 0);
-
-    for (int j = 0, i = 0; i < gridN; i++) {
-
-        D[i] = (-1 * lamb[i + 1] * omega_iP[i]) / (((X_coord[i + 1 + j] - X_coord[i + j]) +
-                                                    (X_coord[i + 2 + j] - X_coord[i + 1 + j])) / 2);
-
-        if (i % (Nx - 1) == 0 && i != 0)
-            j++;
-    }
-
-    for (int i = (Nx - 1), j = 0; i < gridN; i += (Nx - 1), j++)
-        D[i] = (-1 * lamb[i + 1] * omega_iP[i]) / (((X_coord[i + 2 + j] - X_coord[i + 1 + j]) +
-                                                    (X_coord[i + 3 + j] - X_coord[i + 2 + j])) / 2);
-    for (int i = (Nx - 2), j = 0; i < gridN; i += (Nx - 1), j++)
-        D[i] = (-1 * lamb[i + 1] * omega_iP[i]) / (((X_coord[i + 1 + j] - X_coord[i + j]) +
-                                                    (X_coord[i + 3 + j] - X_coord[i + 2 + j])) / 2);
-
-    // F coefficient
-
-    std::vector<double> F(gridN, 0);
-    for (int i = 0; i < gridN; i++)
-        F[i] = (-1 * vol[i] * dens * capac) / dt;
-
-
-    // С coefficient
-    std::vector<double> C(gridN, 0);
-    for (int j = 0, i = 0; i < gridN; i++) {
-        C[i] = /*-1 * vol[i] * dens * capac / dt + lamb[i - (Nx - 1)] * omega_jM[i] / (((Y_coord[i + 1 + Nx] - Y_coord[i + 1]) +
-                                                                                          (Y_coord[i + 1] - Y_coord[i + 1 - Nx])) / 2) +
-                                                     lamb[i - 1] * omega_iM[i] / abs((X_coord[i + 1 + j] - X_coord[i + j]) +
-                                                                                     (X_coord[i + 2 + j] - X_coord[i + 1 + j])) / 2 +
-                                                     lamb[i + 1] * omega_iP[i] / (((X_coord[i + 1 + j] - X_coord[i + j]) +
-                                                                                   (X_coord[i + 2 + j] - X_coord[i + 1 + j])) / 2) +
-                                                     lamb[i + (Nx - 1)] * omega_jP[i] /
-                                                     (((Y_coord[i + 1 + 2 * Nx] - Y_coord[i + 1 + Nx]) +
-                                                       (Y_coord[i + 1 + Nx] - Y_coord[i + 1])) / 2);
-        if (i % (Nx - 1) == 0 && i != 0)
-            j++;
-
-    }
-
-    for (int i = (Nx - 1), j = 0; i < gridN; i += (Nx - 1), j++)
-        C[i] = /*-1 * vol[i] * dens * capac / dt + lamb[i - (Nx - 1)] * omega_jM[i] / (((Y_coord[i + 1 + Nx] - Y_coord[i + 1]) +
-                                                                                          (Y_coord[i + 1] - Y_coord[i + 1 - Nx])) / 2) +
-                                                     lamb[i - 1] * omega_iM[i] / abs((X_coord[i + 1 + j] - X_coord[i + 2 + j]) +
-                                                                                     (X_coord[i + 2 + j] - X_coord[i + 3 + j])) / 2 +
-                                                     lamb[i + 1] * omega_iP[i] / (((X_coord[i + 2 + j] - X_coord[i + 1 + j]) +
-                                                                                   (X_coord[i + 3 + j] - X_coord[i + 2 + j])) / 2) +
-                                                     lamb[i + (Nx - 1)] * omega_jP[i] /
-                                                     (((Y_coord[i + 1 + 2 * Nx] - Y_coord[i + 1 + Nx]) +
-                                                       (Y_coord[i + 1 + Nx] - Y_coord[i + 1])) / 2);
-
-
-    for (int i = (Nx - 2), j = 0; i < gridN; i += (Nx - 1), j++)
-        C[i] = /*-1 * vol[i] * dens * capac / dt + lamb[i - (Nx - 1)] * omega_jM[i] / (((Y_coord[i + 1 + Nx] - Y_coord[i + 1]) +
-                                                                                          (Y_coord[i + 1] - Y_coord[i + 1 - Nx])) / 2) +
-                                                     lamb[i - 1] * omega_iM[i] / abs((X_coord[i + j] - X_coord[i + 1 + j]) +
-                                                                                     (X_coord[i + 2 + j] - X_coord[i + 3 + j])) / 2 +
-                                                     lamb[i + 1] * omega_iP[i] / (((X_coord[i + 1 + j] - X_coord[i + j]) +
-                                                                                   (X_coord[i + 3 + j] - X_coord[i + 2 + j])) / 2) +
-                                                     lamb[i + (Nx - 1)] * omega_jP[i] /
-                                                     (((Y_coord[i + 1 + 2 * Nx] - Y_coord[i + 1 + Nx]) +
-                                                       (Y_coord[i + 1 + Nx] - Y_coord[i + 1])) / 2);
-
-    // check output
-
-
+    for (int i = 0; i < grd.gridN; i += grd.Nx - 1)
+        B[i] = 0;
 
 
     std::cout << "B[i]" << std::endl;
     for (int i = 0; i < B.size(); i++)
-        std::cout << std::setw(width) << B[i];
+        std::cout << B[i] << std::endl;
     std::cout << std::endl;
+
+// D coefficient
+
+    std::vector<double> D(grd.gridN, 0);
+    for (int i = 0; i < grd.gridN; i++)
+        D[i] = (-1 * getRight_lambda[i] * grd.omega_iPlus[i]) /
+               grd.getRight_dL[i];
+
+    for (int i = grd.Nx - 2; i < grd.gridN; i += grd.Nx - 1)
+        D[i] = 0;
 
     std::cout << "D[i]" << std::endl;
     for (int i = 0; i < D.size(); i++)
         std::cout << D[i] << std::endl;
     std::cout << std::endl;
 
+
+// F coefficient
+
+    std::vector<double> F(grd.gridN, 0);
+    for (int i = 0; i < grd.gridN; i++)
+        F[i] = (-1 * grd.gridVolume[i] * dens * capac) / dt;
+
     std::cout << "F[i]" << std::endl;
     for (int i = 0; i < F.size(); i++)
         std::cout << F[i] << std::endl;
     std::cout << std::endl;
 
+
+
+
+// С coefficient
+
+    std::vector<double> C(grd.gridN, 0);
+
+    for (int i = 0; i < grd.gridN; i++)
+        C[i] = (-1 * F[i]) + (-1 * A[i]) + (-1 * B[i]) + (-1 * D[i]) +
+               (-1 * E[i]);
+
+
     std::cout << "C[i]" << std::endl;
     for (int i = 0; i < C.size(); i++)
         std::cout << C[i] << std::endl;
     std::cout << std::endl;
-
-
-
-    int width = 5;
-
-    std::cout << "gridXcent[i]" << std::endl;
-    for (int i = 0; i < gridXcent.size(); i++)
-        std::cout << gridXcent[i] << std::endl;
-    std::cout << std::endl;
-
-    std::cout << "gridYcent[i]" << std::endl;
-    for (int i = 0; i < gridYcent.size(); i++)
-        std::cout << gridYcent[i] << std::endl;
-    std::cout << std::endl;
-
-    std::cout << "gridYcent[i]" << std::endl;
-    for (int i = 0; i < gridYcent.size(); i++)
-        std::cout << gridYcent[i] << std::endl;
-    std::cout << std::endl;
-
-    std::cout << "omega_jPlus[i]" << std::endl;
-    for (int i = 0; i < omega_jPlus.size(); i++)
-        std::cout << omega_jPlus[i] << std::endl;
-    std::cout << std::endl;
-
-    std::cout << "omega_jMin[i]" << std::endl;
-    for (int i = 0; i < omega_jMin.size(); i++)
-        std::cout << omega_jMin[i] << std::endl;
-    std::cout << std::endl;
-
-    std::cout << "omega_iPlus[i]" << std::endl;
-    for (int i = 0; i < omega_iPlus.size(); i++)
-        std::cout << omega_iPlus[i] << std::endl;
-    std::cout << std::endl;
-
-    std::cout << "omega_iMinus[i]" << std::endl;
-    for (int i = 0; i < omega_iMin.size(); i++)
-        std::cout << omega_iMin[i] << std::endl;
-    std::cout << std::endl;
-
-    std::cout << "omega_iMinus[i]" << std::endl;
-    for (int i = 0; i < omega_iMinus_Ycent.size(); i++)
-        std::cout << std::setw(width) << omega_iMinus_Ycent[i];
-    std::cout << std::endl;
-
-
-    double ZH = 1;
-    std::cout << "ZH " << gridXcent[1] << std::endl;
-    std::cout << std::endl;
-
-      */
 
     return 0;
 

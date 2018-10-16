@@ -6,7 +6,7 @@ XL              12 m
 
 YL              18 m
 
-NODES_NUM_X     4
+NODES_NUM_X     6
 
-NODES_NUM_Y     4
+NODES_NUM_Y     6
 
