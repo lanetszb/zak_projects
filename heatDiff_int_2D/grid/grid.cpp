@@ -55,7 +55,7 @@ void func_gridCalculation(Grid &grd, const std::string &gridFileName,
 
     // Omega j Plus center, X and Y coordinates.
     grd.omega_jPlus_Xcent = func_omega_jPlus_Xcent(grd.X_coord, grd.Nx);
-    func_omega_jPlus_Ycent(grd);
+    omega_jPlus_Ycent_calc(grd);
 
     // Omega j Minus center, X and Y coordinates.
     grd.omega_jMinus_Xcent = func_omega_jMinus_Xcent(grd.X_coord, grd.Nx);

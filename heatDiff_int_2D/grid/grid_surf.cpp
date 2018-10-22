@@ -179,10 +179,10 @@ std::vector<double> func_omega_jPlus_Xcent(const std::vector<double> &X_coord,
 }
 
 
-void func_omega_jPlus_Ycent(Grid &grd) {
+void omega_jPlus_Ycent_calc(Grid &grd) {
 
 
-    grd.omega_jPlus_Ycent = std::vector<double>(grd.gridN, 0);
+    // grd.omega_jPlus_Ycent = std::vector<double>(grd.gridN, 0);
 
 
     /*for (int i = 0, j = 0; j < grd.gridN; i++, j++) {
@@ -195,12 +195,14 @@ void func_omega_jPlus_Ycent(Grid &grd) {
 
     }*/
 
+    double value = 0;
+    int indCur = 0;
     for (int i = 1; i < grd.Ny; i++)
-        for (int j = 0; j < grd.Nx; j++) {
-
+        for (int j = 0; j < grd.Nx - 1; j++) {
+            indCur = i * grd.Nx + j;
+            value = (grd.Y_coord[indCur] + grd.Y_coord[indCur + 1]) / 2.;
+            grd.omega_jPlus_Ycent.push_back(value);
         }
-
-
 }
 
 std::vector<double> func_omega_jMinus_Xcent(const std::vector<double> &X_coord,
