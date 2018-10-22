@@ -1,6 +1,9 @@
-#ifndef HEATDIFFUSION_GRID_SURF_H
-#define HEATDIFFUSION_GRID_SURF_H
+#ifndef GRID_SURF_H
+#define GRID_SURF_H
+
 #include <vector>
+#include <cmath>
+#include <grid_struct.h>
 
 
 std::vector<double> func_omega_jPlus(std::vector<double> &X_coord,
@@ -31,8 +34,7 @@ std::vector<double> func_omega_iMinus_Ycent(const std::vector<double> &Y_coord,
 std::vector<double> func_omega_jPlus_Xcent(const std::vector<double> &X_coord,
                                            const int &Nx);
 
-std::vector<double> func_omega_jPlus_Ycent(const std::vector<double> &Y_coord,
-                                           const int &Nx);
+void func_omega_jPlus_Ycent(Grid &grd);
 
 std::vector<double> func_omega_jMinus_Xcent(const std::vector<double> &X_coord,
                                             const int &Nx);

@@ -1,5 +1,4 @@
 #include <grid_cell.h>
-#include <cmath>
 
 
 std::vector<double> func_Xcenter(std::vector<double> &X_coord, const int &Nx) {

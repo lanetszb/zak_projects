@@ -1,9 +1,4 @@
-#include <vector>
-#include <GetFromFile.h>
 #include <grid.h>
-#include <grid_cell.h>
-#include <grid_surf.h>
-
 
 // Grid Data calculation
 
@@ -60,7 +55,7 @@ void func_gridCalculation(Grid &grd, const std::string &gridFileName,
 
     // Omega j Plus center, X and Y coordinates.
     grd.omega_jPlus_Xcent = func_omega_jPlus_Xcent(grd.X_coord, grd.Nx);
-    grd.omega_jPlus_Ycent = func_omega_jPlus_Ycent(grd.Y_coord, grd.Nx);
+    func_omega_jPlus_Ycent(grd);
 
     // Omega j Minus center, X and Y coordinates.
     grd.omega_jMinus_Xcent = func_omega_jMinus_Xcent(grd.X_coord, grd.Nx);
@@ -76,5 +71,6 @@ void func_gridCalculation(Grid &grd, const std::string &gridFileName,
     grd.getBot_dL = func_getBot_dL(grd);
 
 }
+
 
 

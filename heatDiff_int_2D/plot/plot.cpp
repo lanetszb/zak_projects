@@ -4,7 +4,7 @@
 #include <GetFromFile.h>
 #include <iomanip>
 #include <iostream>
-#include <grid.h>
+#include <grid_struct.h>
 #include <plot.h>
 
 

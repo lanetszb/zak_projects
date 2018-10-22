@@ -1,7 +1,9 @@
-#ifndef HEATDIFFUSION_GRID_CELL_H
-#define HEATDIFFUSION_GRID_CELL_H
+#ifndef GRID_CELL_H
+#define GRID_CELL_H
+
 #include <vector>
-#include <grid.h>
+#include <cmath>
+#include <grid_struct.h>
 
 std::vector<double> func_Xcenter(std::vector<double> &X_coord, const int &Nx);
 

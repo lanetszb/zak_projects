@@ -1,5 +1,4 @@
 #include <grid_surf.h>
-#include <cmath>
 
 std::vector<double> func_omega_jPlus(std::vector<double> &X_coord,
                                      const int &Nx) {
@@ -180,25 +179,28 @@ std::vector<double> func_omega_jPlus_Xcent(const std::vector<double> &X_coord,
 }
 
 
-std::vector<double> func_omega_jPlus_Ycent(const std::vector<double> &Y_coord,
-                                           const int &Nx) {
-
-    int gridN = (Nx - 1) * (Y_coord.size() / Nx - 1);
-    std::vector<double> omega_jPlus_Ycent(gridN, 0);
+void func_omega_jPlus_Ycent(Grid &grd) {
 
 
-    for (int i = 0, j = 0; j < gridN; i++, j++) {
+    grd.omega_jPlus_Ycent = std::vector<double>(grd.gridN, 0);
 
-        if (Y_coord[i + 1] > Y_coord[i] && i != 0)
+
+    /*for (int i = 0, j = 0; j < grd.gridN; i++, j++) {
+
+        if (grd.Y_coord[i + 1] > grd.Y_coord[i] && i != 0)
             i++;
 
-        omega_jPlus_Ycent[j] =
-                ((Y_coord[i + Nx + 1] + Y_coord[i + Nx])) / 2;
+        grd.omega_jPlus_Ycent[j] =
+                ((grd.Y_coord[i + grd.Nx + 1] + grd.Y_coord[i + grd.Nx])) / 2;
 
-    }
+    }*/
+
+    for (int i = 1; i < grd.Ny; i++)
+        for (int j = 0; j < grd.Nx; j++) {
+
+        }
 
 
-    return omega_jPlus_Ycent;
 }
 
 std::vector<double> func_omega_jMinus_Xcent(const std::vector<double> &X_coord,
