@@ -51,7 +51,7 @@ int main(int narg, char **arg) {
 
         std::ofstream oStream;
 
-        oStream.open("out.txt");
+        oStream.open("grid_nodes.txt");
 
         oStream << "Node_X" << std::endl;
 
