@@ -203,6 +203,9 @@ void omega_jPlus_Ycent_calc(Grid &grd) {
             value = (grd.Y_coord[indCur] + grd.Y_coord[indCur + 1]) / 2.;
             grd.omega_jPlus_Ycent.push_back(value);
         }
+
+    for (int i = 0; i < grd.omega_jPlus_Ycent.size(); i++)
+        std::cout << grd.omega_jPlus_Ycent[i] << std::endl;
 }
 
 std::vector<double> func_omega_jMinus_Xcent(const std::vector<double> &X_coord,

@@ -3,6 +3,8 @@
 
 #include <vector>
 #include <cmath>
+#include <iostream>
+#include <iomanip>
 #include <grid_struct.h>
 
 
