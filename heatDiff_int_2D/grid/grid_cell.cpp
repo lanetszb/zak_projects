@@ -1,22 +1,24 @@
 #include <grid_cell.h>
 
 
-std::vector<double> func_Xcenter(std::vector<double> &X_coord, const int &Nx) {
+std::vector<double> func_Xcenter(Grid &grd) {
 
-    int gridN = (Nx - 1) * (X_coord.size() / Nx - 1);
+    int gridN = (grd.Nx - 1) * (grd.X_coord.size() / grd.Nx - 1);
     std::vector<double> gridXcent(gridN, 0);
 
     for (int j = 0, i = 0; i < gridXcent.size(); i++) {
-        gridXcent[i] = abs(X_coord[i + 1 + j] + X_coord[i + j] +
-                           X_coord[i + 1 + j + Nx] + X_coord[i + j + Nx]) / 4;
+        gridXcent[i] = abs(grd.X_coord[i + 1 + j] + grd.X_coord[i + j] +
+                           grd.X_coord[i + 1 + j + grd.Nx] +
+                           grd.X_coord[i + j + grd.Nx]) / 4;
 
-        if (i % (Nx - 1) == 0 && i != 0)
+        if (i % (grd.Nx - 1) == 0 && i != 0)
             j++;
     }
 
-    for (int i = (Nx - 1), j = 0; i < gridN; i += (Nx - 1), j++)
-        gridXcent[i] = abs(X_coord[i + 1 + j] + X_coord[i + 2 + j] +
-                           X_coord[i + 1 + j + Nx] + X_coord[i + 2 + j + Nx]) /
+    for (int i = (grd.Nx - 1), j = 0; i < gridN; i += (grd.Nx - 1), j++)
+        gridXcent[i] = abs(grd.X_coord[i + 1 + j] + grd.X_coord[i + 2 + j] +
+                           grd.X_coord[i + 1 + j + grd.Nx] +
+                           grd.X_coord[i + 2 + j + grd.Nx]) /
                        4;
 
     return gridXcent;
@@ -24,50 +26,49 @@ std::vector<double> func_Xcenter(std::vector<double> &X_coord, const int &Nx) {
 
 }
 
-std::vector<double> func_Ycenter(std::vector<double> &Y_coord, const int &Nx) {
+std::vector<double> func_Ycenter(Grid &grd) {
 
-    int gridN = (Nx - 1) * (Y_coord.size() / Nx - 1);
+    int gridN = (grd.Nx - 1) * (grd.Y_coord.size() / grd.Nx - 1);
     std::vector<double> gridYcent(gridN, 0);
 
     for (int j = 0, i = 0; i < gridN; i++) {
-        gridYcent[i] = (Y_coord[i + Nx + 1 + j] + Y_coord[i + 1 + j] +
-                        Y_coord[i + Nx + j] + Y_coord[i + j]) / 4;
+        gridYcent[i] =
+                (grd.Y_coord[i + grd.Nx + 1 + j] + grd.Y_coord[i + 1 + j] +
+                 grd.Y_coord[i + grd.Nx + j] + grd.Y_coord[i + j]) / 4;
 
-        if (i % (Nx - 1) == 0 && i != 0)
+        if (i % (grd.Nx - 1) == 0 && i != 0)
             j++;
     }
 
-    for (int i = (Nx - 1), j = 0; i < gridN; i += (Nx - 1), j++)
-        gridYcent[i] = (Y_coord[i + 1 + j + Nx] + Y_coord[i + 1 + j] +
-                        Y_coord[i + 2 + j + Nx] + Y_coord[i + 2 + j]) / 4;
+    for (int i = (grd.Nx - 1), j = 0; i < gridN; i += (grd.Nx - 1), j++)
+        gridYcent[i] =
+                (grd.Y_coord[i + 1 + j + grd.Nx] + grd.Y_coord[i + 1 + j] +
+                 grd.Y_coord[i + 2 + j + grd.Nx] + grd.Y_coord[i + 2 + j]) / 4;
 
 
     return gridYcent;
 }
 
-std::vector<double> func_gridVolume(std::vector<double> omega_iPlus,
-                                    std::vector<double> omega_iMin,
-                                    std::vector<double> omega_jPlus,
-                                    std::vector<double> omega_jMin,
-                                    const int gridN) {
+std::vector<double> func_gridVolume(Grid &grd) {
 
-    std::vector<double> semiPerimeter(gridN, 0);
+    std::vector<double> semiPerimeter(grd.gridN, 0);
 
     for (int i = 0; i < semiPerimeter.size(); i++)
-        semiPerimeter[i] = (omega_iPlus[i] + omega_iMin[i] + omega_jPlus[i] +
-                            omega_jMin[i]) / 2;
+        semiPerimeter[i] =
+                (grd.omega_iPlus[i] + grd.omega_iMin[i] + grd.omega_jPlus[i] +
+                 grd.omega_jMin[i]) / 2;
 
-    std::vector<double> gridArea(gridN, 0);
+    std::vector<double> gridArea(grd.gridN, 0);
     for (int i = 0; i < gridArea.size(); i++)
-        gridArea[i] = sqrt((semiPerimeter[i] - omega_iPlus[i]) *
-                           (semiPerimeter[i] - omega_iMin[i]) *
-                           (semiPerimeter[i] - omega_jPlus[i]) *
-                           (semiPerimeter[i] - omega_jMin[i]));
+        gridArea[i] = sqrt((semiPerimeter[i] - grd.omega_iPlus[i]) *
+                           (semiPerimeter[i] - grd.omega_iMin[i]) *
+                           (semiPerimeter[i] - grd.omega_jPlus[i]) *
+                           (semiPerimeter[i] - grd.omega_jMin[i]));
 
     // Grid volume
 
-    std::vector<double> gridZheight(gridN, 1);
-    std::vector<double> gridVolume(gridN, 0);
+    std::vector<double> gridZheight(grd.gridN, 1);
+    std::vector<double> gridVolume(grd.gridN, 0);
 
     for (int i = 0; i < gridArea.size(); i++)
         gridVolume[i] = gridArea[i] * gridZheight[i];
@@ -75,52 +76,49 @@ std::vector<double> func_gridVolume(std::vector<double> omega_iPlus,
     return gridVolume;
 }
 
-std::vector<double> func_getLeft_dL(const std::vector<double> &gridXcent,
-                                    const int &Nx) {
+std::vector<double> func_getLeft_dL(Grid &grd) {
 
-    std::vector<double> getLeft_dL(gridXcent.size(), 0);
+    std::vector<double> getLeft_dL(grd.Xcenter.size(), 0);
 
     for (int i = 0; i < getLeft_dL.size(); i++) {
-        getLeft_dL[i] = gridXcent[i] - gridXcent[i - 1];
+        getLeft_dL[i] = grd.Xcenter[i] - grd.Xcenter[i - 1];
     }
 
-    for (int i = 0; i < getLeft_dL.size(); i += Nx - 1)
+    for (int i = 0; i < getLeft_dL.size(); i += grd.Nx - 1)
         getLeft_dL[i] = 0;
 
     return getLeft_dL;
 }
 
-std::vector<double> func_getRight_dL(const std::vector<double> &gridXcent,
-                                     const int &Nx) {
+std::vector<double> func_getRight_dL(Grid &grd) {
 
-    std::vector<double> getRight_dL(gridXcent.size(), 0);
+    std::vector<double> getRight_dL(grd.Xcenter.size(), 0);
 
     for (int i = 0; i < getRight_dL.size(); i++) {
-        getRight_dL[i] = gridXcent[i + 1] - gridXcent[i];
+        getRight_dL[i] = grd.Xcenter[i + 1] - grd.Xcenter[i];
     }
 
-    for (int i = Nx - 2; i < getRight_dL.size(); i += Nx - 1)
+    for (int i = grd.Nx - 2; i < getRight_dL.size(); i += grd.Nx - 1)
         getRight_dL[i] = 0;
 
     return getRight_dL;
 }
 
-std::vector<double> func_getTop_dL(const std::vector<double> &gridYcent,
-                                   const int &Nx) {
+std::vector<double> func_getTop_dL(Grid &grd) {
 
-    std::vector<double> getTop_dL(gridYcent.size(), 0);
+    std::vector<double> getTop_dL(grd.Ycenter.size(), 0);
 
     for (int i = 0; i < getTop_dL.size(); i++)
-        getTop_dL[i] = gridYcent[i + (Nx - 1)] - gridYcent[i];
+        getTop_dL[i] = grd.Ycenter[i + (grd.Nx - 1)] - grd.Ycenter[i];
 
-    for (int i = getTop_dL.size() - (Nx - 1); i < getTop_dL.size(); i++)
+    for (int i = getTop_dL.size() - (grd.Nx - 1); i < getTop_dL.size(); i++)
         getTop_dL[i] = 0;
 
     return getTop_dL;
 
 }
 
-std::vector<double> func_getBot_dL(const Grid &grd) {
+std::vector<double> func_getBot_dL(Grid &grd) {
 
     std::vector<double> getBot_dL(grd.Ycenter.size(), 0);
 

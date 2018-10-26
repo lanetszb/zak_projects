@@ -27,47 +27,45 @@ void func_gridCalculation(Grid &grd, const std::string &gridFileName,
     // ***Surface area and volume determination***
 
     // Omega j Plus and Minus.
-    grd.omega_jPlus = func_omega_jPlus(grd.X_coord, grd.Nx);
-    grd.omega_jMin = func_omega_jMin(grd.X_coord, grd.Nx);
+    grd.omega_jPlus = func_omega_jPlus(grd);
+    grd.omega_jMin = func_omega_jMin(grd);
 
     // Omega i Plus and Minus.
-    grd.omega_iPlus = func_omega_iPlus(grd.Y_coord, grd.Nx);
-    grd.omega_iMin = func_omega_iMin(grd.Y_coord, grd.Nx);
+    grd.omega_iPlus = func_omega_iPlus(grd);
+    grd.omega_iMin = func_omega_iMin(grd);
 
     // Centre of blocks in X and Y directions.
-    grd.Xcenter = func_Xcenter(grd.X_coord, grd.Nx);
-    grd.Ycenter = func_Ycenter(grd.Y_coord, grd.Nx);
+    grd.Xcenter = func_Xcenter(grd);
+    grd.Ycenter = func_Ycenter(grd);
 
     // Grid volume
 
-    grd.gridVolume = func_gridVolume(grd.omega_iPlus, grd.omega_iMin,
-                                     grd.omega_jPlus,
-                                     grd.omega_jMin, grd.gridN);
+    grd.gridVolume = func_gridVolume(grd);
 
     // ***Grid surface centres***
 
     // Omega i Plus center, X and Y coordinates.
-    grd.omega_iPlus_Xcent = func_omega_iPlus_Xcent(grd.X_coord, grd.Nx);
-    grd.omega_iPlus_Ycent = func_omega_iPlus_Ycent(grd.Y_coord, grd.Nx);
+    grd.omega_iPlus_Xcent = func_omega_iPlus_Xcent(grd);
+    grd.omega_iPlus_Ycent = func_omega_iPlus_Ycent(grd);
     // Omega i Minus center, X and Y coordinates.
-    grd.omega_iMinus_Xcent = func_omega_iMinus_Xcent(grd.X_coord, grd.Nx);
-    grd.omega_iMinus_Ycent = func_omega_iMinus_Ycent(grd.Y_coord, grd.Nx);
+    grd.omega_iMinus_Xcent = func_omega_iMinus_Xcent(grd);
+    grd.omega_iMinus_Ycent = func_omega_iMinus_Ycent(grd);
 
     // Omega j Plus center, X and Y coordinates.
-    grd.omega_jPlus_Xcent = func_omega_jPlus_Xcent(grd.X_coord, grd.Nx);
-    omega_jPlus_Ycent_calc(grd);
+    grd.omega_jPlus_Xcent = func_omega_jPlus_Xcent(grd);
+    omegaTop_Ycent_calc(grd);
 
     // Omega j Minus center, X and Y coordinates.
-    grd.omega_jMinus_Xcent = func_omega_jMinus_Xcent(grd.X_coord, grd.Nx);
-    grd.omega_jMinus_Ycent = func_omega_jMinus_Ycent(grd.Y_coord, grd.Nx);
+    grd.omega_jMinus_Xcent = func_omega_jMinus_Xcent(grd);
+    omegaBot_Ycent_calc(grd);
 
     // Getting left and right dL
 
-    grd.getLeft_dL = func_getLeft_dL(grd.Xcenter, grd.Nx);
-    grd.getRight_dL = func_getRight_dL(grd.Xcenter, grd.Nx);
+    grd.getLeft_dL = func_getLeft_dL(grd);
+    grd.getRight_dL = func_getRight_dL(grd);
 
     // Getting Top and Bot dL
-    grd.getTop_dL = func_getTop_dL(grd.Ycenter, grd.Nx);
+    grd.getTop_dL = func_getTop_dL(grd);
     grd.getBot_dL = func_getBot_dL(grd);
 
 }

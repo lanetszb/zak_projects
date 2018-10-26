@@ -63,13 +63,13 @@ struct Grid {
     std::vector<double> omega_jPlus_Xcent;
 
     // y center of j+ surface.
-    std::vector<double> omega_jPlus_Ycent;
+    std::vector<double> omegaTop_Ycent;
 
     // x center of j- surface.
     std::vector<double> omega_jMinus_Xcent;
 
     // y center of j- surface.
-    std::vector<double> omega_jMinus_Ycent;
+    std::vector<double> omegaBot_Ycent ;
 
     // distance between grid i and i - 1.
     std::vector<double> getLeft_dL;
