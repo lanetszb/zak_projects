@@ -48,25 +48,25 @@ struct Grid {
     std::vector<double> gridVolume;
 
     // x center of i+ surface.
-    std::vector<double> omega_iPlus_Xcent;
+    std::vector<double> omegaRight_Xcent;
 
     // y center of i+ surface.
-    std::vector<double> omega_iPlus_Ycent;
+    std::vector<double> omegaRight_Ycent;
 
     // x center of i- surface.
-    std::vector<double> omega_iMinus_Xcent;
+    std::vector<double> omegaLeft_Xcent;
 
     // y center of i- surface.
-    std::vector<double> omega_iMinus_Ycent;
+    std::vector<double> omegaLeft_Ycent;
 
     // x center of j+ surface.
-    std::vector<double> omega_jPlus_Xcent;
+    std::vector<double> omegaTop_Xcent;
 
     // y center of j+ surface.
     std::vector<double> omegaTop_Ycent;
 
     // x center of j- surface.
-    std::vector<double> omega_jMinus_Xcent;
+    std::vector<double> omegaBot_Xcent;
 
     // y center of j- surface.
     std::vector<double> omegaBot_Ycent ;

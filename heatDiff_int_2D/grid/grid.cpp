@@ -45,18 +45,18 @@ void func_gridCalculation(Grid &grd, const std::string &gridFileName,
     // ***Grid surface centres***
 
     // Omega i Plus center, X and Y coordinates.
-    grd.omega_iPlus_Xcent = func_omega_iPlus_Xcent(grd);
-    grd.omega_iPlus_Ycent = func_omega_iPlus_Ycent(grd);
+    grd.omegaRight_Xcent = omegaRight_Xcent_calc(grd);
+    grd.omegaRight_Ycent = omegaRight_Ycent_calc(grd);
     // Omega i Minus center, X and Y coordinates.
-    grd.omega_iMinus_Xcent = func_omega_iMinus_Xcent(grd);
-    grd.omega_iMinus_Ycent = func_omega_iMinus_Ycent(grd);
+    grd.omegaLeft_Xcent = omegaLeft_Xcent_calc(grd);
+    grd.omegaLeft_Ycent = omegaLeft_Ycent_calc(grd);
 
     // Omega j Plus center, X and Y coordinates.
-    grd.omega_jPlus_Xcent = func_omega_jPlus_Xcent(grd);
+    grd.omegaTop_Xcent = omegaTop_Xcent_calc(grd);
     omegaTop_Ycent_calc(grd);
 
     // Omega j Minus center, X and Y coordinates.
-    grd.omega_jMinus_Xcent = func_omega_jMinus_Xcent(grd);
+    grd.omegaBot_Xcent = omegaBot_Xcent_calc(grd);
     omegaBot_Ycent_calc(grd);
 
     // Getting left and right dL

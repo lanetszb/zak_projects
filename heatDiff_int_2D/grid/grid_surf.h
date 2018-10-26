@@ -17,19 +17,19 @@ std::vector<double> func_omega_iPlus(Grid &grd);
 std::vector<double> func_omega_iMin(Grid &grd);
 
 
-std::vector<double> func_omega_iPlus_Xcent(Grid &grd);
+std::vector<double> omegaRight_Xcent_calc(Grid &grd);
 
-std::vector<double> func_omega_iPlus_Ycent(Grid &grd);
+std::vector<double> omegaRight_Ycent_calc(Grid &grd);
 
-std::vector<double> func_omega_iMinus_Xcent(Grid &grd);
+std::vector<double> omegaLeft_Xcent_calc(Grid &grd);
 
-std::vector<double> func_omega_iMinus_Ycent(Grid &grd);
+std::vector<double> omegaLeft_Ycent_calc(Grid &grd);
 
-std::vector<double> func_omega_jPlus_Xcent(Grid &grd);
+std::vector<double> omegaTop_Xcent_calc(Grid &grd);
 
 void omegaTop_Ycent_calc(Grid &grd);
 
-std::vector<double> func_omega_jMinus_Xcent(Grid &grd);
+std::vector<double> omegaBot_Xcent_calc(Grid &grd);
 
 void omegaBot_Ycent_calc(Grid &grd);
 
