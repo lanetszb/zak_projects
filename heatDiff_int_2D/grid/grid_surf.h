@@ -8,13 +8,13 @@
 #include <grid_struct.h>
 
 
-std::vector<double> func_omega_jPlus(Grid &grd);
+std::vector<double> omegaTop_calc(Grid &grd);
 
-std::vector<double> func_omega_jMin(Grid &grd);
+std::vector<double> omegaBot_calc(Grid &grd);
 
-std::vector<double> func_omega_iPlus(Grid &grd);
+std::vector<double> omegaRight_calc(Grid &grd);
 
-std::vector<double> func_omega_iMin(Grid &grd);
+std::vector<double> omegaLeft_calc(Grid &grd);
 
 
 std::vector<double> omegaRight_Xcent_calc(Grid &grd);

@@ -55,15 +55,15 @@ std::vector<double> func_gridVolume(Grid &grd) {
 
     for (int i = 0; i < semiPerimeter.size(); i++)
         semiPerimeter[i] =
-                (grd.omega_iPlus[i] + grd.omega_iMin[i] + grd.omega_jPlus[i] +
-                 grd.omega_jMin[i]) / 2;
+                (grd.omegaRight[i] + grd.omegaLeft[i] + grd.omegaTop[i] +
+                 grd.omegaBot[i]) / 2;
 
     std::vector<double> gridArea(grd.gridN, 0);
     for (int i = 0; i < gridArea.size(); i++)
-        gridArea[i] = sqrt((semiPerimeter[i] - grd.omega_iPlus[i]) *
-                           (semiPerimeter[i] - grd.omega_iMin[i]) *
-                           (semiPerimeter[i] - grd.omega_jPlus[i]) *
-                           (semiPerimeter[i] - grd.omega_jMin[i]));
+        gridArea[i] = sqrt((semiPerimeter[i] - grd.omegaRight[i]) *
+                           (semiPerimeter[i] - grd.omegaLeft[i]) *
+                           (semiPerimeter[i] - grd.omegaTop[i]) *
+                           (semiPerimeter[i] - grd.omegaBot[i]));
 
     // Grid volume
 

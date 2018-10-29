@@ -81,7 +81,7 @@ int main(int narg, char **arg) {
 
     std::vector<double> A(grd.gridN, 0);
     for (int i = 0; i < grd.gridN; i++)
-        A[i] = (-1 * getBot_lambda[i] * grd.omega_jMin[i]) / grd.getBot_dL[i];
+        A[i] = (-1 * getBot_lambda[i] * grd.omegaBot[i]) / grd.getBot_dL[i];
 
     for (int i = 0; i < grd.Nx - 1; i++)
         A[i] = 0;
@@ -97,7 +97,7 @@ int main(int narg, char **arg) {
 
     std::vector<double> E(grd.gridN, 0);
     for (int i = 0; i < grd.gridN; i++)
-        E[i] = (-1 * getTop_lambda[i] * grd.omega_jPlus[i]) / grd.getTop_dL[i];
+        E[i] = (-1 * getTop_lambda[i] * grd.omegaTop[i]) / grd.getTop_dL[i];
 
     for (int i = grd.gridN - (grd.Nx - 1); i < grd.gridN; i++)
         E[i] = 0;
@@ -113,7 +113,7 @@ int main(int narg, char **arg) {
 
     std::vector<double> B(grd.gridN, 0);
     for (int j = 0, i = 0; i < grd.gridN; i++)
-        B[i] = (-1 * getLeft_lambda[i] * grd.omega_iMin[i]) / grd.getLeft_dL[i];
+        B[i] = (-1 * getLeft_lambda[i] * grd.omegaLeft[i]) / grd.getLeft_dL[i];
 
     for (int i = 0; i < grd.gridN; i += grd.Nx - 1)
         B[i] = 0;
@@ -128,7 +128,7 @@ int main(int narg, char **arg) {
 
     std::vector<double> D(grd.gridN, 0);
     for (int i = 0; i < grd.gridN; i++)
-        D[i] = (-1 * getRight_lambda[i] * grd.omega_iPlus[i]) /
+        D[i] = (-1 * getRight_lambda[i] * grd.omegaRight[i]) /
                grd.getRight_dL[i];
 
     for (int i = grd.Nx - 2; i < grd.gridN; i += grd.Nx - 1)

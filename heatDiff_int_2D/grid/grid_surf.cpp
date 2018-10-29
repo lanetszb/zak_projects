@@ -1,63 +1,64 @@
 #include <grid_surf.h>
 
-std::vector<double> func_omega_jPlus(Grid &grd) {
+std::vector<double> omegaTop_calc(Grid &grd) {
 
-    int gridN = (grd.Nx - 1) * (grd.X_coord.size() / grd.Nx - 1);
-    std::vector<double> omega_jPlus(gridN, 0);
+    double value = 0;
+    int indCur = 0;
+    for (int i = 1; i < grd.Ny; i++)
+        for (int j = 0; j < grd.Nx - 1; j++) {
+            indCur = i * grd.Nx + j;
+            value = fabs(grd.X_coord[indCur] - grd.X_coord[indCur + 1]);
+            grd.omegaTop.push_back(value);
+        }
 
-    for (int j = 0, i = 0; i < gridN; i++) {
-        omega_jPlus[i] =
-                grd.X_coord[i + 1 + j + grd.Nx] - grd.X_coord[i + j + grd.Nx];
-        if (i % (grd.Nx - 1) == 0 && i != 0)
-            j++;
-    }
-    for (int i = (grd.Nx - 1), j = 0; i < gridN; i += (grd.Nx - 1), j++)
-        omega_jPlus[i] = grd.X_coord[i + 2 + j] - grd.X_coord[i + 1 + j];
-
-    return omega_jPlus;
+ /*   for (int i = 0; i < grd.omegaTop.size(); i++)
+        std::cout << grd.omegaTop[i] << std::endl;
+    std::cout << std::endl;*/
+    return grd.omegaTop;
 }
 
-std::vector<double> func_omega_jMin(Grid &grd) {
+std::vector<double> omegaBot_calc(Grid &grd) {
 
-    int gridN = (grd.Nx - 1) * (grd.X_coord.size() / grd.Nx - 1);
-    std::vector<double> omega_jMin(gridN, 0);
+    double value = 0;
+    int indCur = 0;
+    for (int i = 0; i < grd.Ny - 1; i++)
+        for (int j = 0; j < grd.Nx - 1; j++) {
+            indCur = i * grd.Nx + j;
+            value = fabs(grd.X_coord[indCur] - grd.X_coord[indCur + 1]);
+            grd.omegaBot.push_back(value);
 
-    for (int j = 0, i = 0; i < gridN; i++) {
-        omega_jMin[i] = grd.X_coord[i + 1 + j] - grd.X_coord[i + j];
-        if (i % (grd.Nx - 1) == 0 && i != 0)
-            j++;
-    }
-    for (int i = (grd.Nx - 1), j = 0; i < gridN; i += (grd.Nx - 1), j++)
-        omega_jMin[i] = grd.X_coord[i + 2 + j] - grd.X_coord[i + 1 + j];
+        }
 
-    return omega_jMin;
+    return grd.omegaBot;
 }
 
-std::vector<double> func_omega_iPlus(Grid &grd) {
+std::vector<double> omegaRight_calc(Grid &grd) {
 
-    int gridN = (grd.Nx - 1) * (grd.Y_coord.size() / grd.Nx - 1);
-    std::vector<double> omega_iPlus(gridN, 0);
+    double value = 0;
+    int indCur = 0;
+    for (int i = 0; i < grd.Ny - 1; i++)
+        for (int j = 1; j < grd.Nx; j++) {
+            indCur = i * grd.Nx + j;
+            value = fabs(grd.Y_coord[indCur] - grd.Y_coord[indCur + grd.Nx]);
+            grd.omegaRight.push_back(value);
+        }
 
-    for (int j = 0, i = 0; i < gridN; i++) {
-        omega_iPlus[i] = (grd.Y_coord[i + grd.Nx + 1 + j] -
-                          grd.Y_coord[i + 1 + j]);
-        if (i % (grd.Nx - 1) == 0 && i != 0)
-            j++;
-    }
-    return omega_iPlus;
+    return grd.omegaRight;
 }
 
-std::vector<double> func_omega_iMin(Grid &grd) {
+std::vector<double> omegaLeft_calc(Grid &grd) {
 
-    int gridN = (grd.Nx - 1) * (grd.Y_coord.size() / grd.Nx - 1);
-    std::vector<double> omega_iMin(gridN, 0);
 
-    for (int j = 0, i = 0; i < gridN; i++) {
-        omega_iMin[i] = (grd.Y_coord[i + grd.Nx + j] - grd.Y_coord[i + j]);
-        if (i % (grd.Nx - 1) == 0 && i != 0)
-            j++;
-    }
-    return omega_iMin;
+    double value = 0;
+    int indCur = 0;
+    for (int i = 0; i < grd.Ny - 1; i++)
+        for (int j = 0; j < grd.Nx - 1; j++) {
+            indCur = i * grd.Nx + j;
+            value = fabs(grd.Y_coord[indCur] - grd.Y_coord[indCur + grd.Nx]);
+            grd.omegaLeft.push_back(value);
+        }
+
+    return grd.omegaLeft;
 }
 
 
@@ -86,9 +87,9 @@ std::vector<double> omegaRight_Ycent_calc(Grid &grd) {
             grd.omegaLeft_Ycent.push_back(value);
         }
 
-       /* for (int i =0; i <grd.omegaLeft_Ycent.size(); i++)
-            std::cout<<grd.omegaLeft_Ycent[i]<<std::endl;
-        std::cout<<std::endl;*/
+    /* for (int i =0; i <grd.omegaLeft_Ycent.size(); i++)
+         std::cout<<grd.omegaLeft_Ycent[i]<<std::endl;
+     std::cout<<std::endl;*/
 
     return grd.omegaLeft_Ycent;
 }

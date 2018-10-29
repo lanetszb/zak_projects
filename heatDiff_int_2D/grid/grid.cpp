@@ -27,12 +27,12 @@ void func_gridCalculation(Grid &grd, const std::string &gridFileName,
     // ***Surface area and volume determination***
 
     // Omega j Plus and Minus.
-    grd.omega_jPlus = func_omega_jPlus(grd);
-    grd.omega_jMin = func_omega_jMin(grd);
+    grd.omegaTop = omegaTop_calc(grd);
+    grd.omegaBot = omegaBot_calc(grd);
 
     // Omega i Plus and Minus.
-    grd.omega_iPlus = func_omega_iPlus(grd);
-    grd.omega_iMin = func_omega_iMin(grd);
+    grd.omegaRight = omegaRight_calc(grd);
+    grd.omegaLeft = omegaLeft_calc(grd);
 
     // Centre of blocks in X and Y directions.
     grd.Xcenter = func_Xcenter(grd);

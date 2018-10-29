@@ -33,16 +33,16 @@ struct Grid {
     std::vector<double> Ycenter;
 
     // surface area j+.
-    std::vector<double> omega_jPlus;
+    std::vector<double> omegaTop;
 
     // surface area j-.
-    std::vector<double> omega_jMin;
+    std::vector<double> omegaBot;
 
     // surface area i+.
-    std::vector<double> omega_iPlus;
+    std::vector<double> omegaRight;
 
     // surface area i-.
-    std::vector<double> omega_iMin;
+    std::vector<double> omegaLeft;
 
     // grid volumes.
     std::vector<double> gridVolume;
