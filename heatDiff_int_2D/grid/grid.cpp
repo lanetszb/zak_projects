@@ -35,12 +35,12 @@ void func_gridCalculation(Grid &grd, const std::string &gridFileName,
     grd.omegaLeft = omegaLeft_calc(grd);
 
     // Centre of blocks in X and Y directions.
-    grd.Xcenter = func_Xcenter(grd);
-    grd.Ycenter = func_Ycenter(grd);
+    grd.Xcenter = Xcenter_calc(grd);
+    grd.Ycenter = Ycenter_calc(grd);
 
     // Grid volume
 
-    grd.gridVolume = func_gridVolume(grd);
+    grd.gridVolume = gridVolume_calc(grd);
 
     // ***Grid surface centres***
 
@@ -61,12 +61,12 @@ void func_gridCalculation(Grid &grd, const std::string &gridFileName,
 
     // Getting left and right dL
 
-    grd.getLeft_dL = func_getLeft_dL(grd);
-    grd.getRight_dL = func_getRight_dL(grd);
+    grd.getLeft_dL = Left_dL_calc(grd);
+    grd.getRight_dL = Right_dL_calc(grd);
 
     // Getting Top and Bot dL
-    grd.getTop_dL = func_getTop_dL(grd);
-    grd.getBot_dL = func_getBot_dL(grd);
+    grd.getTop_dL = Top_dL_calc(grd);
+    grd.getBot_dL = Bot_dL_calc(grd);
 
 }
 

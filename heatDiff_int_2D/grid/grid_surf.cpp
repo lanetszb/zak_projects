@@ -11,9 +11,6 @@ std::vector<double> omegaTop_calc(Grid &grd) {
             grd.omegaTop.push_back(value);
         }
 
- /*   for (int i = 0; i < grd.omegaTop.size(); i++)
-        std::cout << grd.omegaTop[i] << std::endl;
-    std::cout << std::endl;*/
     return grd.omegaTop;
 }
 
