@@ -12,6 +12,7 @@ void val_calc(Grid &grd, Matrix &mtr) {
 
 
     double value = 0;
+    //TODO first problem here. Fix it.
     for (int i = 0; i < grd.Nx - 1; i++) {
         value = mtr.C[i];
         mtr.val.push_back(value);

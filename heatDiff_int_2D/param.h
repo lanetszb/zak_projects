@@ -3,6 +3,6 @@
 
 #include <param_struct.h>
 
-void getParam(Param &prm, char* &dataFileName);
+void getParam(Param &prm, std::string &dataFileName);
 
 #endif

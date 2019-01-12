@@ -10,7 +10,7 @@ void func_matrixCalculation(Grid &grd, Matrix &mtr, Param &prm,
 
     val_calc(grd, mtr);
 
-    cal_calc(grd, mtr);
+    col_calc(grd, mtr);
 
     poi_calc(grd, mtr);
 

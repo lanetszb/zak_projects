@@ -32,7 +32,8 @@ int main(int narg, char **arg) {
     GetFromFile dataFile(arg[1]);
 
     Param prm;
-    getParam(prm, arg[1]);
+    std::string dataFileName = arg[1];
+    getParam(prm, dataFileName);
 
     auto grdFileNm = dataFile.getWord<std::string>("GRID_DATA");
     auto nodesFileNm = dataFile.getWord<std::string>("NODES_NUM");
