@@ -5,6 +5,8 @@
 #include <iomanip>
 #include <grid.h>
 #include <plot.h>
+#include <matrix.h>
+#include <param.h>
 
 
 std::vector<double> func_getLeft_lambda(const std::vector<double> &lamb,
@@ -29,151 +31,51 @@ int main(int narg, char **arg) {
     // ***reading the required input data***
     GetFromFile dataFile(arg[1]);
 
-    auto dt = dataFile.getWord<double>("timeStep");
-    auto time = dataFile.getWord<double>("time");
-    auto lambda = dataFile.getWord<double>("thermalCond");
-
-    auto Tl = dataFile.getWord<double>("tempLeft");
-    auto Tr = dataFile.getWord<double>("tempRight");
-    auto Ttop = dataFile.getWord<double>("tempTop");
-    auto Tbot = dataFile.getWord<double>("tempBot");
-    auto T0 = dataFile.getWord<double>("tempIni");
-
-    auto dens = dataFile.getWord<double>("density");
-    auto capac = dataFile.getWord<double>("heatCapac");
+    Param prm;
+    getParam(prm, arg[1]);
 
     auto grdFileNm = dataFile.getWord<std::string>("GRID_DATA");
     auto nodesFileNm = dataFile.getWord<std::string>("NODES_NUM");
 
-    auto maxTolerance = dataFile.getWord<double>("MAX_TOLERANCE");
-
     Grid grd;
 
     func_gridCalculation(grd, grdFileNm, nodesFileNm);
-
-
-
-
     // ***Numerical solution for heat diffusion begins here***
 
 
-    std::vector<double> lamb(grd.gridN, lambda);
+    std::vector<double> lamb(grd.gridN, prm.lambda);
 
 
     // Temp vector
 
-    auto heatDistr_ini = func_heatDistrib_ini(grd.Ny, grd.Nx, T0, Tl, Tr);
+    auto heatDistr_ini = func_heatDistrib_ini(grd.Ny, grd.Nx, prm.T0, prm.Tl,
+                                              prm.Tr);
 
     Plot plt;
 
     func_plot(grd, plt, heatDistr_ini);
 
 
-    // A coefficient
-
     auto getBot_lambda = func_getBot_lambda(lamb, grd.Nx);
     auto getTop_lambda = func_getTop_lambda(lamb, grd.Nx);
     auto getLeft_lambda = func_getLeft_lambda(lamb, grd.Nx);
     auto getRight_lambda = func_getRight_lambda(lamb, grd.Nx);
 
+    Matrix mtr;
+
+    func_matrixCalculation(grd, mtr, prm, getBot_lambda, getTop_lambda,
+                           getLeft_lambda, getRight_lambda);
+
 
     std::cout << "test" << std::endl;
 
-    std::vector<double> A(grd.gridN, 0);
-    for (int i = 0; i < grd.gridN; i++)
-        A[i] = (-1 * getBot_lambda[i] * grd.omegaBot[i]) / grd.getBot_dL[i];
-
-    for (int i = 0; i < grd.Nx - 1; i++)
-        A[i] = 0;
-
-    std::cout << "A[i]" << std::endl;
-    for (int i = 0; i < A.size(); i++)
-        std::cout << A[i] << std::endl;
-    std::cout << std::endl;
-
-
-// E coefficient
-
-
-    std::vector<double> E(grd.gridN, 0);
-    for (int i = 0; i < grd.gridN; i++)
-        E[i] = (-1 * getTop_lambda[i] * grd.omegaTop[i]) / grd.getTop_dL[i];
-
-    for (int i = grd.gridN - (grd.Nx - 1); i < grd.gridN; i++)
-        E[i] = 0;
-
-    std::cout << "E[i]" << std::endl;
-    for (int i = 0; i < E.size(); i++)
-        std::cout << E[i] << std::endl;
-    std::cout << std::endl;
-
-
-
-// B coefficient
-
-    std::vector<double> B(grd.gridN, 0);
-    for (int j = 0, i = 0; i < grd.gridN; i++)
-        B[i] = (-1 * getLeft_lambda[i] * grd.omegaLeft[i]) / grd.getLeft_dL[i];
-
-    for (int i = 0; i < grd.gridN; i += grd.Nx - 1)
-        B[i] = 0;
-
-
-    std::cout << "B[i]" << std::endl;
-    for (int i = 0; i < B.size(); i++)
-        std::cout << B[i] << std::endl;
-    std::cout << std::endl;
-
-// D coefficient
-
-    std::vector<double> D(grd.gridN, 0);
-    for (int i = 0; i < grd.gridN; i++)
-        D[i] = (-1 * getRight_lambda[i] * grd.omegaRight[i]) /
-               grd.getRight_dL[i];
-
-    for (int i = grd.Nx - 2; i < grd.gridN; i += grd.Nx - 1)
-        D[i] = 0;
-
-    std::cout << "D[i]" << std::endl;
-    for (int i = 0; i < D.size(); i++)
-        std::cout << D[i] << std::endl;
-    std::cout << std::endl;
-
-
-// F coefficient
-
-    std::vector<double> F(grd.gridN, 0);
-    for (int i = 0; i < grd.gridN; i++)
-        F[i] = (-1 * grd.gridVolume[i] * dens * capac) / dt;
-
-    std::cout << "F[i]" << std::endl;
-    for (int i = 0; i < F.size(); i++)
-        std::cout << F[i] << std::endl;
-    std::cout << std::endl;
-
-
-
-
-// С coefficient
-
-    std::vector<double> C(grd.gridN, 0);
-
-    for (int i = 0; i < grd.gridN; i++)
-        C[i] = (-1 * F[i]) + (-1 * A[i]) + (-1 * B[i]) + (-1 * D[i]) +
-               (-1 * E[i]);
-
-
-    std::cout << "C[i]" << std::endl;
-    for (int i = 0; i < C.size(); i++)
-        std::cout << C[i] << std::endl;
-    std::cout << std::endl;
 
     return 0;
 
 }
 
 
-// ***all the functions are listed below***
+//***all the functions are listed below***
 
 std::vector<double> func_getLeft_lambda(const std::vector<double> &lamb,
                                         const int &Nx) {
