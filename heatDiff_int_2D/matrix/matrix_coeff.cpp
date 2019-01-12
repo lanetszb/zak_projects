@@ -7,7 +7,9 @@
 // A coefficient
 void A_calc(Grid &grd, Matrix &mtr, std::vector<double> &getBot_lambda) {
 
-    std::vector<double> A(grd.gridN, 0);
+    mtr.A.clear();
+    mtr.A = std::vector<double>(grd.gridN, 0);
+
     for (int i = 0; i < grd.gridN; i++)
         mtr.A[i] = (-1 * getBot_lambda[i] * grd.omegaBot[i]) / grd.getBot_dL[i];
 

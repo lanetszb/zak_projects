@@ -9,13 +9,6 @@ void func_matrixCalculation(Grid &grd, Matrix &mtr, Param &prm,
                             std::vector<double> &getLeft_lambda,
                             std::vector<double> &getRight_lambda) {
 
-    val_calc(grd, mtr);
-
-    col_calc(grd, mtr);
-
-    poi_calc(grd, mtr);
-
-
     A_calc(grd, mtr, getBot_lambda);
 
     E_calc(grd, mtr, getTop_lambda);
@@ -27,5 +20,11 @@ void func_matrixCalculation(Grid &grd, Matrix &mtr, Param &prm,
     F_calc(grd, mtr, prm);
 
     C_calc(grd, mtr);
+
+    val_calc(grd, mtr);
+
+    col_calc(grd, mtr);
+
+    poi_calc(grd, mtr);
 
 }

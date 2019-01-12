@@ -55,7 +55,7 @@ int main(int narg, char **arg) {
 
     Plot plt;
 
-    func_plot(grd, plt, heatDistr_ini);
+    // func_plot(grd, plt, heatDistr_ini);
 
 
     auto getBot_lambda = func_getBot_lambda(lamb, grd.Nx);
