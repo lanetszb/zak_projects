@@ -1,11 +1,11 @@
-#ifndef GRID_SURF_H
-#define GRID_SURF_H
+#ifndef GRID_GRID_SURF_H
+#define GRID_GRID_SURF_H
 
 #include <vector>
 #include <cmath>
 #include <iostream>
 #include <iomanip>
-#include <grid_struct.h>
+#include <grid/grid_struct.h>
 
 
 std::vector<double> omegaTop_calc(Grid &grd);

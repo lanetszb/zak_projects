@@ -1,5 +1,5 @@
-#ifndef MATRIX_STRUCT_H
-#define MATRIX_STRUCT_H
+#ifndef MATRIX_MATRIX_STRUCT_H
+#define MATRIX_MATRIX_STRUCT_H
 
 #include <vector>
 

@@ -1,11 +1,11 @@
-#ifndef GRID_CELL_H
-#define GRID_CELL_H
+#ifndef GRID_GRID_CELL_H
+#define GRID_GRID_CELL_H
 
 #include <vector>
 #include <cmath>
 #include <iostream>
 #include <iomanip>
-#include <grid_struct.h>
+#include <grid/grid_struct.h>
 
 std::vector<double> Xcenter_calc(Grid &grd);
 

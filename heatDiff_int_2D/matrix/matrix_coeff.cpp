@@ -1,4 +1,4 @@
-#include <matrix_coeff.h>
+#include <matrix/matrix_coeff.h>
 #include <vector>
 #include <cmath>
 #include <iostream>

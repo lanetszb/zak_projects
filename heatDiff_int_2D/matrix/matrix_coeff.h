@@ -1,8 +1,8 @@
-#ifndef COEFF_H
-#define COEFF_H
+#ifndef MATRIX_MATRIX_COEFF_H
+#define MATRIX_MATRIX_COEFF_H
 
 #include <grid/grid_struct.h>
-#include <matrix_struct.h>
+#include <matrix/matrix_struct.h>
 #include <param.h>
 
 void A_calc(Grid &grd, Matrix &mtr, std::vector<double> &getBot_lambda);

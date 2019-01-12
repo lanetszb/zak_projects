@@ -3,9 +3,9 @@
 #include <vector>
 #include <GetFromFile.h>
 #include <iomanip>
-#include <grid.h>
-#include <plot.h>
-#include <matrix.h>
+#include <grid/grid.h>
+#include <plot/plot.h>
+#include <matrix/matrix.h>
 #include <param.h>
 
 
@@ -52,6 +52,7 @@ int main(int narg, char **arg) {
     auto heatDistr_ini = func_heatDistrib_ini(grd.Ny, grd.Nx, prm.T0, prm.Tl,
                                               prm.Tr);
 
+
     Plot plt;
 
     func_plot(grd, plt, heatDistr_ini);
@@ -62,11 +63,12 @@ int main(int narg, char **arg) {
     auto getLeft_lambda = func_getLeft_lambda(lamb, grd.Nx);
     auto getRight_lambda = func_getRight_lambda(lamb, grd.Nx);
 
+
     Matrix mtr;
+
 
     func_matrixCalculation(grd, mtr, prm, getBot_lambda, getTop_lambda,
                            getLeft_lambda, getRight_lambda);
-
 
     std::cout << "test" << std::endl;
 

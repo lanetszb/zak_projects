@@ -1,6 +1,7 @@
-#include <matrix.h>
-#include <matrix_vect.h>
-#include <matrix_coeff.h>
+#include <matrix/matrix.h>
+#include <matrix/matrix_vect.h>
+#include <matrix/matrix_coeff.h>
+#include <iostream>
 
 void func_matrixCalculation(Grid &grd, Matrix &mtr, Param &prm,
                             std::vector<double> &getBot_lambda,
@@ -13,6 +14,7 @@ void func_matrixCalculation(Grid &grd, Matrix &mtr, Param &prm,
     col_calc(grd, mtr);
 
     poi_calc(grd, mtr);
+
 
     A_calc(grd, mtr, getBot_lambda);
 
