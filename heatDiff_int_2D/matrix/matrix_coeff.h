@@ -5,11 +5,16 @@
 #include <matrix/matrix_struct.h>
 #include <param.h>
 
-void A_calc(Grid &grd, Matrix &mtr, std::vector<double> &getBot_lambda);
-void B_calc(Grid &grd, Matrix &mtr,std::vector<double> &getLeft_lambda);
+void A_calc(Grid &grd, Matrix &mtr, Param &prm);
+
+void B_calc(Grid &grd, Matrix &mtr, Param &prm);
+
 void C_calc(Grid &grd, Matrix &mtr);
-void D_calc(Grid &grd, Matrix &mtr, std::vector<double> &getRight_lambda);
-void E_calc(Grid &grd, Matrix &mtr,std::vector<double> &getTop_lambda);
+
+void D_calc(Grid &grd, Matrix &mtr, Param &prm);
+
+void E_calc(Grid &grd, Matrix &mtr, Param &prm);
+
 void F_calc(Grid &grd, Matrix &mtr, Param &prm);
 
 #endif

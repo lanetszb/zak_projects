@@ -5,10 +5,6 @@
 #include <matrix/matrix_struct.h>
 #include <param.h>
 
-void func_matrixCalculation(Grid &grd, Matrix &mtr, Param &prm,
-                            std::vector<double> &getBot_lambda,
-                            std::vector<double> &getTop_lambda,
-                            std::vector<double> &getLeft_lambda,
-                            std::vector<double> &getRight_lambda);
+void func_matrixCalculation(Grid &grd, Matrix &mtr, Param &prm);
 
 #endif

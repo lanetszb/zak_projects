@@ -3,19 +3,15 @@
 #include <matrix/matrix_coeff.h>
 #include <iostream>
 
-void func_matrixCalculation(Grid &grd, Matrix &mtr, Param &prm,
-                            std::vector<double> &getBot_lambda,
-                            std::vector<double> &getTop_lambda,
-                            std::vector<double> &getLeft_lambda,
-                            std::vector<double> &getRight_lambda) {
+void func_matrixCalculation(Grid &grd, Matrix &mtr, Param &prm) {
 
-    A_calc(grd, mtr, getBot_lambda);
+    A_calc(grd, mtr, prm);
 
-    E_calc(grd, mtr, getTop_lambda);
+    E_calc(grd, mtr, prm);
 
-    B_calc(grd, mtr, getLeft_lambda);
+    B_calc(grd, mtr, prm);
 
-    D_calc(grd, mtr, getRight_lambda);
+    D_calc(grd, mtr, prm);
 
     F_calc(grd, mtr, prm);
 

@@ -5,13 +5,13 @@
 #include <iomanip>
 
 // A coefficient
-void A_calc(Grid &grd, Matrix &mtr, std::vector<double> &getBot_lambda) {
+void A_calc(Grid &grd, Matrix &mtr, Param &prm) {
 
     mtr.A.clear();
     mtr.A = std::vector<double>(grd.gridN, 0);
 
     for (int i = 0; i < grd.gridN; i++)
-        mtr.A[i] = (-1 * getBot_lambda[i] * grd.omegaBot[i]) / grd.getBot_dL[i];
+        mtr.A[i] = (-1 * prm.getBot_lambda[i] * grd.omegaBot[i]) / grd.getBot_dL[i];
 
     for (int i = 0; i < grd.Nx - 1; i++)
         mtr.A[i] = 0;
@@ -24,13 +24,13 @@ void A_calc(Grid &grd, Matrix &mtr, std::vector<double> &getBot_lambda) {
 
 // E coefficient
 
-void E_calc(Grid &grd, Matrix &mtr, std::vector<double> &getTop_lambda) {
+void E_calc(Grid &grd, Matrix &mtr, Param &prm) {
 
     mtr.E.clear();
     mtr.E = std::vector<double>(grd.gridN, 0);
 
     for (int i = 0; i < grd.gridN; i++)
-        mtr.E[i] = (-1 * getTop_lambda[i] * grd.omegaTop[i]) / grd.getTop_dL[i];
+        mtr.E[i] = (-1 * prm.getTop_lambda[i] * grd.omegaTop[i]) / grd.getTop_dL[i];
 
     for (int i = grd.gridN - (grd.Nx - 1); i < grd.gridN; i++)
         mtr.E[i] = 0;
@@ -42,14 +42,14 @@ void E_calc(Grid &grd, Matrix &mtr, std::vector<double> &getTop_lambda) {
 }
 
 // B coefficient
-void B_calc(Grid &grd, Matrix &mtr, std::vector<double> &getLeft_lambda) {
+void B_calc(Grid &grd, Matrix &mtr, Param &prm) {
 
     mtr.B.clear();
     mtr.B = std::vector<double>(grd.gridN, 0);
 
     for (int j = 0, i = 0; i < grd.gridN; i++)
         mtr.B[i] =
-                (-1 * getLeft_lambda[i] * grd.omegaLeft[i]) / grd.getLeft_dL[i];
+                (-1 * prm.getLeft_lambda[i] * grd.omegaLeft[i]) / grd.getLeft_dL[i];
 
     for (int i = 0; i < grd.gridN; i += grd.Nx - 1)
         mtr.B[i] = 0;
@@ -62,13 +62,13 @@ void B_calc(Grid &grd, Matrix &mtr, std::vector<double> &getLeft_lambda) {
 }
 
 // D coefficient
-void D_calc(Grid &grd, Matrix &mtr, std::vector<double> &getRight_lambda) {
+void D_calc(Grid &grd, Matrix &mtr, Param &prm) {
 
     mtr.D.clear();
     mtr.D = std::vector<double>(grd.gridN, 0);
 
     for (int i = 0; i < grd.gridN; i++)
-        mtr.D[i] = (-1 * getRight_lambda[i] * grd.omegaRight[i]) /
+        mtr.D[i] = (-1 * prm.getRight_lambda[i] * grd.omegaRight[i]) /
                    grd.getRight_dL[i];
 
     for (int i = grd.Nx - 2; i < grd.gridN; i += grd.Nx - 1)

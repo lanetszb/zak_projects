@@ -25,4 +25,4 @@ struct Matrix {
 
 };
 
-#endif //HEATDIFF_INT_2D_MATRIX_STRUCT_H
+#endif
