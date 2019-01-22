@@ -104,7 +104,7 @@ void funcJacobi(const Matrix &mtr, const Param &prm, std::vector<double> &X) {
     do {
 
         for (int i = 0; i < mtr.poi.size() - 1; i++)
-            Xcur[(k + 1) % 2][i] = X[i] + Xcur[k % 2][i] * mtr.val[dgInd[i]];
+            Xcur[(k + 1) % 2][i] = -mtr.F[i] + Xcur[k % 2][i] * mtr.val[dgInd[i]];
 
         for (int i = 0; i < mtr.poi.size() - 1; i++)
             for (int j = mtr.poi[i]; j < mtr.poi[i + 1]; j++)

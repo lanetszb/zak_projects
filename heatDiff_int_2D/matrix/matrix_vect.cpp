@@ -184,7 +184,7 @@ void poi_calc(const Grid &grd, Matrix &mtr) {
         }
 
     value = 0;
-    for (int i = 1; i < grd.Nx; i++) {
+    for (int i = 1; i < grd.Nx + 1; i++) {
         value = mtr.poi[grd.gridN - (grd.Nx - 1) - 1] + i;
         mtr.poi.push_back(value);
     }
