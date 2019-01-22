@@ -3,7 +3,8 @@
 #include <matrix/matrix_coeff.h>
 #include <iostream>
 
-void func_matrixCalculation(Grid &grd, Matrix &mtr, Param &prm) {
+void func_matrixCalculation(const Grid &grd, Matrix &mtr, const Param &prm,
+                            const std::vector<double> &Xprev) {
 
     A_calc(grd, mtr, prm);
 
@@ -13,14 +14,13 @@ void func_matrixCalculation(Grid &grd, Matrix &mtr, Param &prm) {
 
     D_calc(grd, mtr, prm);
 
-    F_calc(grd, mtr, prm);
+    F_calc(grd, mtr, prm, Xprev);
 
-    C_calc(grd, mtr);
+    C_calc(grd, mtr, prm);
 
     val_calc(grd, mtr);
 
     col_calc(grd, mtr);
 
     poi_calc(grd, mtr);
-
 }

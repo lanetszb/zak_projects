@@ -13,13 +13,13 @@ std::vector<double> func_heatDistrib_ini(const int &Ny, const int &Nx,
                                          const double &T0, const double &Tl,
                                          const double &Tr);
 
+void funcJacobi(const Matrix &mtr, const Param &prm, std::vector<double> &X);
+
 
 int main(int narg, char **arg) {
 
     // ***reading the required input data***
     GetFromFile dataFile(arg[1]);
-
-
 
     auto grdFileNm = dataFile.getWord<std::string>("GRID_DATA");
     auto nodesFileNm = dataFile.getWord<std::string>("NODES_NUM");
@@ -33,24 +33,40 @@ int main(int narg, char **arg) {
     std::string dataFileName = arg[1];
     getParam(prm, grd, dataFileName);
 
+
     // Temp vector
 
-    auto heatDistr_ini = func_heatDistrib_ini(grd.Ny, grd.Nx, prm.T0, prm.Tl,
-                                              prm.Tr);
 
 
-    Plot plt;
+    auto X = func_heatDistrib_ini(grd.Ny, grd.Nx, prm.T0, prm.Tl, prm.Tr);
 
-    // func_plot(grd, plt, heatDistr_ini);
 
     Matrix mtr;
 
-    func_matrixCalculation(grd, mtr, prm);
+
+    for (double t = 0; t <= prm.time; t += prm.dt) {
+
+        func_matrixCalculation(grd, mtr, prm, X);
+
+        // running Jacobi solver
+        funcJacobi(mtr, prm, X);
+
+    }
+
+    Plot plt;
+
+    func_plot(grd, plt, X);
+
+
+    /*
+    for (int i = 0; i <= X.size(); i++)
+        std::cout << X[i] << std::endl;
+    std::cout << std::endl;
+     */
 
     return 0;
 
 }
-
 
 //***all the functions are listed below***
 
@@ -77,5 +93,64 @@ std::vector<double> func_heatDistrib_ini(const int &Ny, const int &Nx,
         heatDistrib_ini[i] = Tr;
 
     return heatDistrib_ini;
+
+}
+
+void funcJacobi(const Matrix &mtr, const Param &prm, std::vector<double> &X) {
+
+    double curTolerance = 0;
+
+    std::vector<std::vector<double>> Xcur{2, X};
+
+    std::vector<int> dgInd;
+    for (int i = 0; i < mtr.poi.size() - 1; i++)
+        for (int j = mtr.poi[i]; j < mtr.poi[i + 1]; j++)
+            if (i == mtr.col[j]) {
+                dgInd.push_back(j);
+                break;
+            }
+
+    unsigned int k = 0;
+
+//    for (int i = 0; i < mtr.val.size(); i++)
+//        std::cout << mtr.val[i] << ' ';
+//    std::cout << std::endl;
+//
+//    for (int i = 0; i < mtr.col.size(); i++)
+//        std::cout << mtr.col[i] << ' ';
+//    std::cout << std::endl;
+//
+//    for (int i = 0; i < mtr.poi.size(); i++)
+//        std::cout << mtr.poi[i] << ' ';
+//    std::cout << std::endl;
+//
+//    for (int i = 0; i < mtr.poi.size() - 1; i++)
+//        std::cout << mtr.val[dgInd[i]] << ' ';
+//    std::cout << std::endl;
+
+    do {
+
+        for (int i = 0; i < mtr.poi.size() - 1; i++)
+            Xcur[(k + 1) % 2][i] = X[i] + Xcur[k % 2][i] * mtr.val[dgInd[i]];
+
+        for (int i = 0; i < mtr.poi.size() - 1; i++)
+            for (int j = mtr.poi[i]; j < mtr.poi[i + 1]; j++)
+                Xcur[(k + 1) % 2][i] -= mtr.val[j] * Xcur[k % 2][mtr.col[j]];
+
+        for (int i = 0; i < mtr.poi.size() - 1; i++)
+            Xcur[(k + 1) % 2][i] /= mtr.val[dgInd[i]];
+
+        curTolerance = 0;
+        for (int i = 0; i < mtr.poi.size() - 1; i++)
+            curTolerance += fabs(2. * (Xcur[(k + 1) % 2][i] - Xcur[k % 2][i]) /
+                                 (Xcur[(k + 1) % 2][i] + Xcur[k % 2][i])) /
+                            X.size();
+        k++;
+
+
+    } while (curTolerance > prm.maxTolerance);
+
+
+    X = Xcur[k % 2];
 
 }

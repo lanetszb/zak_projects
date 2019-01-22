@@ -10,13 +10,13 @@
 
 // data output
 
-void func_plot(Grid &grd, Plot &plt, std::vector<double> heatDistr_ini) {
+void func_plot(Grid &grd, Plot &plt, std::vector<double> X) {
 
 
 
     plt.X_gnuplot = func_Xgnuplot(grd.X_coord, grd.Nx, grd.dx);
     plt.Y_gnuplot = func_Ygnuplot(grd.Y_coord, grd.Nx, grd.dy);
-    plt.T_gnuplot = func_Tgnuplot(grd.X_coord, plt.X_gnuplot, heatDistr_ini,
+    plt.T_gnuplot = func_Tgnuplot(grd.X_coord, plt.X_gnuplot, X,
                                   grd.Nx);
 
     func_oStream(grd, plt);
@@ -58,7 +58,7 @@ std::vector<double> func_Ygnuplot(std::vector<double> &Y_coord, const int &Nx,
 
 std::vector<double> func_Tgnuplot(std::vector<double> &X_coord,
                                   std::vector<double> &X_gnuplot,
-                                  std::vector<double> &heatDistr_ini,
+                                  std::vector<double> &X,
                                   const int &Nx) {
 
     std::vector<double> T_gnuplot(X_coord.size(), 0);
@@ -67,7 +67,7 @@ std::vector<double> func_Tgnuplot(std::vector<double> &X_coord,
         if (i % Nx == 0 && i != 0)
             j++;
 
-        T_gnuplot[i] = heatDistr_ini[i - j];
+        T_gnuplot[i] = X[i - j];
     }
 
     return T_gnuplot;

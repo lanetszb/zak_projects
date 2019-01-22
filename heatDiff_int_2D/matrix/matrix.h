@@ -5,6 +5,7 @@
 #include <matrix/matrix_struct.h>
 #include <param.h>
 
-void func_matrixCalculation(Grid &grd, Matrix &mtr, Param &prm);
+void func_matrixCalculation(const Grid &grd, Matrix &mtr, const Param &prm,
+                            const std::vector<double> &Xprev);
 
 #endif

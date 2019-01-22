@@ -5,16 +5,17 @@
 #include <matrix/matrix_struct.h>
 #include <param.h>
 
-void A_calc(Grid &grd, Matrix &mtr, Param &prm);
+void A_calc(const Grid &grd, Matrix &mtr, const Param &prm);
 
-void B_calc(Grid &grd, Matrix &mtr, Param &prm);
+void B_calc(const Grid &grd, Matrix &mtr, const Param &prm);
 
-void C_calc(Grid &grd, Matrix &mtr);
+void C_calc(const Grid &grd, Matrix &mtr, const Param &prm);
 
-void D_calc(Grid &grd, Matrix &mtr, Param &prm);
+void D_calc(const Grid &grd, Matrix &mtr, const Param &prm);
 
-void E_calc(Grid &grd, Matrix &mtr, Param &prm);
+void E_calc(const Grid &grd, Matrix &mtr, const Param &prm);
 
-void F_calc(Grid &grd, Matrix &mtr, Param &prm);
+void F_calc(const Grid &grd, Matrix &mtr, const Param &prm,
+            const std::vector<double> &Xprev);
 
 #endif

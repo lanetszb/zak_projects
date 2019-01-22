@@ -4,15 +4,16 @@
 #include <iostream>
 #include <iomanip>
 
-void val_calc(Grid &grd, Matrix &mtr) {
+void val_calc(const Grid &grd, Matrix &mtr) {
 // Vector Val
+    mtr.val.clear();
 
     double valSize = 0;
     valSize = grd.gridN + 4 * ((grd.Nx - 3) * (grd.Ny - 3));
 
 
     double value = 0;
-    //TODO first problem here. Fix it.
+
     for (int i = 0; i < grd.Nx - 1; i++) {
         value = mtr.C[i];
         mtr.val.push_back(value);
@@ -62,6 +63,7 @@ void val_calc(Grid &grd, Matrix &mtr) {
         indCur = grd.gridN - (grd.Nx - 1) + i;
         value = mtr.C[indCur];
         mtr.val.push_back(value);
+
     }
 
     for (int i = 0; i < mtr.val.size(); i++)
@@ -71,7 +73,9 @@ void val_calc(Grid &grd, Matrix &mtr) {
 }
 
 // Vector Col
-void col_calc(Grid &grd, Matrix &mtr) {
+void col_calc(const Grid &grd, Matrix &mtr) {
+
+    mtr.col.clear();
 
     double valSize = 0;
     valSize = grd.gridN + 4 * ((grd.Nx - 3) * (grd.Ny - 3));
@@ -164,7 +168,9 @@ void col_calc(Grid &grd, Matrix &mtr) {
 
 
 // Vector Poi
-void poi_calc(Grid &grd, Matrix &mtr) {
+void poi_calc(const Grid &grd, Matrix &mtr) {
+
+    mtr.poi.clear();
 
     double value = 0;
     double indCur = 0;
@@ -193,8 +199,8 @@ void poi_calc(Grid &grd, Matrix &mtr) {
         mtr.poi.push_back(value);
     }
 
-
     for (int i = 0; i < mtr.poi.size(); i++)
         std::cout << mtr.poi[i] << ' ';
+    std::cout << std::endl;
 
 }
