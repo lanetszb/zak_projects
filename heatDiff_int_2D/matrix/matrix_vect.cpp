@@ -66,10 +66,6 @@ void val_calc(const Grid &grd, Matrix &mtr) {
 
     }
 
-    for (int i = 0; i < mtr.val.size(); i++)
-        std::cout << mtr.val[i] << ' ';
-    std::cout << std::endl;
-
 }
 
 // Vector Col
@@ -150,7 +146,6 @@ void col_calc(const Grid &grd, Matrix &mtr) {
                 value = indCur;
                 mtr.col.push_back(value);
             }
-
         }
 
     value = 0;
@@ -158,11 +153,6 @@ void col_calc(const Grid &grd, Matrix &mtr) {
         value = i;
         mtr.col.push_back(value);
     }
-
-
-    for (int i = 0; i < mtr.col.size(); i++)
-        std::cout << mtr.col[i] << ' ';
-    std::cout << std::endl;
 
 }
 
@@ -199,8 +189,5 @@ void poi_calc(const Grid &grd, Matrix &mtr) {
         mtr.poi.push_back(value);
     }
 
-    for (int i = 0; i < mtr.poi.size(); i++)
-        std::cout << mtr.poi[i] << ' ';
-    std::cout << std::endl;
 
 }
