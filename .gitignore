@@ -3,3 +3,6 @@
 **/.DS_Store
 *.png
 *.PNG
+**/out.plt
+**/out.txt
+

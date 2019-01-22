@@ -6,6 +6,6 @@
 #include <param.h>
 
 void func_matrixCalculation(const Grid &grd, Matrix &mtr, const Param &prm,
-                            const std::vector<double> &Xprev);
+                            const std::vector<double> &Xprev, const double &dt);
 
 #endif

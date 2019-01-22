@@ -8,7 +8,7 @@
 #include <matrix/matrix.h>
 #include <param.h>
 
-//
+
 std::vector<double> func_heatDistrib_ini(const int &Ny, const int &Nx,
                                          const double &T0, const double &Tl,
                                          const double &Tr);
@@ -25,8 +25,9 @@ int main(int narg, char **arg) {
     auto nodesFileNm = dataFile.getWord<std::string>("NODES_NUM");
 
     Grid grd;
-
     func_gridCalculation(grd, grdFileNm, nodesFileNm);
+
+
     // ***Numerical solution for heat diffusion begins here***
 
     Param prm;
@@ -34,21 +35,15 @@ int main(int narg, char **arg) {
     getParam(prm, grd, dataFileName);
 
 
-    // Temp vector
-
-
-
     auto X = func_heatDistrib_ini(grd.Ny, grd.Nx, prm.T0, prm.Tl, prm.Tr);
 
 
     Matrix mtr;
 
+    for (double t = prm.dt; t <= prm.time; t += prm.dt) {
 
-    for (double t = 0; t <= prm.time; t += prm.dt) {
+        func_matrixCalculation(grd, mtr, prm, X, prm.dt);
 
-        func_matrixCalculation(grd, mtr, prm, X);
-
-        // running Jacobi solver
         funcJacobi(mtr, prm, X);
 
     }
@@ -57,12 +52,6 @@ int main(int narg, char **arg) {
 
     func_plot(grd, plt, X);
 
-
-    /*
-    for (int i = 0; i <= X.size(); i++)
-        std::cout << X[i] << std::endl;
-    std::cout << std::endl;
-     */
 
     return 0;
 
@@ -112,26 +101,10 @@ void funcJacobi(const Matrix &mtr, const Param &prm, std::vector<double> &X) {
 
     unsigned int k = 0;
 
-//    for (int i = 0; i < mtr.val.size(); i++)
-//        std::cout << mtr.val[i] << ' ';
-//    std::cout << std::endl;
-//
-//    for (int i = 0; i < mtr.col.size(); i++)
-//        std::cout << mtr.col[i] << ' ';
-//    std::cout << std::endl;
-//
-//    for (int i = 0; i < mtr.poi.size(); i++)
-//        std::cout << mtr.poi[i] << ' ';
-//    std::cout << std::endl;
-//
-//    for (int i = 0; i < mtr.poi.size() - 1; i++)
-//        std::cout << mtr.val[dgInd[i]] << ' ';
-//    std::cout << std::endl;
-
     do {
 
         for (int i = 0; i < mtr.poi.size() - 1; i++)
-            Xcur[(k + 1) % 2][i] = X[i] + Xcur[k % 2][i] * mtr.val[dgInd[i]];
+            Xcur[(k + 1) % 2][i] = -mtr.F[i] + Xcur[k % 2][i] * mtr.val[dgInd[i]];
 
         for (int i = 0; i < mtr.poi.size() - 1; i++)
             for (int j = mtr.poi[i]; j < mtr.poi[i + 1]; j++)

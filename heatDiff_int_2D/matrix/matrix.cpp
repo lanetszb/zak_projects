@@ -4,7 +4,8 @@
 #include <iostream>
 
 void func_matrixCalculation(const Grid &grd, Matrix &mtr, const Param &prm,
-                            const std::vector<double> &Xprev) {
+                            const std::vector<double> &Xprev,
+                            const double &dt) {
 
     A_calc(grd, mtr, prm);
 
@@ -14,9 +15,9 @@ void func_matrixCalculation(const Grid &grd, Matrix &mtr, const Param &prm,
 
     D_calc(grd, mtr, prm);
 
-    F_calc(grd, mtr, prm, Xprev);
+    F_calc(grd, mtr, prm, Xprev, dt);
 
-    C_calc(grd, mtr, prm);
+    C_calc(grd, mtr, prm, dt);
 
     val_calc(grd, mtr);
 

@@ -84,10 +84,6 @@ std::vector<double> omegaRight_Ycent_calc(Grid &grd) {
             grd.omegaLeft_Ycent.push_back(value);
         }
 
-    /* for (int i =0; i <grd.omegaLeft_Ycent.size(); i++)
-         std::cout<<grd.omegaLeft_Ycent[i]<<std::endl;
-     std::cout<<std::endl;*/
-
     return grd.omegaLeft_Ycent;
 }
 
@@ -175,20 +171,3 @@ void omegaBot_Ycent_calc(Grid &grd) {
         }
 
 }
-
-/*
-std::cout << X_coord[i + j + Nx] << "  ";
-std::cout << X_coord[i + j] << "  ";
-std::cout << j << " ";
-
-
-if (i % (Nx - 1) == 0 && i != 0)
-j++;
-
-
-std::cout << " vector: " << std::setw(width) << omega_iMinus_Xcent[i];
-std::cout << " formula: " << std::setw(width)
-<< (X_coord[i + j + Nx] + X_coord[i + j]) / 2;
-
-std::cout << " " << j;
-std::cout << std::endl;*/

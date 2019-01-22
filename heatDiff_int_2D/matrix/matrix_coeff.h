@@ -9,13 +9,13 @@ void A_calc(const Grid &grd, Matrix &mtr, const Param &prm);
 
 void B_calc(const Grid &grd, Matrix &mtr, const Param &prm);
 
-void C_calc(const Grid &grd, Matrix &mtr, const Param &prm);
+void C_calc(const Grid &grd, Matrix &mtr, const Param &prm, const double &dt);
 
 void D_calc(const Grid &grd, Matrix &mtr, const Param &prm);
 
 void E_calc(const Grid &grd, Matrix &mtr, const Param &prm);
 
 void F_calc(const Grid &grd, Matrix &mtr, const Param &prm,
-            const std::vector<double> &Xprev);
+            const std::vector<double> &Xprev, const double &dt);
 
 #endif

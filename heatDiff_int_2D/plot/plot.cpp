@@ -108,8 +108,8 @@ std::vector<double> func_Tgnuplot(std::vector<double> &X_coord,
         oStream << "set size square" << std::endl;
         oStream << "set pm3d map" << std::endl;
         oStream << "set cntrparam levels auto 7" << std::endl;
-        oStream << "set cbtics 2000" << std::endl;
-        oStream << "set zrange [0:1000]" << std::endl;
+        // oStream << "set cbtics 2000" << std::endl;
+        oStream << "set zrange [0:]" << std::endl;
         oStream << "set palette rgbformulae 7,5,15" << std::endl;
         oStream << "set samples 10" << std::endl;
         oStream << "set isosamples 10" << std::endl;
