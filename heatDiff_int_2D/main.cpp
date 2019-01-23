@@ -29,6 +29,7 @@ int main(int narg, char **arg) {
     Grid grd;
     func_gridCalculation(grd, grdFileNm, nodesFileNm);
 
+    getLamb(thermalCond_table);
 
     // ***Numerical solution for heat diffusion begins here***
 

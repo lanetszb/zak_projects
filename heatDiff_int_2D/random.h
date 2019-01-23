@@ -6,4 +6,6 @@
 
 void funcJacobi(const Matrix &mtr, const Param &prm, std::vector<double> &X);
 
+void getLamb(const std::string &thermalCond_table);
+
 #endif
