@@ -24,3 +24,5 @@ MAX_TOLERANCE 1.E-10
 
 GRID_DATA grid_nodes.txt
 
+THERMALCOND_TABLE table.txt
+

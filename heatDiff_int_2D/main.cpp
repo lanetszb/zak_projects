@@ -23,6 +23,7 @@ int main(int narg, char **arg) {
 
     auto grdFileNm = dataFile.getWord<std::string>("GRID_DATA");
     auto nodesFileNm = dataFile.getWord<std::string>("NODES_NUM");
+    auto thermalCond_table = dataFile.getWord<std::string>("THERMALCOND_TABLE");
 
     Grid grd;
     func_gridCalculation(grd, grdFileNm, nodesFileNm);
