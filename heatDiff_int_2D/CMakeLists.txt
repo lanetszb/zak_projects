@@ -15,6 +15,6 @@ set(SOURCE_FILES
 
         param.cpp
 
-        )
+        random.cpp)
 
 add_executable(heatDiff_int_2D ${SOURCE_FILES})
