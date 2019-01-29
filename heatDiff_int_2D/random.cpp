@@ -32,7 +32,7 @@ void func_getLeft_lamb(Lamb &lmb,
 
     for (int i = 1; i < gridN; i++)
         lambTemp[i] = 2 * X[i - 1] * X[i] / (X[i] + X[i - 1]);
-    
+
     lmb.leftLamb.clear();
 
     for (int i = 0; i < gridN; i++)
