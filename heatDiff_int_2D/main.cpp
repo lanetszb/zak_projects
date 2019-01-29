@@ -29,8 +29,6 @@ int main(int narg, char **arg) {
     Grid grd;
     func_gridCalculation(grd, grdFileNm, nodesFileNm);
 
-    getLamb(thermalCond_table);
-
     // ***Numerical solution for heat diffusion begins here***
 
     Param prm;
@@ -40,6 +38,11 @@ int main(int narg, char **arg) {
 
     auto X = func_heatDistrib_ini(grd.Ny, grd.Nx, prm.T0, prm.Tl, prm.Tr);
 
+    Lamb lmb;
+
+    readLamb(lmb, thermalCond_table);
+
+    /*, grd.gridN, X*/
 
     Matrix mtr;
 
@@ -50,6 +53,22 @@ int main(int narg, char **arg) {
         funcJacobi(mtr, prm, X);
 
     }
+
+    std::vector<double> lamb(grd.gridN, prm.lambda);
+
+//    GetFromFile lambTable(thermalCond_table);
+//
+//    int vec2DCol = lambTable.getWord<int>("vec2DCol");
+//    std::vector<double> vec1DFor2D = lambTable.getVector<double>("vec2D");
+//    std::vector<std::vector<double> > vec2D;
+//    for (int i = 0; i < vec1DFor2D.size() / vec2DCol; i++) {
+//        vec2D.push_back(std::vector<double>());
+//        for (int j = 0; j < vec2DCol; j++)
+//            vec2D.back().push_back(vec1DFor2D[i * vec2DCol + j]);
+//    }
+
+    func_getLeft_lamb(lmb, grd, X);
+
 
     Plot plt;
 

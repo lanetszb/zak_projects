@@ -5,26 +5,53 @@
 #include <iostream>
 #include <random.h>
 
-void getLamb(const std::string &thermalCond_table) {
-    GetFromFile lambTable(thermalCond_table);
 
-    int vec2DCol = lambTable.getWord<int>("vec2DCol");
-    std::vector<double> vec1DFor2D = lambTable.getVector<double>("vec2D");
-    std::vector<std::vector<double> > vec2D;
+void readLamb(Lamb &lmb, const std::string &thermalCond_table) {
+
+    GetFromFile readTable(thermalCond_table);
+
+    int vec2DCol = readTable.getWord<int>("vec2DCol");
+    std::vector<double> vec1DFor2D = readTable.getVector<double>("vec2D");
+
+
     for (int i = 0; i < vec1DFor2D.size() / vec2DCol; i++) {
-        vec2D.push_back(std::vector<double>());
+        lmb.lambTable.push_back(std::vector<double>());
         for (int j = 0; j < vec2DCol; j++)
-            vec2D.back().push_back(vec1DFor2D[i * vec2DCol + j]);
+            lmb.lambTable.back().push_back(vec1DFor2D[i * vec2DCol + j]);
     }
+}
 
-    std::cout << "vec2DCol " << vec2DCol << std::endl;
-    std::cout << "vec2D" << std::endl;
-    for (int i = 0; i < vec2D.size(); i++) {
-        for (int j = 0; j < vec2D[i].size(); j++)
-            std::cout << vec2D[i][j] << " ";
-        std::cout << std::endl;
-    }
-    std::cout << std::endl;
+void func_getLeft_lamb(Lamb &lmb,
+                       const Grid &grd, const std::vector<double> &X) {
+
+    int gridN = (grd.Nx - 1) * (grd.Ny - 1);
+
+    std::vector<double> lambTemp;
+    lambTemp = std::vector<double>(gridN, 0);
+
+
+    for (int i = 1; i < gridN; i++)
+        lambTemp[i] = 2 * X[i - 1] * X[i] / (X[i] + X[i - 1]);
+    
+    lmb.leftLamb.clear();
+
+    for (int i = 0; i < gridN; i++)
+        for (int j = 0; j < gridN; j++) {
+            if (lambTemp[i] >= lmb.lambTable[j][0] &&
+                lambTemp[i] < lmb.lambTable[j + 1][0]) {
+                lmb.leftLamb.push_back(
+                        lmb.lambTable[j][1] +
+                        ((lmb.lambTable[j + 1][1] - lmb.lambTable[j][1]) /
+                         (lmb.lambTable[j + 1][0] - lmb.lambTable[j][0])) *
+                        (lambTemp[i] - lmb.lambTable[j][0])
+                );
+                break;
+            }
+        }
+
+    /*for (int i = 0; i < lmb.leftLamb.size(); i++)
+        std::cout << lmb.leftLamb[i] << " ";
+    std::cout << std::endl << " ";*/
 }
 
 void funcJacobi(const Matrix &mtr, const Param &prm, std::vector<double> &X) {
@@ -68,5 +95,6 @@ void funcJacobi(const Matrix &mtr, const Param &prm, std::vector<double> &X) {
 
 
     X = Xcur[k % 2];
-
 }
+
+
