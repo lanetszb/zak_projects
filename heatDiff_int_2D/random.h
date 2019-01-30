@@ -26,4 +26,7 @@ void readLamb(Lamb &lmb, const std::string &thermalCond_table);
 void getLeft_lamb(Lamb &lmb,
                   const Grid &grd, const std::vector<double> &X);
 
+void getRight_lamb(Lamb &lmb,
+                  const Grid &grd, const std::vector<double> &X);
+
 #endif
