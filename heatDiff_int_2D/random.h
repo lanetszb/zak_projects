@@ -23,7 +23,7 @@ void funcJacobi(const Matrix &mtr, const Param &prm, std::vector<double> &X);
 
 void readLamb(Lamb &lmb, const std::string &thermalCond_table);
 
-void func_getLeft_lamb(Lamb &lmb,
-                       const Grid &grd, const std::vector<double> &X);
+void getLeft_lamb(Lamb &lmb,
+                  const Grid &grd, const std::vector<double> &X);
 
 #endif

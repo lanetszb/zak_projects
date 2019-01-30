@@ -67,7 +67,7 @@ int main(int narg, char **arg) {
 //            vec2D.back().push_back(vec1DFor2D[i * vec2DCol + j]);
 //    }
 
-    func_getLeft_lamb(lmb, grd, X);
+    getLeft_lamb(lmb, grd, X);
 
 
     Plot plt;

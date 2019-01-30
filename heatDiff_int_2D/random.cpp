@@ -21,8 +21,8 @@ void readLamb(Lamb &lmb, const std::string &thermalCond_table) {
     }
 }
 
-void func_getLeft_lamb(Lamb &lmb,
-                       const Grid &grd, const std::vector<double> &X) {
+void getLeft_lamb(Lamb &lmb,
+                  const Grid &grd, const std::vector<double> &X) {
 
     int gridN = (grd.Nx - 1) * (grd.Ny - 1);
 
@@ -49,7 +49,7 @@ void func_getLeft_lamb(Lamb &lmb,
             }
         }
 
-    /*for (int i = 0; i < lmb.leftLamb.size(); i++)
+  /*  for (int i = 0; i < lmb.leftLamb.size(); i++)
         std::cout << lmb.leftLamb[i] << " ";
     std::cout << std::endl << " ";*/
 }
