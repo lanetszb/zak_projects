@@ -13,7 +13,6 @@ void readLamb(Lamb &lmb, const std::string &thermalCond_table) {
     int vec2DCol = readTable.getWord<int>("vec2DCol");
     std::vector<double> vec1DFor2D = readTable.getVector<double>("vec2D");
 
-
     for (int i = 0; i < vec1DFor2D.size() / vec2DCol; i++) {
         lmb.lambTable.push_back(std::vector<double>());
         for (int j = 0; j < vec2DCol; j++)
@@ -28,7 +27,6 @@ void getLeft_lamb(Lamb &lmb,
 
     std::vector<double> lambTemp;
     lambTemp = std::vector<double>(gridN, 0);
-
 
     for (int i = 1; i < gridN; i++)
         lambTemp[i] = 2 * X[i - 1] * X[i] / (X[i] + X[i - 1]);
@@ -48,10 +46,6 @@ void getLeft_lamb(Lamb &lmb,
                 break;
             }
         }
-
-    /*  for (int i = 0; i < lmb.leftLamb.size(); i++)
-          std::cout << lmb.leftLamb[i] << " ";
-      std::cout << std::endl << " ";*/
 }
 
 void getRight_lamb(Lamb &lmb,
@@ -138,7 +132,6 @@ void getBot_lamb(Lamb &lmb,
             }
         }
 }
-
 
 void funcJacobi(const Matrix &mtr, const Param &prm, std::vector<double> &X) {
 
