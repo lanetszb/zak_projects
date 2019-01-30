@@ -27,9 +27,12 @@ void getLeft_lamb(Lamb &lmb,
                   const Grid &grd, const std::vector<double> &X);
 
 void getRight_lamb(Lamb &lmb,
-                  const Grid &grd, const std::vector<double> &X);
+                   const Grid &grd, const std::vector<double> &X);
 
 void getTop_lamb(Lamb &lmb,
-                   const Grid &grd, const std::vector<double> &X);
+                 const Grid &grd, const std::vector<double> &X);
+
+void getBot_lamb(Lamb &lmb,
+                 const Grid &grd, const std::vector<double> &X);
 
 #endif

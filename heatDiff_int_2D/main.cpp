@@ -70,6 +70,7 @@ int main(int narg, char **arg) {
     getLeft_lamb(lmb, grd, X);
     getRight_lamb(lmb, grd, X);
     getTop_lamb(lmb, grd, X);
+    getBot_lamb(lmb, grd, X);
 
 
     Plot plt;
