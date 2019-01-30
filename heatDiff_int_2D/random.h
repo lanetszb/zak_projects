@@ -29,4 +29,7 @@ void getLeft_lamb(Lamb &lmb,
 void getRight_lamb(Lamb &lmb,
                   const Grid &grd, const std::vector<double> &X);
 
+void getTop_lamb(Lamb &lmb,
+                   const Grid &grd, const std::vector<double> &X);
+
 #endif

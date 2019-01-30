@@ -39,12 +39,12 @@ void getLeft_lamb(Lamb &lmb,
         for (int j = 0; j < gridN; j++) {
             if (lambTemp[i] >= lmb.lambTable[j][0] &&
                 lambTemp[i] < lmb.lambTable[j + 1][0]) {
-                lmb.leftLamb.push_back(
-                        lmb.lambTable[j][1] +
-                        ((lmb.lambTable[j + 1][1] - lmb.lambTable[j][1]) /
-                         (lmb.lambTable[j + 1][0] - lmb.lambTable[j][0])) *
-                        (lambTemp[i] - lmb.lambTable[j][0])
-                );
+                lmb.leftLamb.push_back(lmb.lambTable[j][1] +
+                                       ((lmb.lambTable[j + 1][1] -
+                                         lmb.lambTable[j][1]) /
+                                        (lmb.lambTable[j + 1][0] -
+                                         lmb.lambTable[j][0])) *
+                                       (lambTemp[i] - lmb.lambTable[j][0]));
                 break;
             }
         }
@@ -71,16 +71,45 @@ void getRight_lamb(Lamb &lmb,
         for (int j = 0; j < gridN; j++) {
             if (lambTemp[i] >= lmb.lambTable[j][0] &&
                 lambTemp[i] < lmb.lambTable[j + 1][0]) {
-                lmb.rightLamb.push_back(
-                        lmb.lambTable[j][1] +
-                        ((lmb.lambTable[j + 1][1] - lmb.lambTable[j][1]) /
-                         (lmb.lambTable[j + 1][0] - lmb.lambTable[j][0])) *
-                        (lambTemp[i] - lmb.lambTable[j][0])
-                );
+                lmb.rightLamb.push_back(lmb.lambTable[j][1] +
+                                        ((lmb.lambTable[j + 1][1] -
+                                          lmb.lambTable[j][1]) /
+                                         (lmb.lambTable[j + 1][0] -
+                                          lmb.lambTable[j][0])) *
+                                        (lambTemp[i] - lmb.lambTable[j][0]));
                 break;
             }
         }
 }
+
+void getTop_lamb(Lamb &lmb,
+                 const Grid &grd, const std::vector<double> &X) {
+
+    int gridN = (grd.Nx - 1) * (grd.Ny - 1);
+
+    std::vector<double> lambTemp;
+    lambTemp = std::vector<double>(gridN, 0);
+
+    for (int i = 0; i < gridN - (grd.Nx - 1); i++)
+        lambTemp[i] = 2 * X[i + grd.Nx - 1] * X[i] / (X[i] + X[i + grd.Nx - 1]);
+
+    lmb.topLamb.clear();
+
+    for (int i = 0; i < gridN; i++)
+        for (int j = 0; j < gridN; j++) {
+            if (lambTemp[i] >= lmb.lambTable[j][0] &&
+                lambTemp[i] < lmb.lambTable[j + 1][0]) {
+                lmb.topLamb.push_back(lmb.lambTable[j][1] +
+                                        ((lmb.lambTable[j + 1][1] -
+                                          lmb.lambTable[j][1]) /
+                                         (lmb.lambTable[j + 1][0] -
+                                          lmb.lambTable[j][0])) *
+                                        (lambTemp[i] - lmb.lambTable[j][0]));
+                break;
+            }
+        }
+}
+
 
 void funcJacobi(const Matrix &mtr, const Param &prm, std::vector<double> &X) {
 
