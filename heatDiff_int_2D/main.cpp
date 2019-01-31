@@ -81,10 +81,6 @@ std::vector<double> func_heatDistrib_ini(const int &Ny, const int &Nx,
     std::vector<double> heatDistrib_ini(gridN, T0);
 
 
-    for (int i = (Nx - 1);
-         i < heatDistrib_ini.size() - (Nx - 1); i += Nx - 1)
-        heatDistrib_ini[i] = Tl;
-
     for (int i = 2 * (Nx - 2) + 1;
          i < heatDistrib_ini.size() - (Nx - 1); i += Nx - 1)
         heatDistrib_ini[i] = Tr;
@@ -95,6 +91,10 @@ std::vector<double> func_heatDistrib_ini(const int &Ny, const int &Nx,
     for (int i = heatDistrib_ini.size() - (Nx - 1);
          i < heatDistrib_ini.size(); i++)
         heatDistrib_ini[i] = Tr;
+
+    for (int i = (Nx - 1);
+         i < heatDistrib_ini.size() - (Nx - 1); i += Nx - 1)
+        heatDistrib_ini[i] = Tl;
 
 
 
