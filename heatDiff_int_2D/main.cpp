@@ -37,6 +37,11 @@ int main(int narg, char **arg) {
 
     auto X = func_heatDistrib_ini(grd.Ny, grd.Nx, prm.T0, prm.Tl, prm.Tr);
 
+    for (int i = 0; i < X.size(); i++)
+        std::cout << X[i] << ' ';
+    std::cout << std::endl;
+
+
     Lamb lmb;
     readLamb(lmb, thermalCond_table);
 
@@ -75,20 +80,23 @@ std::vector<double> func_heatDistrib_ini(const int &Ny, const int &Nx,
     int gridN = (Nx - 1) * (Ny - 1);
     std::vector<double> heatDistrib_ini(gridN, T0);
 
-    for (int i = 0; i < (Nx - 2); i++)
-        heatDistrib_ini[i] = Tl;
 
     for (int i = (Nx - 1);
-         i < heatDistrib_ini.size() - (Nx - 2); i += Nx - 1)
+         i < heatDistrib_ini.size() - (Nx - 1); i += Nx - 1)
         heatDistrib_ini[i] = Tl;
 
-    for (int i = heatDistrib_ini.size() - (Nx - 2);
+    for (int i = 2 * (Nx - 2) + 1;
+         i < heatDistrib_ini.size() - (Nx - 1); i += Nx - 1)
+        heatDistrib_ini[i] = Tr;
+
+    for (int i = 0; i < Nx - 1; i++)
+        heatDistrib_ini[i] = Tl;
+
+    for (int i = heatDistrib_ini.size() - (Nx - 1);
          i < heatDistrib_ini.size(); i++)
         heatDistrib_ini[i] = Tr;
 
-    for (int i = (Nx - 2);
-         i < heatDistrib_ini.size() - (Nx - 1); i += Nx - 1)
-        heatDistrib_ini[i] = Tr;
+
 
     return heatDistrib_ini;
 
