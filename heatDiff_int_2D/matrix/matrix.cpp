@@ -4,16 +4,17 @@
 #include <iostream>
 
 void func_matrixCalculation(const Grid &grd, Matrix &mtr, const Param &prm,
+                            const Lamb &lmb,
                             const std::vector<double> &Xprev,
                             const double &dt) {
 
-    A_calc(grd, mtr, prm);
+    A_calc(grd, mtr, prm, lmb);
 
-    E_calc(grd, mtr, prm);
+    E_calc(grd, mtr, prm, lmb);
 
-    B_calc(grd, mtr, prm);
+    B_calc(grd, mtr, prm, lmb);
 
-    D_calc(grd, mtr, prm);
+    D_calc(grd, mtr, prm, lmb);
 
     F_calc(grd, mtr, prm, Xprev, dt);
 

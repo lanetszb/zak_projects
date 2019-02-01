@@ -14,9 +14,6 @@ std::vector<double> func_heatDistrib_ini(const int &Ny, const int &Nx,
                                          const double &T0, const double &Tl,
                                          const double &Tr);
 
-/*void funcJacobi(const Matrix &mtr, const Param &prm, std::vector<double> &X);*/
-
-
 int main(int narg, char **arg) {
 
     // ***reading the required input data***
@@ -45,24 +42,19 @@ int main(int narg, char **arg) {
     Lamb lmb;
     readLamb(lmb, thermalCond_table);
 
-    /*, grd.gridN, X*/
+    getLeft_lamb(lmb, grd, X);
+    getRight_lamb(lmb, grd, X);
+    getTop_lamb(lmb, grd, X);
+    getBot_lamb(lmb, grd, X);
 
     Matrix mtr;
 
     for (double t = prm.dt; t <= prm.time; t += prm.dt) {
 
-        func_matrixCalculation(grd, mtr, prm, X, prm.dt);
+        func_matrixCalculation(grd, mtr, prm, lmb, X, prm.dt);
 
         funcJacobi(mtr, prm, X);
-
     }
-
-    std::vector<double> lamb(grd.gridN, prm.lambda);
-
-    getLeft_lamb(lmb, grd, X);
-    getRight_lamb(lmb, grd, X);
-    getTop_lamb(lmb, grd, X);
-    getBot_lamb(lmb, grd, X);
 
     Plot plt;
 
@@ -97,8 +89,6 @@ std::vector<double> func_heatDistrib_ini(const int &Ny, const int &Nx,
         heatDistrib_ini[i] = Tl;
 
 
-
     return heatDistrib_ini;
-
 }
 

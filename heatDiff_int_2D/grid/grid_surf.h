@@ -16,7 +16,6 @@ std::vector<double> omegaRight_calc(Grid &grd);
 
 std::vector<double> omegaLeft_calc(Grid &grd);
 
-
 std::vector<double> omegaRight_Xcent_calc(Grid &grd);
 
 std::vector<double> omegaRight_Ycent_calc(Grid &grd);

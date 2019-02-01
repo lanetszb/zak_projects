@@ -20,11 +20,6 @@ struct Param {
     double capac;
 
     double maxTolerance;
-
-    std::vector<double> getBot_lambda;
-    std::vector<double> getTop_lambda;
-    std::vector<double> getLeft_lambda;
-    std::vector<double> getRight_lambda;
 };
 
 #endif 
