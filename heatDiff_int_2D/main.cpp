@@ -34,11 +34,6 @@ int main(int narg, char **arg) {
 
     auto X = func_heatDistrib_ini(grd.Ny, grd.Nx, prm.T0, prm.Tl, prm.Tr);
 
-    for (int i = 0; i < X.size(); i++)
-        std::cout << X[i] << ' ';
-    std::cout << std::endl;
-
-
     Lamb lmb;
     readLamb(lmb, thermalCond_table);
 
@@ -56,8 +51,9 @@ int main(int narg, char **arg) {
         funcJacobi(mtr, prm, X);
     }
 
-    Plot plt;
 
+
+    Plot plt;
     func_plot(grd, plt, X);
 
     return 0;

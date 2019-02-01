@@ -10,7 +10,7 @@ tempRight 10 deg
 
 tempTop 10 deg
 
-tempIni 0 deg
+tempIni 0.00001 deg
 
 NODES_NUM  grid_dim.txt
 

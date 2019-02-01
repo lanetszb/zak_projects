@@ -18,15 +18,18 @@ void readLamb(Lamb &lmb, const std::string &thermalCond_table) {
         for (int j = 0; j < vec2DCol; j++)
             lmb.lambTable.back().push_back(vec1DFor2D[i * vec2DCol + j]);
     }
+
 }
 
 void getLeft_lamb(Lamb &lmb,
                   const Grid &grd, const std::vector<double> &X) {
 
+
     int gridN = (grd.Nx - 1) * (grd.Ny - 1);
 
     std::vector<double> lambTemp;
     lambTemp = std::vector<double>(gridN, 0);
+
 
     for (int i = 1; i < gridN; i++)
         lambTemp[i] = 2 * X[i - 1] * X[i] / (X[i] + X[i - 1]);

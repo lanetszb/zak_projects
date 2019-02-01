@@ -33,6 +33,7 @@ std::vector<double> func_Xgnuplot(std::vector<double> &X_coord, const int &Nx,
         X_gnuplot[i] = X_gnuplot[i - 1];
         if (i % Nx == 0)
             X_gnuplot[i] = X_gnuplot[i] + dx;
+
     }
     return X_gnuplot;
 }
@@ -82,7 +83,6 @@ void func_oStream(Grid &grd, Plot &plt) {
     int width = 7;
 
     oStream.open("out.txt");
-
 
     for (int i = 0; i < plt.X_gnuplot.size(); i++) {
 
