@@ -13,7 +13,7 @@ set(SOURCE_FILES
 
         matrix/matrix.cpp matrix/matrix_coeff.cpp matrix/matrix_vect.cpp
 
-        param.cpp
+        param/param.cpp
 
         random.cpp)
 

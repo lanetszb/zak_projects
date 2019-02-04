@@ -1,4 +1,4 @@
-#include <param.h>
+#include <param/param.h>
 #include <GetFromFile.h>
 
 void getParam(Param &prm, Grid &grd, std::string &dataFileName) {
