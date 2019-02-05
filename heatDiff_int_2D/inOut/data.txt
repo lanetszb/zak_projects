@@ -26,3 +26,7 @@ GRID_DATA grid_nodes.txt
 
 THERMALCOND_TABLE tableLamb.txt
 
+DENSITY_TABLE tableDens.txt
+
+CAPACITY_TABLE tableCapac.txt
+

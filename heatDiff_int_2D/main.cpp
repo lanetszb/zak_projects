@@ -7,7 +7,7 @@
 #include <plot/plot.h>
 #include <random.h>
 #include <matrix/matrix.h>
-#include <param.h>
+#include <param/param.h>
 
 
 std::vector<double> func_heatDistrib_ini(const int &Ny, const int &Nx,
@@ -22,6 +22,8 @@ int main(int narg, char **arg) {
     auto grdFileNm = dataFile.getWord<std::string>("GRID_DATA");
     auto nodesFileNm = dataFile.getWord<std::string>("NODES_NUM");
     auto thermalCond_table = dataFile.getWord<std::string>("THERMALCOND_TABLE");
+    auto density_table = dataFile.getWord<std::string>("DENSITY_TABLE");
+    auto heatCapacity_table = dataFile.getWord<std::string>("CAPACITY_TABLE");
 
     Grid grd;
     func_gridCalculation(grd, grdFileNm, nodesFileNm);
@@ -36,6 +38,8 @@ int main(int narg, char **arg) {
 
     Lamb lmb;
     readLamb(lmb, thermalCond_table);
+    readDens(lmb, density_table);
+    readCapac(lmb, heatCapacity_table);
 
     getLeft_lamb(lmb, grd, X);
     getRight_lamb(lmb, grd, X);
@@ -50,7 +54,6 @@ int main(int narg, char **arg) {
 
         funcJacobi(mtr, prm, X);
     }
-
 
 
     Plot plt;
