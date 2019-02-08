@@ -192,6 +192,34 @@ void getDensity(Lamb &lmb,
         }
 }
 
+void getCapacity(Lamb &lmb,
+                const Grid &grd, const std::vector<double> &X) {
+
+    int gridN = (grd.Nx - 1) * (grd.Ny - 1);
+
+    std::vector<double> capacityTemp;
+    capacityTemp = std::vector<double>(gridN, 0);
+
+    for (int i = 0; i < gridN; i++)
+        capacityTemp[i] = X[i];
+
+    lmb.density.clear();
+
+    for (int i = 0; i < gridN; i++)
+        for (int j = 0; j < lmb.capacTable.size(); j++) {
+            if (capacityTemp[i] >= lmb.capacTable[j][0] &&
+                    capacityTemp[i] < lmb.capacTable[j + 1][0]) {
+                lmb.capacity.push_back(lmb.capacTable[j][1] +
+                                      ((lmb.capacTable[j + 1][1] -
+                                        lmb.capacTable[j][1]) /
+                                       (lmb.capacTable[j + 1][0] -
+                                        lmb.capacTable[j][0])) *
+                                      (capacityTemp[i] - lmb.densTable[j][0]));
+                break;
+            }
+        }
+}
+
 void funcJacobi(const Matrix &mtr, const Param &prm, std::vector<double> &X) {
 
     double curTolerance = 0;

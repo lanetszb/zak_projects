@@ -16,8 +16,8 @@ struct Param {
     double Tbot;
     double T0;
 
-    double dens;
-    double capac;
+    /*double dens;*/
+    /*double capac;*/
 
     double maxTolerance;
 };

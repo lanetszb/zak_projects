@@ -56,8 +56,6 @@ void E_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Lamb &lmb) {
     for (int i = (grd.Nx - 2);
          i < mtr.E.size() - (grd.Nx - 1); i += grd.Nx - 1)
         mtr.E[i] = 0;
-
-
 }
 
 // B coefficient
@@ -85,8 +83,6 @@ void B_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Lamb &lmb) {
     for (int i = (grd.Nx - 2);
          i < mtr.B.size() - (grd.Nx - 1); i += grd.Nx - 1)
         mtr.B[i] = 0;
-
-
 }
 
 // D coefficient
@@ -113,52 +109,48 @@ void D_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Lamb &lmb) {
     for (int i = (grd.Nx - 2);
          i < mtr.D.size() - (grd.Nx - 1); i += grd.Nx - 1)
         mtr.D[i] = 0;
-
-
 }
 
 
 // F coefficient
-void F_calc(const Grid &grd, Matrix &mtr, const Param &prm,
+void F_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Lamb &lmb,
             const std::vector<double> &Xprev, const double &dt) {
 
     mtr.F.clear();
     mtr.F = std::vector<double>(grd.gridN, 0);
 
     for (int i = 0; i < grd.gridN; i++)
-        mtr.F[i] = Xprev[i] * (-1 * grd.gridVolume[i] * prm.dens * prm.capac) /
+        mtr.F[i] = Xprev[i] *
+                   (-1 * grd.gridVolume[i] * lmb.density[i] * lmb.capacity[i]) /
                    dt;
-
-
 }
 
 // С coefficient
-void C_calc(const Grid &grd, Matrix &mtr, const Param &prm, const double &dt) {
+void C_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Lamb &lmb,
+            const double &dt) {
 
     mtr.C.clear();
     mtr.C = std::vector<double>(grd.gridN, 0);
 
 
     for (int i = 0; i < grd.gridN; i++)
-        mtr.C[i] = (grd.gridVolume[i] * prm.dens * prm.capac / dt) +
+        mtr.C[i] = (grd.gridVolume[i] * lmb.density[i] * lmb.capacity[i] / dt) +
                    (-1 * mtr.A[i]) + (-1 * mtr.B[i]) + (-1 * mtr.D[i]) +
                    (-1 * mtr.E[i]);
 
     for (int i = 0; i < (grd.Nx - 2); i++)
-        mtr.C[i] = grd.gridVolume[i] * prm.dens * prm.capac / dt;
+        mtr.C[i] = grd.gridVolume[i] * lmb.density[i] * lmb.capacity[i] / dt;
 
     for (int i = (grd.Nx - 1);
          i < mtr.C.size() - (grd.Nx - 2); i += grd.Nx - 1)
-        mtr.C[i] = grd.gridVolume[i] * prm.dens * prm.capac / dt;
+        mtr.C[i] = grd.gridVolume[i] * lmb.density[i] * lmb.capacity[i] / dt;
 
     for (int i = mtr.C.size() - (grd.Nx - 2);
          i < mtr.C.size(); i++)
-        mtr.C[i] = grd.gridVolume[i] * prm.dens * prm.capac / dt;
+        mtr.C[i] = grd.gridVolume[i] * lmb.density[i] * lmb.capacity[i] / dt;
 
     for (int i = (grd.Nx - 2);
          i < mtr.C.size() - (grd.Nx - 1); i += grd.Nx - 1)
-        mtr.C[i] = grd.gridVolume[i] * prm.dens * prm.capac / dt;
-
-
+        mtr.C[i] = grd.gridVolume[i] * lmb.density[i] * lmb.capacity[i] / dt;
 }
 

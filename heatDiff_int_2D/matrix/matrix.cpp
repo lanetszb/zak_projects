@@ -16,9 +16,9 @@ void func_matrixCalculation(const Grid &grd, Matrix &mtr, const Param &prm,
 
     D_calc(grd, mtr, prm, lmb);
 
-    F_calc(grd, mtr, prm, Xprev, dt);
+    F_calc(grd, mtr, prm, lmb, Xprev, dt);
 
-    C_calc(grd, mtr, prm, dt);
+    C_calc(grd, mtr, prm, lmb, dt);
 
     val_calc(grd, mtr);
 

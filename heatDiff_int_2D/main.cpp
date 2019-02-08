@@ -47,7 +47,7 @@ int main(int narg, char **arg) {
     getBot_lamb(lmb, grd, X);
 
     getDensity(lmb, grd, X);
-
+    getCapacity(lmb, grd, X);
 
     Matrix mtr;
 

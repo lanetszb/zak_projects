@@ -17,8 +17,8 @@ void getParam(Param &prm, Grid &grd, std::string &dataFileName) {
     prm.Tbot = dataFile.getWord<double>("tempBot");
     prm.T0 = dataFile.getWord<double>("tempIni");
 
-    prm.dens = dataFile.getWord<double>("density");
-    prm.capac = dataFile.getWord<double>("heatCapac");
+    /*prm.dens = dataFile.getWord<double>("density");*/
+    /*prm.capac = dataFile.getWord<double>("heatCapac");*/
 
     prm.maxTolerance = dataFile.getWord<double>("MAX_TOLERANCE");
 
