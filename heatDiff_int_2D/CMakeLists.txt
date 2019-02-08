@@ -15,6 +15,6 @@ set(SOURCE_FILES
 
         param/param.cpp
 
-        random.cpp)
+        extra/extraData.cpp extra/extraData_struct.h extra/extraData_param.cpp extra/extraData_param.h extra/extraData_read.cpp extra/extraData_read.h)
 
 add_executable(heatDiff_int_2D ${SOURCE_FILES})

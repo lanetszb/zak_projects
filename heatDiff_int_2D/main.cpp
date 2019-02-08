@@ -5,7 +5,9 @@
 #include <iomanip>
 #include <grid/grid.h>
 #include <plot/plot.h>
-#include <random.h>
+#include <extra/extraData.h>
+#include <extra/extraData_param.h>
+#include <extra/extraData_read.h>
 #include <matrix/matrix.h>
 #include <param/param.h>
 
@@ -36,20 +38,11 @@ int main(int narg, char **arg) {
 
     auto X = func_heatDistrib_ini(grd.Ny, grd.Nx, prm.T0, prm.Tl, prm.Tr);
 
-    Lamb lmb;
-    readLamb(lmb, thermalCond_table);
-    readDens(lmb, density_table);
-    readCapac(lmb, heatCapacity_table);
-
-    getLeft_lamb(lmb, grd, X);
-    getRight_lamb(lmb, grd, X);
-    getTop_lamb(lmb, grd, X);
-    getBot_lamb(lmb, grd, X);
-
-    getDensity(lmb, grd, X);
-    getCapacity(lmb, grd, X);
-
     Matrix mtr;
+
+    Lamb lmb;
+    getExtra(mtr, prm, grd, X, thermalCond_table, density_table,
+             heatCapacity_table, lmb);
 
     for (double t = prm.dt; t <= prm.time; t += prm.dt) {
 

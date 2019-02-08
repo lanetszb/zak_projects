@@ -1,53 +1,4 @@
-#include <vector>
-#include <cmath>
-#include <GetFromFile.h>
-#include <iomanip>
-#include <iostream>
-#include <random.h>
-
-
-void readLamb(Lamb &lmb, const std::string &thermalCond_table) {
-
-    GetFromFile readTable(thermalCond_table);
-
-    int vec2DCol = readTable.getWord<int>("vec2DCol");
-    std::vector<double> vec1DFor2D = readTable.getVector<double>("vec2D");
-
-    for (int i = 0; i < vec1DFor2D.size() / vec2DCol; i++) {
-        lmb.lambTable.push_back(std::vector<double>());
-        for (int j = 0; j < vec2DCol; j++)
-            lmb.lambTable.back().push_back(vec1DFor2D[i * vec2DCol + j]);
-    }
-
-}
-
-void readDens(Lamb &lmb, const std::string &density_table) {
-
-    GetFromFile readTable(density_table);
-
-    int vec2DCol = readTable.getWord<int>("vec2DCol");
-    std::vector<double> vec1DFor2D = readTable.getVector<double>("vec2D");
-
-    for (int i = 0; i < vec1DFor2D.size() / vec2DCol; i++) {
-        lmb.densTable.push_back(std::vector<double>());
-        for (int j = 0; j < vec2DCol; j++)
-            lmb.densTable.back().push_back(vec1DFor2D[i * vec2DCol + j]);
-    }
-}
-
-void readCapac(Lamb &lmb, const std::string &heatCapacity_table) {
-
-    GetFromFile readTable(heatCapacity_table);
-
-    int vec2DCol = readTable.getWord<int>("vec2DCol");
-    std::vector<double> vec1DFor2D = readTable.getVector<double>("vec2D");
-
-    for (int i = 0; i < vec1DFor2D.size() / vec2DCol; i++) {
-        lmb.capacTable.push_back(std::vector<double>());
-        for (int j = 0; j < vec2DCol; j++)
-            lmb.capacTable.back().push_back(vec1DFor2D[i * vec2DCol + j]);
-    }
-}
+#include <extra/extraData_param.h>
 
 void getLeft_lamb(Lamb &lmb,
                   const Grid &grd, const std::vector<double> &X) {
@@ -193,7 +144,7 @@ void getDensity(Lamb &lmb,
 }
 
 void getCapacity(Lamb &lmb,
-                const Grid &grd, const std::vector<double> &X) {
+                 const Grid &grd, const std::vector<double> &X) {
 
     int gridN = (grd.Nx - 1) * (grd.Ny - 1);
 
@@ -208,59 +159,14 @@ void getCapacity(Lamb &lmb,
     for (int i = 0; i < gridN; i++)
         for (int j = 0; j < lmb.capacTable.size(); j++) {
             if (capacityTemp[i] >= lmb.capacTable[j][0] &&
-                    capacityTemp[i] < lmb.capacTable[j + 1][0]) {
+                capacityTemp[i] < lmb.capacTable[j + 1][0]) {
                 lmb.capacity.push_back(lmb.capacTable[j][1] +
-                                      ((lmb.capacTable[j + 1][1] -
-                                        lmb.capacTable[j][1]) /
-                                       (lmb.capacTable[j + 1][0] -
-                                        lmb.capacTable[j][0])) *
-                                      (capacityTemp[i] - lmb.densTable[j][0]));
+                                       ((lmb.capacTable[j + 1][1] -
+                                         lmb.capacTable[j][1]) /
+                                        (lmb.capacTable[j + 1][0] -
+                                         lmb.capacTable[j][0])) *
+                                       (capacityTemp[i] - lmb.densTable[j][0]));
                 break;
             }
         }
 }
-
-void funcJacobi(const Matrix &mtr, const Param &prm, std::vector<double> &X) {
-
-    double curTolerance = 0;
-
-    std::vector<std::vector<double>> Xcur{2, X};
-
-    std::vector<int> dgInd;
-    for (int i = 0; i < mtr.poi.size() - 1; i++)
-        for (int j = mtr.poi[i]; j < mtr.poi[i + 1]; j++)
-            if (i == mtr.col[j]) {
-                dgInd.push_back(j);
-                break;
-            }
-
-    unsigned int k = 0;
-
-    do {
-
-        for (int i = 0; i < mtr.poi.size() - 1; i++)
-            Xcur[(k + 1) % 2][i] =
-                    -mtr.F[i] + Xcur[k % 2][i] * mtr.val[dgInd[i]];
-
-        for (int i = 0; i < mtr.poi.size() - 1; i++)
-            for (int j = mtr.poi[i]; j < mtr.poi[i + 1]; j++)
-                Xcur[(k + 1) % 2][i] -= mtr.val[j] * Xcur[k % 2][mtr.col[j]];
-
-        for (int i = 0; i < mtr.poi.size() - 1; i++)
-            Xcur[(k + 1) % 2][i] /= mtr.val[dgInd[i]];
-
-        curTolerance = 0;
-        for (int i = 0; i < mtr.poi.size() - 1; i++)
-            curTolerance += fabs(2. * (Xcur[(k + 1) % 2][i] - Xcur[k % 2][i]) /
-                                 (Xcur[(k + 1) % 2][i] + Xcur[k % 2][i])) /
-                            X.size();
-        k++;
-
-
-    } while (curTolerance > prm.maxTolerance);
-
-
-    X = Xcur[k % 2];
-}
-
-
