@@ -9,7 +9,7 @@ void getParam(Param &prm, Grid &grd, std::string &dataFileName) {
 
     prm.dt = dataFile.getWord<double>("timeStep");
     prm.time = dataFile.getWord<double>("time");
-    prm.lambda = dataFile.getWord<double>("thermalCond");
+    /*prm.lambda = dataFile.getWord<double>("thermalCond");*/
 
     prm.Tl = dataFile.getWord<double>("tempLeft");
     prm.Tr = dataFile.getWord<double>("tempRight");
