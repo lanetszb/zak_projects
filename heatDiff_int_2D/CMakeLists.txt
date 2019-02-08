@@ -9,12 +9,13 @@ set(SOURCE_FILES
 
         plot/plot.cpp
 
-        grid/grid_cell.cpp grid/grid_surf.cpp grid/grid.cpp
+        grid/gridCell.cpp grid/gridSurf.cpp grid/grid.cpp
 
-        matrix/matrix.cpp matrix/matrix_coeff.cpp matrix/matrix_vect.cpp
+        matrix/matrix.cpp matrix/matrixCoeff.cpp matrix/matrixVect.cpp
 
         param/param.cpp
 
-        extra/extraData.cpp extra/extraData_struct.h extra/extraData_param.cpp extra/extraData_param.h extra/extraData_read.cpp extra/extraData_read.h)
+        extra/computeProperties.cpp
+        extra/readProperties.cpp extra/readProperties.h extra/jacobi.cpp)
 
 add_executable(heatDiff_int_2D ${SOURCE_FILES})

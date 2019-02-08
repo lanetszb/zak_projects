@@ -1,32 +1,8 @@
-#include <vector>
+#include <extra/jacobi.h>
 #include <cmath>
-#include <GetFromFile.h>
-#include <iomanip>
-#include <iostream>
-#include <extra/extraData.h>
 
-
-void getExtra(const Matrix &mtr, const Param &prm, const Grid &grd,
-              std::vector<double> &X,
-              const std::string &thermalCond_table,
-              const std::string &density_table,
-              const std::string &heatCapacity_table, Lamb &lmb) {
-
-    readLamb(lmb, thermalCond_table);
-    readDens(lmb, density_table);
-    readCapac(lmb, heatCapacity_table);
-
-    getLeft_lamb(lmb, grd, X);
-    getRight_lamb(lmb, grd, X);
-    getTop_lamb(lmb, grd, X);
-    getBot_lamb(lmb, grd, X);
-
-    getDensity(lmb, grd, X);
-    getCapacity(lmb, grd, X);
-}
-
-
-void funcJacobi(const Matrix &mtr, const Param &prm, std::vector<double> &X) {
+void computeLSJacobi(const Matrix &mtr, const Param &prm,
+                     std::vector<double> &X) {
 
     double curTolerance = 0;
 
@@ -70,4 +46,3 @@ void funcJacobi(const Matrix &mtr, const Param &prm, std::vector<double> &X) {
 
     X = Xcur[k % 2];
 }
-

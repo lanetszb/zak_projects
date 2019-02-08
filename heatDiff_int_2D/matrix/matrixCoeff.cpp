@@ -1,17 +1,17 @@
-#include <matrix/matrix_coeff.h>
+#include <matrix/matrixCoeff.h>
 #include <vector>
 #include <cmath>
 #include <iostream>
 #include <iomanip>
 
 // A coefficient
-void A_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Lamb &lmb) {
+void A_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Properties &lmb) {
 
     mtr.A.clear();
     mtr.A = std::vector<double>(grd.gridN, 0);
 
     for (int i = 0; i < grd.gridN; i++)
-        mtr.A[i] = (-1 * lmb.botLamb[i] * grd.omegaBot[i]) /
+        mtr.A[i] = (-1 * lmb.lambdaBottom[i] * grd.omegaBot[i]) /
                    grd.getBot_dL[i];
 
     for (int i = 0; i < (grd.Nx - 2); i++)
@@ -33,13 +33,13 @@ void A_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Lamb &lmb) {
 
 // E coefficient
 
-void E_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Lamb &lmb) {
+void E_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Properties &lmb) {
 
     mtr.E.clear();
     mtr.E = std::vector<double>(grd.gridN, 0);
 
     for (int i = 0; i < grd.gridN; i++)
-        mtr.E[i] = (-1 * lmb.topLamb[i] * grd.omegaTop[i]) /
+        mtr.E[i] = (-1 * lmb.lambdaTop[i] * grd.omegaTop[i]) /
                    grd.getTop_dL[i];
 
     for (int i = 0; i < (grd.Nx - 2); i++)
@@ -59,14 +59,14 @@ void E_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Lamb &lmb) {
 }
 
 // B coefficient
-void B_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Lamb &lmb) {
+void B_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Properties &lmb) {
 
     mtr.B.clear();
     mtr.B = std::vector<double>(grd.gridN, 0);
 
     for (int j = 0, i = 0; i < grd.gridN; i++)
         mtr.B[i] =
-                (-1 * lmb.leftLamb[i] * grd.omegaLeft[i]) /
+                (-1 * lmb.lambdaLeft[i] * grd.omegaLeft[i]) /
                 grd.getLeft_dL[i];
 
     for (int i = 0; i < (grd.Nx - 2); i++)
@@ -86,13 +86,13 @@ void B_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Lamb &lmb) {
 }
 
 // D coefficient
-void D_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Lamb &lmb) {
+void D_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Properties &lmb) {
 
     mtr.D.clear();
     mtr.D = std::vector<double>(grd.gridN, 0);
 
     for (int i = 0; i < grd.gridN; i++)
-        mtr.D[i] = (-1 * lmb.rightLamb[i] * grd.omegaRight[i]) /
+        mtr.D[i] = (-1 * lmb.lambdaRight[i] * grd.omegaRight[i]) /
                    grd.getRight_dL[i];
 
     for (int i = 0; i < (grd.Nx - 2); i++)
@@ -113,7 +113,7 @@ void D_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Lamb &lmb) {
 
 
 // F coefficient
-void F_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Lamb &lmb,
+void F_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Properties &lmb,
             const std::vector<double> &Xprev, const double &dt) {
 
     mtr.F.clear();
@@ -126,7 +126,7 @@ void F_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Lamb &lmb,
 }
 
 // С coefficient
-void C_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Lamb &lmb,
+void C_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Properties &lmb,
             const double &dt) {
 
     mtr.C.clear();

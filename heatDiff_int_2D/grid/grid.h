@@ -4,10 +4,10 @@
 
 #include <vector>
 
-#include <grid/grid_struct.h>
+#include <grid/gridStruct.h>
 #include <GetFromFile.h>
-#include <grid/grid_cell.h>
-#include <grid/grid_surf.h>
+#include <grid/gridCell.h>
+#include <grid/gridSurf.h>
 
 void func_gridCalculation(Grid &grd, const std::string &gridFileName,
                           const std::string &nodesFileName);

@@ -1,5 +1,5 @@
-#ifndef GRID_GRID_STRUCT_H
-#define GRID_GRID_STRUCT_H
+#ifndef GRIDSTRUCT_H
+#define GRIDSTRUCT_H
 
 #include <vector>
 

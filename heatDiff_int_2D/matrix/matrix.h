@@ -1,13 +1,13 @@
 #ifndef MATRIX_MATRIX_H
 #define MATRIX_MATRIX_H
 
-#include <grid/grid_struct.h>
-#include <matrix/matrix_struct.h>
+#include <grid/gridStruct.h>
+#include <matrix/matrixStruct.h>
 #include <param/param.h>
-#include <extra/extraData.h>
+#include <extra/computeProperties.h>
 
 void func_matrixCalculation(const Grid &grd, Matrix &mtr, const Param &prm,
-                            const Lamb &lmb,
+                            const Properties &lmb,
                             const std::vector<double> &Xprev,
                             const double &dt);
 

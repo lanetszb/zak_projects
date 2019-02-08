@@ -1,20 +1,18 @@
 #include <iostream>
 #include <cmath>
 #include <vector>
-#include <GetFromFile.h>
 #include <iomanip>
+
+#include <GetFromFile.h>
+
 #include <grid/grid.h>
 #include <plot/plot.h>
-#include <extra/extraData.h>
-#include <extra/extraData_param.h>
-#include <extra/extraData_read.h>
+#include <extra/computeProperties.h>
+#include <extra/readProperties.h>
 #include <matrix/matrix.h>
 #include <param/param.h>
+#include <extra/jacobi.h>
 
-
-std::vector<double> func_heatDistrib_ini(const int &Ny, const int &Nx,
-                                         const double &T0, const double &Tl,
-                                         const double &Tr);
 
 int main(int narg, char **arg) {
 
@@ -36,19 +34,19 @@ int main(int narg, char **arg) {
     std::string dataFileName = arg[1];
     getParam(prm, grd, dataFileName);
 
-    auto X = func_heatDistrib_ini(grd.Ny, grd.Nx, prm.T0, prm.Tl, prm.Tr);
+    auto X = computeTInitial(grd.Ny, grd.Nx, prm.T0, prm.Tl, prm.Tr);
 
     Matrix mtr;
 
-    Lamb lmb;
-    getExtra(mtr, prm, grd, X, thermalCond_table, density_table,
-             heatCapacity_table, lmb);
+    Properties properties;
+    computeProperties(mtr, prm, grd, X, thermalCond_table, density_table,
+                      heatCapacity_table, properties);
 
     for (double t = prm.dt; t <= prm.time; t += prm.dt) {
 
-        func_matrixCalculation(grd, mtr, prm, lmb, X, prm.dt);
+        func_matrixCalculation(grd, mtr, prm, properties, X, prm.dt);
 
-        funcJacobi(mtr, prm, X);
+        computeLSJacobi(mtr, prm, X);
     }
 
     Plot plt;
@@ -57,32 +55,4 @@ int main(int narg, char **arg) {
     return 0;
 }
 
-//***all the functions are listed below***
-
-std::vector<double> func_heatDistrib_ini(const int &Ny, const int &Nx,
-                                         const double &T0, const double &Tl,
-                                         const double &Tr) {
-
-    int gridN = (Nx - 1) * (Ny - 1);
-    std::vector<double> heatDistrib_ini(gridN, T0);
-
-
-    for (int i = 2 * (Nx - 2) + 1;
-         i < heatDistrib_ini.size() - (Nx - 1); i += Nx - 1)
-        heatDistrib_ini[i] = Tr;
-
-    for (int i = 0; i < Nx - 1; i++)
-        heatDistrib_ini[i] = Tl;
-
-    for (int i = heatDistrib_ini.size() - (Nx - 1);
-         i < heatDistrib_ini.size(); i++)
-        heatDistrib_ini[i] = Tr;
-
-    for (int i = (Nx - 1);
-         i < heatDistrib_ini.size() - (Nx - 1); i += Nx - 1)
-        heatDistrib_ini[i] = Tl;
-
-
-    return heatDistrib_ini;
-}
 

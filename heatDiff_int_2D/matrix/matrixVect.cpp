@@ -1,4 +1,4 @@
-#include <matrix/matrix_vect.h>
+#include <matrix/matrixVect.h>
 #include <vector>
 #include <cmath>
 #include <iostream>

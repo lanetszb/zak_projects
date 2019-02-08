@@ -1,4 +1,4 @@
-#include <grid/grid_cell.h>
+#include <grid/gridCell.h>
 
 
 std::vector<double> Xcenter_calc(Grid &grd) {

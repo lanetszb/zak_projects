@@ -1,8 +1,8 @@
-#ifndef MATRIX_MATRIX_VECT_H
-#define MATRIX_MATRIX_VECT_H
+#ifndef MATRIXVECT_H
+#define MATRIXVECT_H
 
-#include <grid/grid_struct.h>
-#include <matrix/matrix_struct.h>
+#include <grid/gridStruct.h>
+#include <matrix/matrixStruct.h>
 
 void val_calc(const Grid &grd, Matrix &mtr);
 void col_calc(const Grid &grd, Matrix &mtr);

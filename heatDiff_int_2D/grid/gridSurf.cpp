@@ -1,4 +1,4 @@
-#include <grid/grid_surf.h>
+#include <grid/gridSurf.h>
 
 std::vector<double> omegaTop_calc(Grid &grd) {
 
