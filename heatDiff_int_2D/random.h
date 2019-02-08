@@ -21,6 +21,8 @@ struct Lamb {
 
     std::vector<double> botLamb;
 
+    std::vector<double> density;
+
 };
 
 void funcJacobi(const Matrix &mtr, const Param &prm, std::vector<double> &X);
@@ -41,6 +43,9 @@ void getTop_lamb(Lamb &lmb,
                  const Grid &grd, const std::vector<double> &X);
 
 void getBot_lamb(Lamb &lmb,
+                 const Grid &grd, const std::vector<double> &X);
+
+void getDensity(Lamb &lmb,
                  const Grid &grd, const std::vector<double> &X);
 
 #endif

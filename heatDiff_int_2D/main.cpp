@@ -46,6 +46,9 @@ int main(int narg, char **arg) {
     getTop_lamb(lmb, grd, X);
     getBot_lamb(lmb, grd, X);
 
+    getDensity(lmb, grd, X);
+
+
     Matrix mtr;
 
     for (double t = prm.dt; t <= prm.time; t += prm.dt) {
@@ -54,7 +57,6 @@ int main(int narg, char **arg) {
 
         funcJacobi(mtr, prm, X);
     }
-
 
     Plot plt;
     func_plot(grd, plt, X);
