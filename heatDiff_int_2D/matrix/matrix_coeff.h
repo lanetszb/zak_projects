@@ -4,7 +4,7 @@
 #include <grid/grid_struct.h>
 #include <matrix/matrix_struct.h>
 #include <random.h>
-#include <param.h>
+#include <param/param.h>
 
 void A_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Lamb &lmb);
 
