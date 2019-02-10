@@ -13,10 +13,10 @@
 void func_plot(Grid &grd, Plot &plt, std::vector<double> X) {
 
 
-    plt.X_gnuplot = func_Xgnuplot(grd.X_coord, grd.Nx, grd.dx);
-    plt.Y_gnuplot = func_Ygnuplot(grd.Y_coord, grd.Nx, grd.dy);
+    plt.X_gnuplot = func_Xgnuplot(grd.X_coord, grd.nX, grd.dx);
+    plt.Y_gnuplot = func_Ygnuplot(grd.Y_coord, grd.nX, grd.dy);
     plt.T_gnuplot = func_Tgnuplot(grd.X_coord, plt.X_gnuplot, X,
-                                  grd.Nx);
+                                  grd.nX);
 
     func_oStream(grd, plt);
 
@@ -86,7 +86,7 @@ void func_oStream(Grid &grd, Plot &plt) {
 
     for (int i = 0; i < plt.X_gnuplot.size(); i++) {
 
-        if (i % grd.Nx == 0 && i != 0)
+        if (i % grd.nX == 0 && i != 0)
             oStream << std::endl;
 
         oStream << plt.X_gnuplot[i] << "  ";

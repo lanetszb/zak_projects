@@ -12,17 +12,17 @@ void func_gridCalculation(Grid &grd, const std::string &gridFileName,
 
 
     GetFromFile nodesD(nodesFileName);
-    grd.Nx = nodesD.getWord<int>("NODES_NUM_X");
-    grd.Ny = nodesD.getWord<int>("NODES_NUM_Y");
+    grd.nX = nodesD.getWord<int>("NODES_NUM_X");
+    grd.nY = nodesD.getWord<int>("NODES_NUM_Y");
 
     // ***Numerical solution for heat diffusion begins here***
 
-    grd.gridN = (grd.Nx - 1) * (grd.Ny - 1);
+    grd.gridN = (grd.nX - 1) * (grd.nY - 1);
 
-    grd.dx = (grd.X_coord[grd.Nx - 1] - grd.X_coord[0]) / (grd.Nx - 1);
+    grd.dx = (grd.X_coord[grd.nX - 1] - grd.X_coord[0]) / (grd.nX - 1);
 
     grd.dy = (grd.Y_coord[grd.Y_coord.size() - 1] - grd.Y_coord[0]) /
-             (grd.Ny - 1);
+             (grd.nY - 1);
 
     // ***Surface area and volume determination***
 

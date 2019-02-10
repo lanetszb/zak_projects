@@ -6,10 +6,10 @@
 // Structure containing all grid attributes.
 struct Grid {
     // Nodes quantity in x direction.
-    int Nx;
+    int nX;
 
     // Nodes quantity in y direction.
-    int Ny;
+    int nY;
 
     // total number of grid blocks.
     int gridN;

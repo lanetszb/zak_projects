@@ -5,7 +5,9 @@
 #include <iomanip>
 
 // A coefficient
-void A_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Properties &lmb) {
+void
+A_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Properties &lmb) {
+
 
     mtr.A.clear();
     mtr.A = std::vector<double>(grd.gridN, 0);
@@ -14,26 +16,27 @@ void A_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Properties &lm
         mtr.A[i] = (-1 * lmb.lambdaBottom[i] * grd.omegaBot[i]) /
                    grd.getBot_dL[i];
 
-    for (int i = 0; i < (grd.Nx - 2); i++)
+    for (int i = 0; i < (grd.nX - 2); i++)
         mtr.A[i] = 0;
 
-    for (int i = (grd.Nx - 1);
-         i < mtr.A.size() - (grd.Nx - 2); i += grd.Nx - 1)
+    for (int i = (grd.nX - 1);
+         i < mtr.A.size() - (grd.nX - 2); i += grd.nX - 1)
         mtr.A[i] = 0;
 
-    for (int i = mtr.A.size() - (grd.Nx - 2);
+    for (int i = mtr.A.size() - (grd.nX - 2);
          i < mtr.A.size(); i++)
         mtr.A[i] = 0;
 
-    for (int i = (grd.Nx - 2);
-         i < mtr.A.size() - (grd.Nx - 1); i += grd.Nx - 1)
+    for (int i = (grd.nX - 2);
+         i < mtr.A.size() - (grd.nX - 1); i += grd.nX - 1)
         mtr.A[i] = 0;
 
 }
 
 // E coefficient
 
-void E_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Properties &lmb) {
+void
+E_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Properties &lmb) {
 
     mtr.E.clear();
     mtr.E = std::vector<double>(grd.gridN, 0);
@@ -42,24 +45,25 @@ void E_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Properties &lm
         mtr.E[i] = (-1 * lmb.lambdaTop[i] * grd.omegaTop[i]) /
                    grd.getTop_dL[i];
 
-    for (int i = 0; i < (grd.Nx - 2); i++)
+    for (int i = 0; i < (grd.nX - 2); i++)
         mtr.E[i] = 0;
 
-    for (int i = (grd.Nx - 1);
-         i < mtr.E.size() - (grd.Nx - 2); i += grd.Nx - 1)
+    for (int i = (grd.nX - 1);
+         i < mtr.E.size() - (grd.nX - 2); i += grd.nX - 1)
         mtr.E[i] = 0;
 
-    for (int i = mtr.E.size() - (grd.Nx - 2);
+    for (int i = mtr.E.size() - (grd.nX - 2);
          i < mtr.E.size(); i++)
         mtr.E[i] = 0;
 
-    for (int i = (grd.Nx - 2);
-         i < mtr.E.size() - (grd.Nx - 1); i += grd.Nx - 1)
+    for (int i = (grd.nX - 2);
+         i < mtr.E.size() - (grd.nX - 1); i += grd.nX - 1)
         mtr.E[i] = 0;
 }
 
 // B coefficient
-void B_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Properties &lmb) {
+void
+B_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Properties &lmb) {
 
     mtr.B.clear();
     mtr.B = std::vector<double>(grd.gridN, 0);
@@ -69,24 +73,25 @@ void B_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Properties &lm
                 (-1 * lmb.lambdaLeft[i] * grd.omegaLeft[i]) /
                 grd.getLeft_dL[i];
 
-    for (int i = 0; i < (grd.Nx - 2); i++)
+    for (int i = 0; i < (grd.nX - 2); i++)
         mtr.B[i] = 0;
 
-    for (int i = (grd.Nx - 1);
-         i < mtr.B.size() - (grd.Nx - 2); i += grd.Nx - 1)
+    for (int i = (grd.nX - 1);
+         i < mtr.B.size() - (grd.nX - 2); i += grd.nX - 1)
         mtr.B[i] = 0;
 
-    for (int i = mtr.B.size() - (grd.Nx - 2);
+    for (int i = mtr.B.size() - (grd.nX - 2);
          i < mtr.B.size(); i++)
         mtr.B[i] = 0;
 
-    for (int i = (grd.Nx - 2);
-         i < mtr.B.size() - (grd.Nx - 1); i += grd.Nx - 1)
+    for (int i = (grd.nX - 2);
+         i < mtr.B.size() - (grd.nX - 1); i += grd.nX - 1)
         mtr.B[i] = 0;
 }
 
 // D coefficient
-void D_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Properties &lmb) {
+void
+D_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Properties &lmb) {
 
     mtr.D.clear();
     mtr.D = std::vector<double>(grd.gridN, 0);
@@ -95,26 +100,27 @@ void D_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Properties &lm
         mtr.D[i] = (-1 * lmb.lambdaRight[i] * grd.omegaRight[i]) /
                    grd.getRight_dL[i];
 
-    for (int i = 0; i < (grd.Nx - 2); i++)
+    for (int i = 0; i < (grd.nX - 2); i++)
         mtr.D[i] = 0;
 
-    for (int i = (grd.Nx - 1);
-         i < mtr.D.size() - (grd.Nx - 2); i += grd.Nx - 1)
+    for (int i = (grd.nX - 1);
+         i < mtr.D.size() - (grd.nX - 2); i += grd.nX - 1)
         mtr.D[i] = 0;
 
-    for (int i = mtr.D.size() - (grd.Nx - 2);
+    for (int i = mtr.D.size() - (grd.nX - 2);
          i < mtr.D.size(); i++)
         mtr.D[i] = 0;
 
-    for (int i = (grd.Nx - 2);
-         i < mtr.D.size() - (grd.Nx - 1); i += grd.Nx - 1)
+    for (int i = (grd.nX - 2);
+         i < mtr.D.size() - (grd.nX - 1); i += grd.nX - 1)
         mtr.D[i] = 0;
 }
 
 
 // F coefficient
-void F_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Properties &lmb,
-            const std::vector<double> &Xprev, const double &dt) {
+void
+F_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Properties &lmb,
+       const std::vector<double> &Xprev, const double &dt) {
 
     mtr.F.clear();
     mtr.F = std::vector<double>(grd.gridN, 0);
@@ -126,8 +132,9 @@ void F_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Properties &lm
 }
 
 // С coefficient
-void C_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Properties &lmb,
-            const double &dt) {
+void
+C_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Properties &lmb,
+       const double &dt) {
 
     mtr.C.clear();
     mtr.C = std::vector<double>(grd.gridN, 0);
@@ -138,19 +145,19 @@ void C_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Properties &lm
                    (-1 * mtr.A[i]) + (-1 * mtr.B[i]) + (-1 * mtr.D[i]) +
                    (-1 * mtr.E[i]);
 
-    for (int i = 0; i < (grd.Nx - 2); i++)
+    for (int i = 0; i < (grd.nX - 2); i++)
         mtr.C[i] = grd.gridVolume[i] * lmb.density[i] * lmb.capacity[i] / dt;
 
-    for (int i = (grd.Nx - 1);
-         i < mtr.C.size() - (grd.Nx - 2); i += grd.Nx - 1)
+    for (int i = (grd.nX - 1);
+         i < mtr.C.size() - (grd.nX - 2); i += grd.nX - 1)
         mtr.C[i] = grd.gridVolume[i] * lmb.density[i] * lmb.capacity[i] / dt;
 
-    for (int i = mtr.C.size() - (grd.Nx - 2);
+    for (int i = mtr.C.size() - (grd.nX - 2);
          i < mtr.C.size(); i++)
         mtr.C[i] = grd.gridVolume[i] * lmb.density[i] * lmb.capacity[i] / dt;
 
-    for (int i = (grd.Nx - 2);
-         i < mtr.C.size() - (grd.Nx - 1); i += grd.Nx - 1)
+    for (int i = (grd.nX - 2);
+         i < mtr.C.size() - (grd.nX - 1); i += grd.nX - 1)
         mtr.C[i] = grd.gridVolume[i] * lmb.density[i] * lmb.capacity[i] / dt;
 }
 

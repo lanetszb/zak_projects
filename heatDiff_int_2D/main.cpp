@@ -21,36 +21,43 @@ int main(int narg, char **arg) {
 
     auto grdFileNm = dataFile.getWord<std::string>("GRID_DATA");
     auto nodesFileNm = dataFile.getWord<std::string>("NODES_NUM");
-    auto thermalCond_table = dataFile.getWord<std::string>("THERMALCOND_TABLE");
-    auto density_table = dataFile.getWord<std::string>("DENSITY_TABLE");
-    auto heatCapacity_table = dataFile.getWord<std::string>("CAPACITY_TABLE");
+    auto lambdaTableName = dataFile.getWord<std::string>("THERMALCOND_TABLE");
+    auto densityTableName = dataFile.getWord<std::string>("DENSITY_TABLE");
+    auto capacityTableName = dataFile.getWord<std::string>("CAPACITY_TABLE");
 
-    Grid grd;
-    func_gridCalculation(grd, grdFileNm, nodesFileNm);
+    Grid grid;
+    func_gridCalculation(grid, grdFileNm, nodesFileNm);
 
     // ***Numerical solution for heat diffusion begins here***
 
     Param prm;
     std::string dataFileName = arg[1];
-    getParam(prm, grd, dataFileName);
+    getParam(prm, grid, dataFileName);
 
-    auto X = computeTInitial(grd.Ny, grd.Nx, prm.T0, prm.Tl, prm.Tr);
+    auto T = computeTInitial(grid.nY, grid.nX, prm.TInitial,
+                             prm.TLeft, prm.TRight);
 
     Matrix mtr;
 
     Properties properties;
-    computeProperties(mtr, prm, grd, X, thermalCond_table, density_table,
-                      heatCapacity_table, properties);
+    readTables(properties, lambdaTableName, densityTableName,
+               capacityTableName);
+
+
 
     for (double t = prm.dt; t <= prm.time; t += prm.dt) {
 
-        func_matrixCalculation(grd, mtr, prm, properties, X, prm.dt);
+        computeProperties(properties, grid, T);
 
-        computeLSJacobi(mtr, prm, X);
+        func_matrixCalculation(grid, mtr, prm, properties, T, prm.dt);
+
+        computeLSJacobi(mtr, prm, T);
     }
 
+
+
     Plot plt;
-    func_plot(grd, plt, X);
+    func_plot(grid, plt, T);
 
     return 0;
 }

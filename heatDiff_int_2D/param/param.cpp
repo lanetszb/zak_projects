@@ -11,11 +11,11 @@ void getParam(Param &prm, Grid &grd, std::string &dataFileName) {
     prm.time = dataFile.getWord<double>("time");
     /*prm.lambda = dataFile.getWord<double>("thermalCond");*/
 
-    prm.Tl = dataFile.getWord<double>("tempLeft");
-    prm.Tr = dataFile.getWord<double>("tempRight");
+    prm.TLeft = dataFile.getWord<double>("tempLeft");
+    prm.TRight = dataFile.getWord<double>("tempRight");
     prm.Ttop = dataFile.getWord<double>("tempTop");
     prm.Tbot = dataFile.getWord<double>("tempBot");
-    prm.T0 = dataFile.getWord<double>("tempIni");
+    prm.TInitial = dataFile.getWord<double>("tempIni");
 
     /*prm.dens = dataFile.getWord<double>("density");*/
     /*prm.capac = dataFile.getWord<double>("heatCapac");*/

@@ -10,11 +10,11 @@ struct Param {
     double time;
     double lambda;
 
-    double Tl;
-    double Tr;
+    double TLeft;
+    double TRight;
     double Ttop;
     double Tbot;
-    double T0;
+    double TInitial;
 
     /*double dens;*/
     /*double capac;*/

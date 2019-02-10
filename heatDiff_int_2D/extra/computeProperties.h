@@ -9,12 +9,13 @@
 #include <param/param_struct.h>
 
 
-void computeProperties(const Matrix &mtr, const Param &prm, const Grid &grd,
-                       std::vector<double> &T,
-                       const std::string &lambdaTable,
-                       const std::string &densityTable,
-                       const std::string &capacityTable,
-                       Properties &properties);
+void readTables(Properties &properties,
+                const std::string &lambdaTableName,
+                const std::string &densityTableName,
+                const std::string &capacityTableName);
+
+void computeProperties(Properties &properties, const Grid &grid,
+                       std::vector<double> &T);
 
 void computeLambLeft(Properties &properties, const Grid &grd,
                      const std::vector<double> &T);

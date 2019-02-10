@@ -1,30 +1,35 @@
 #include <extra/computeProperties.h>
 #include <extra/readProperties.h>
+#include <iostream>
 
-void computeProperties(const Matrix &mtr, const Param &prm, const Grid &grd,
-                       std::vector<double> &T,
-                       const std::string &thermalCond_table,
-                       const std::string &density_table,
-                       const std::string &heatCapacity_table, Properties &properties) {
+void readTables(Properties &properties,
+                const std::string &lambdaTableName,
+                const std::string &densityTableName,
+                const std::string &capacityTableName) {
 
-    readLambda(properties, thermalCond_table);
-    readDensity(properties, density_table);
-    readCapacity(properties, heatCapacity_table);
+    readTable(properties.lambdaTable, lambdaTableName);
+    readTable(properties.densityTable, densityTableName);
+    readTable(properties.capacityTable, capacityTableName);
 
-    computeLambLeft(properties, grd, T);
-    computeLambRight(properties, grd, T);
-    computeLambTop(properties, grd, T);
-    computeLambBot(properties, grd, T);
+}
 
-    computeDensity(properties, grd, T);
-    computeCapacity(properties, grd, T);
+void computeProperties(Properties &properties, const Grid &grid,
+                       std::vector<double> &T) {
+
+    computeLambLeft(properties, grid, T);
+    computeLambRight(properties, grid, T);
+    computeLambTop(properties, grid, T);
+    computeLambBot(properties, grid, T);
+
+    computeDensity(properties, grid, T);
+    computeCapacity(properties, grid, T);
 }
 
 void computeLambLeft(Properties &properties,
                      const Grid &grd, const std::vector<double> &T) {
 
 
-    int gridN = (grd.Nx - 1) * (grd.Ny - 1);
+    int gridN = (grd.nX - 1) * (grd.nY - 1);
 
     std::vector<double> lambTemp;
     lambTemp = std::vector<double>(gridN, 0);
@@ -53,7 +58,7 @@ void computeLambLeft(Properties &properties,
 void computeLambRight(Properties &properties,
                       const Grid &grd, const std::vector<double> &T) {
 
-    int gridN = (grd.Nx - 1) * (grd.Ny - 1);
+    int gridN = (grd.nX - 1) * (grd.nY - 1);
 
     std::vector<double> lambTemp;
     lambTemp = std::vector<double>(gridN, 0);
@@ -81,13 +86,13 @@ void computeLambRight(Properties &properties,
 void computeLambTop(Properties &properties,
                     const Grid &grd, const std::vector<double> &T) {
 
-    int gridN = (grd.Nx - 1) * (grd.Ny - 1);
+    int gridN = (grd.nX - 1) * (grd.nY - 1);
 
     std::vector<double> lambTemp;
     lambTemp = std::vector<double>(gridN, 0);
 
-    for (int i = 0; i < gridN - (grd.Nx - 1); i++)
-        lambTemp[i] = 2 * T[i + grd.Nx - 1] * T[i] / (T[i] + T[i + grd.Nx - 1]);
+    for (int i = 0; i < gridN - (grd.nX - 1); i++)
+        lambTemp[i] = 2 * T[i + grd.nX - 1] * T[i] / (T[i] + T[i + grd.nX - 1]);
 
     properties.lambdaTop.clear();
 
@@ -109,14 +114,14 @@ void computeLambTop(Properties &properties,
 void computeLambBot(Properties &properties,
                     const Grid &grd, const std::vector<double> &T) {
 
-    int gridN = (grd.Nx - 1) * (grd.Ny - 1);
+    int gridN = (grd.nX - 1) * (grd.nY - 1);
 
     std::vector<double> lambTemp;
     lambTemp = std::vector<double>(gridN, 0);
 
-    for (int i = grd.Nx - 1; i < gridN; i++)
+    for (int i = grd.nX - 1; i < gridN; i++)
         lambTemp[i] =
-                2 * T[i - (grd.Nx - 1)] * T[i] / (T[i] + T[i - (grd.Nx - 1)]);
+                2 * T[i - (grd.nX - 1)] * T[i] / (T[i] + T[i - (grd.nX - 1)]);
 
     properties.lambdaBottom.clear();
 
@@ -138,7 +143,7 @@ void computeLambBot(Properties &properties,
 void computeDensity(Properties &properties,
                     const Grid &grd, const std::vector<double> &T) {
 
-    int gridN = (grd.Nx - 1) * (grd.Ny - 1);
+    int gridN = (grd.nX - 1) * (grd.nY - 1);
 
     std::vector<double> densityTemp;
     densityTemp = std::vector<double>(gridN, 0);
@@ -166,7 +171,7 @@ void computeDensity(Properties &properties,
 void computeCapacity(Properties &properties,
                      const Grid &grd, const std::vector<double> &T) {
 
-    int gridN = (grd.Nx - 1) * (grd.Ny - 1);
+    int gridN = (grd.nX - 1) * (grd.nY - 1);
 
     std::vector<double> capacityTemp;
     capacityTemp = std::vector<double>(gridN, 0);

@@ -5,13 +5,13 @@ std::vector<double> Xcenter_calc(Grid &grd) {
 
     double value = 0;
     int indCur = 0;
-    for (int i = 0; i < grd.Ny - 1; i++)
-        for (int j = 0; j < grd.Nx - 1; j++) {
+    for (int i = 0; i < grd.nY - 1; i++)
+        for (int j = 0; j < grd.nX - 1; j++) {
 
-            indCur = i * grd.Nx + j;
+            indCur = i * grd.nX + j;
             value = fabs(grd.X_coord[indCur] + grd.X_coord[indCur + 1] +
-                         grd.X_coord[indCur + grd.Nx] +
-                         grd.X_coord[indCur + 1 + grd.Nx]) / 4;
+                         grd.X_coord[indCur + grd.nX] +
+                         grd.X_coord[indCur + 1 + grd.nX]) / 4;
 
             grd.Xcenter.push_back(value);
         }
@@ -23,13 +23,13 @@ std::vector<double> Ycenter_calc(Grid &grd) {
 
     double value = 0;
     int indCur = 0;
-    for (int i = 0; i < grd.Ny - 1; i++)
-        for (int j = 0; j < grd.Nx - 1; j++) {
+    for (int i = 0; i < grd.nY - 1; i++)
+        for (int j = 0; j < grd.nX - 1; j++) {
 
-            indCur = i * grd.Nx + j;
+            indCur = i * grd.nX + j;
             value = fabs(grd.Y_coord[indCur] + grd.Y_coord[indCur + 1] +
-                         grd.Y_coord[indCur + grd.Nx] +
-                         grd.Y_coord[indCur + 1 + grd.Nx]) / 4;
+                         grd.Y_coord[indCur + grd.nX] +
+                         grd.Y_coord[indCur + 1 + grd.nX]) / 4;
 
             grd.Ycenter.push_back(value);
         }
@@ -73,10 +73,10 @@ std::vector<double> Left_dL_calc(Grid &grd) {
 
     double value = 0;
     int indCur = 0;
-    for (int i = 0; i < grd.Ny - 1; i++)
-        for (int j = 1; j < grd.Nx - 1; j++) {
+    for (int i = 0; i < grd.nY - 1; i++)
+        for (int j = 1; j < grd.nX - 1; j++) {
 
-            indCur = i * (grd.Nx - 1) + j;
+            indCur = i * (grd.nX - 1) + j;
             value = fabs(
                     grd.Xcenter[indCur] - grd.Xcenter[indCur - 1]);
 
@@ -90,10 +90,10 @@ std::vector<double> Right_dL_calc(Grid &grd) {
 
     double value = 0;
     int indCur = 0;
-    for (int i = 0; i < grd.Ny - 1; i++)
-        for (int j = 0; j < grd.Nx - 2; j++) {
+    for (int i = 0; i < grd.nY - 1; i++)
+        for (int j = 0; j < grd.nX - 2; j++) {
 
-            indCur = i * (grd.Nx - 1) + j;
+            indCur = i * (grd.nX - 1) + j;
             value = fabs(
                     grd.Xcenter[indCur] - grd.Xcenter[indCur + 1]);
 
@@ -107,12 +107,12 @@ std::vector<double> Top_dL_calc(Grid &grd) {
 
     double value = 0;
     int indCur = 0;
-    for (int i = 0; i < grd.Ny - 2; i++)
-        for (int j = 0; j < grd.Nx - 1; j++) {
+    for (int i = 0; i < grd.nY - 2; i++)
+        for (int j = 0; j < grd.nX - 1; j++) {
 
-            indCur = i * (grd.Nx - 1) + j;
+            indCur = i * (grd.nX - 1) + j;
             value = fabs(
-                    grd.Ycenter[indCur] - grd.Ycenter[indCur + (grd.Nx - 1)]);
+                    grd.Ycenter[indCur] - grd.Ycenter[indCur + (grd.nX - 1)]);
 
             grd.getTop_dL.push_back(value);
         }
@@ -125,12 +125,12 @@ std::vector<double> Bot_dL_calc(Grid &grd) {
 
     double value = 0;
     int indCur = 0;
-    for (int i = 1; i < grd.Ny - 1; i++)
-        for (int j = 0; j < grd.Nx - 1; j++) {
+    for (int i = 1; i < grd.nY - 1; i++)
+        for (int j = 0; j < grd.nX - 1; j++) {
 
-            indCur = i * (grd.Nx - 1) + j;
+            indCur = i * (grd.nX - 1) + j;
             value = fabs(
-                    grd.Ycenter[indCur] - grd.Ycenter[indCur - (grd.Nx - 1)]);
+                    grd.Ycenter[indCur] - grd.Ycenter[indCur - (grd.nX - 1)]);
 
             grd.getBot_dL.push_back(value);
         }
