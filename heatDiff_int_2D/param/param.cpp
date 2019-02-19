@@ -1,25 +1,21 @@
 #include <param/param.h>
 #include <GetFromFile.h>
 
-void getParam(Param &prm, Grid &grd, std::string &dataFileName) {
+Param getParam(const std::string &fileName) {
 
-    // ***reading the required input data***
+    GetFromFile dataFile(fileName);
 
-    GetFromFile dataFile(dataFileName);
+    Param param;
 
-    prm.dt = dataFile.getWord<double>("timeStep");
-    prm.time = dataFile.getWord<double>("time");
-    /*prm.lambda = dataFile.getWord<double>("thermalCond");*/
+    param.dt = dataFile.getWord<double>("timeStep");
+    param.time = dataFile.getWord<double>("time");
+    param.TLeft = dataFile.getWord<double>("tempLeft");
+    param.TRight = dataFile.getWord<double>("tempRight");
+    param.Ttop = dataFile.getWord<double>("tempTop");
+    param.Tbot = dataFile.getWord<double>("tempBot");
+    param.TInitial = dataFile.getWord<double>("tempIni");
+    param.maxTolerance = dataFile.getWord<double>("MAX_TOLERANCE");
 
-    prm.TLeft = dataFile.getWord<double>("tempLeft");
-    prm.TRight = dataFile.getWord<double>("tempRight");
-    prm.Ttop = dataFile.getWord<double>("tempTop");
-    prm.Tbot = dataFile.getWord<double>("tempBot");
-    prm.TInitial = dataFile.getWord<double>("tempIni");
-
-    /*prm.dens = dataFile.getWord<double>("density");*/
-    /*prm.capac = dataFile.getWord<double>("heatCapac");*/
-
-    prm.maxTolerance = dataFile.getWord<double>("MAX_TOLERANCE");
+    return param;
 
 }

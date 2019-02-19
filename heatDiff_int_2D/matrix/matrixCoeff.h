@@ -3,7 +3,7 @@
 
 #include <grid/gridStruct.h>
 #include <matrix/matrixStruct.h>
-#include <extra/computeProperties.h>
+#include <properties/properties.h>
 #include <param/param.h>
 
 void A_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Properties &lmb);
