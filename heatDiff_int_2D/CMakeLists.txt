@@ -15,6 +15,8 @@ set(SOURCE_FILES
 
         param/param.cpp
 
-        extra/computeTInitial.cpp extra/computeTInitial.h extra/jacobi.cpp properties/propertyTables.cpp properties/propertyTables.h properties/properties.cpp)
+        extra/computeTInitial.cpp extra/computeTInitial.h extra/jacobi.cpp
+
+        properties/propertyTables.cpp properties/properties.cpp)
 
 add_executable(heatDiff_int_2D ${SOURCE_FILES})
