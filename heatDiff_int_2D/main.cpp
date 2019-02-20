@@ -1,4 +1,4 @@
-#include <vector>
+#include <string>
 
 #include <grid/grid.h>
 #include <plot/plot.h>
@@ -8,18 +8,16 @@
 #include <param/param.h>
 #include <extra/jacobi.h>
 
-#include <string>
-
 
 int main(int narg, char **arg) {
 
-    auto fileName = std::string(arg[1]);
+    auto inputFileName = std::string(arg[1]);
 
-    Grid grid = getGrid(fileName);
+    Grid grid = getGrid(inputFileName);
 
-    Param param = getParam(fileName);
+    Param param = getParam(inputFileName);
 
-    PropertyTables propertyTables = getTables(fileName);
+    PropertyTables propertyTables = getTables(inputFileName);
 
     auto T = computeTInitial(grid, param);
 
@@ -36,8 +34,7 @@ int main(int narg, char **arg) {
         computeLSJacobi(matrix, param, T);
     }
 
-    Plot plot;
-    func_plot(grid, plot, T);
+    makePlot(grid, T);
 
     return 0;
 }

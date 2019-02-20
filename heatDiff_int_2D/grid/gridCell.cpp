@@ -9,9 +9,9 @@ std::vector<double> Xcenter_calc(Grid &grd) {
         for (int j = 0; j < grd.nX - 1; j++) {
 
             indCur = i * grd.nX + j;
-            value = fabs(grd.X_coord[indCur] + grd.X_coord[indCur + 1] +
-                         grd.X_coord[indCur + grd.nX] +
-                         grd.X_coord[indCur + 1 + grd.nX]) / 4;
+            value = fabs(grd.nodesX[indCur] + grd.nodesX[indCur + 1] +
+                         grd.nodesX[indCur + grd.nX] +
+                         grd.nodesX[indCur + 1 + grd.nX]) / 4;
 
             grd.Xcenter.push_back(value);
         }
@@ -27,9 +27,9 @@ std::vector<double> Ycenter_calc(Grid &grd) {
         for (int j = 0; j < grd.nX - 1; j++) {
 
             indCur = i * grd.nX + j;
-            value = fabs(grd.Y_coord[indCur] + grd.Y_coord[indCur + 1] +
-                         grd.Y_coord[indCur + grd.nX] +
-                         grd.Y_coord[indCur + 1 + grd.nX]) / 4;
+            value = fabs(grd.nodesY[indCur] + grd.nodesY[indCur + 1] +
+                         grd.nodesY[indCur + grd.nX] +
+                         grd.nodesY[indCur + 1 + grd.nX]) / 4;
 
             grd.Ycenter.push_back(value);
         }

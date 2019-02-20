@@ -15,8 +15,8 @@ Grid getGrid(const std::string &fileName) {
     auto nodesFileName = dataFile.getWord<std::string>("NODES_NUM");
 
     GetFromFile gridD(gridFileName);
-    grid.X_coord = gridD.getVector<double>("Node_X");
-    grid.Y_coord = gridD.getVector<double>("Node_Y");
+    grid.nodesX = gridD.getVector<double>("Node_X");
+    grid.nodesY = gridD.getVector<double>("Node_Y");
 
 
     GetFromFile nodesD(nodesFileName);
@@ -27,9 +27,9 @@ Grid getGrid(const std::string &fileName) {
 
     grid.gridN = (grid.nX - 1) * (grid.nY - 1);
 
-    grid.dx = (grid.X_coord[grid.nX - 1] - grid.X_coord[0]) / (grid.nX - 1);
+    grid.dX = (grid.nodesX[grid.nX - 1] - grid.nodesX[0]) / (grid.nX - 1);
 
-    grid.dy = (grid.Y_coord[grid.Y_coord.size() - 1] - grid.Y_coord[0]) /
+    grid.dY = (grid.nodesY[grid.nodesY.size() - 1] - grid.nodesY[0]) /
              (grid.nY - 1);
 
     // ***Surface area and volume determination***

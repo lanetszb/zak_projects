@@ -14,17 +14,17 @@ struct Grid {
     // total number of grid blocks.
     int gridN;
 
-    // dx
-    double dx;
+    // dX
+    double dX;
 
-    // dy
-    double dy;
+    // dY
+    double dY;
 
     // x coordinates of grid blocks.
-    std::vector<double> X_coord;
+    std::vector<double> nodesX;
 
     // y coordinates of grid blocks.
-    std::vector<double> Y_coord;
+    std::vector<double> nodesY;
 
     // x coordinates of grid block centers.
     std::vector<double> Xcenter;

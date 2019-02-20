@@ -10,73 +10,71 @@
 
 // data output
 
-void func_plot(Grid &grd, Plot &plt, std::vector<double> X) {
+void makePlot(const Grid &grid, const std::vector<double> value) {
 
+    Plot plot;
 
-    plt.X_gnuplot = func_Xgnuplot(grd.X_coord, grd.nX, grd.dx);
-    plt.Y_gnuplot = func_Ygnuplot(grd.Y_coord, grd.nX, grd.dy);
-    plt.T_gnuplot = func_Tgnuplot(grd.X_coord, plt.X_gnuplot, X,
-                                  grd.nX);
+    plot.nodesX = getNodesX(grid.nodesX, grid.nX, grid.dX);
+    plot.nodesY = getNodesY(grid.nodesY, grid.nX, grid.dY);
+    plot.value = getValue(value, grid.nX);
 
-    func_oStream(grd, plt);
+    outputPlot(grid, plot);
 
 }
 
-std::vector<double> func_Xgnuplot(std::vector<double> &X_coord, const int &Nx,
-                                  const int dx) {
+std::vector<double> getNodesX(const std::vector<double> &nodesX,
+                              const int &nX,
+                              const int &dX) {
 
-    std::vector<double> X_gnuplot(X_coord.size(), 0);
-    X_gnuplot[0] = X_coord[0];
+    std::vector<double> X_gnuplot(nodesX.size(), 0);
+    X_gnuplot[0] = nodesX[0];
 
 
     for (int i = 1; i < X_gnuplot.size(); i++) {
         X_gnuplot[i] = X_gnuplot[i - 1];
-        if (i % Nx == 0)
-            X_gnuplot[i] = X_gnuplot[i] + dx;
+        if (i % nX == 0)
+            X_gnuplot[i] = X_gnuplot[i] + dX;
 
     }
     return X_gnuplot;
 }
 
-std::vector<double> func_Ygnuplot(std::vector<double> &Y_coord, const int &Nx,
-                                  const int dy) {
+std::vector<double> getNodesY(const std::vector<double> &nodesY, const int &nX,
+                              const int &dY) {
 
-    std::vector<double> Y_gnuplot(Y_coord.size(), 0);
+    std::vector<double> Y_gnuplot(nodesY.size(), 0);
 
     for (int i = 0; i < 1; i++)
-        Y_gnuplot[i] = Y_coord[0];
+        Y_gnuplot[i] = nodesY[0];
 
     for (int i = 1; i < Y_gnuplot.size(); i++) {
 
-        if (i < Nx)
-            Y_gnuplot[i] = Y_gnuplot[i - 1] + dy;
+        if (i < nX)
+            Y_gnuplot[i] = Y_gnuplot[i - 1] + dY;
         else
-            Y_gnuplot[i] = Y_gnuplot[i - Nx];
+            Y_gnuplot[i] = Y_gnuplot[i - nX];
     }
     return Y_gnuplot;
 }
 
-std::vector<double> func_Tgnuplot(std::vector<double> &X_coord,
-                                  std::vector<double> &X_gnuplot,
-                                  std::vector<double> &X,
-                                  const int &Nx) {
+std::vector<double> getValue(const std::vector<double> &value, const int &nX) {
 
-    std::vector<double> T_gnuplot;
+    std::vector<double> plotValue;
 
-    for (int i = 0; i < Nx; i++)
-        for (int j = 0; j < Nx; j++)
-            T_gnuplot.push_back(X[i + j * (Nx - 1)]);
+    for (int i = 0; i < nX; i++)
+        for (int j = 0; j < nX; j++)
+            plotValue.push_back(value[i + j * (nX - 1)]);
 
-    for (int i = Nx - 1; i < T_gnuplot.size(); i += Nx)
-        T_gnuplot[i] = 0;
+    for (int i = nX - 1; i < plotValue.size(); i += nX)
+        plotValue[i] = 0;
 
-    for (int i = T_gnuplot.size() - (Nx); i < T_gnuplot.size(); i++)
-        T_gnuplot[i] = 0;
+    for (int i = plotValue.size() - (nX); i < plotValue.size(); i++)
+        plotValue[i] = 0;
 
-    return T_gnuplot;
+    return plotValue;
 }
 
-void func_oStream(Grid &grd, Plot &plt) {
+void outputPlot(const Grid &grid, const Plot &plot) {
 
     std::ofstream oStream;
 
@@ -84,14 +82,14 @@ void func_oStream(Grid &grd, Plot &plt) {
 
     oStream.open("out.txt");
 
-    for (int i = 0; i < plt.X_gnuplot.size(); i++) {
+    for (int i = 0; i < plot.nodesX.size(); i++) {
 
-        if (i % grd.nX == 0 && i != 0)
+        if (i % grid.nX == 0 && i != 0)
             oStream << std::endl;
 
-        oStream << plt.X_gnuplot[i] << "  ";
-        oStream << plt.Y_gnuplot[i] << "  ";
-        oStream << plt.T_gnuplot[i] << "  ";
+        oStream << plot.nodesX[i] << "  ";
+        oStream << plot.nodesY[i] << "  ";
+        oStream << plot.value[i] << "  ";
         oStream << std::endl;
     }
 
