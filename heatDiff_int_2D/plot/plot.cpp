@@ -43,15 +43,17 @@ void outputPlot(const Grid &grid, const std::vector<double> plotValue) {
 
     std::ofstream oStream;
 
-    int width = 7;
+    int width = 15;
 
     oStream.open("out.txt");
+    oStream.precision(4);
+    oStream.setf(std::ios::scientific, std::ios::floatfield);
 
     for (int i = 0; i < grid.nodesX.size(); i++) {
 
-        oStream << grid.nodesX[i] << "  ";
-        oStream << grid.nodesY[i] << "  ";
-        oStream << plotValue[i] << "  ";
+        oStream << std::setw(width) << grid.nodesX[i];
+        oStream << std::setw(width) << grid.nodesY[i];
+        oStream << std::setw(width) << plotValue[i];
         oStream << std::endl;
 
         if ((i + 1) % grid.nX == 0)
@@ -62,9 +64,7 @@ void outputPlot(const Grid &grid, const std::vector<double> plotValue) {
 
     std::string Temp = "out.plt";
     oStream.open(Temp.c_str());
-    oStream.precision(7);
-    int w = 15;
-    oStream.setf(std::ios::scientific, std::ios::floatfield);
+
 
     oStream << "set term png size 1000,1000" << std::endl;
     oStream << "set output 'pm3d.png'" << std::endl;
