@@ -1,5 +1,5 @@
-#ifndef MATRIX_COEFF_H
-#define MATRIX_COEFF_H
+#ifndef MATRIXCOEFF_H
+#define MATRIXCOEFF_H
 
 #include <grid/gridStruct.h>
 #include <matrix/matrixStruct.h>

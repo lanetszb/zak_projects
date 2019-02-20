@@ -1,5 +1,5 @@
-#ifndef PLOT_PLOT_H
-#define PLOT_PLOT_H
+#ifndef PLOT_H
+#define PLOT_H
 
 
 struct Plot {

@@ -1,5 +1,5 @@
-#ifndef READPROPERTIES_H
-#define READPROPERTIES_H
+#ifndef COMPUTETINITIAL_H
+#define COMPUTETINITIAL_H
 
 #include <vector>
 

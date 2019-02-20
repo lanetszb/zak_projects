@@ -1,5 +1,5 @@
-#ifndef PARAM_PARAM_H
-#define PARAM_PARAM_H
+#ifndef PARAM_H
+#define PARAM_H
 
 #include <param/param_struct.h>
 

@@ -1,5 +1,5 @@
-#ifndef EXTRA_JACOBI_H
-#define EXTRA_JACOBI_H
+#ifndef JACOBI_H
+#define JACOBI_H
 
 #include <param/param_struct.h>
 #include <matrix/matrixStruct.h>
