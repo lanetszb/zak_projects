@@ -43,8 +43,8 @@ Grid getGrid(const std::string &fileName) {
     grid.omegaLeft = omegaLeft_calc(grid);
 
     // Centre of blocks in X and Y directions.
-    grid.Xcenter = Xcenter_calc(grid);
-    grid.Ycenter = Ycenter_calc(grid);
+    grid.cellsX = Xcenter_calc(grid);
+    grid.cellsY = Ycenter_calc(grid);
 
     // Grid volume
 

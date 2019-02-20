@@ -13,10 +13,10 @@ std::vector<double> Xcenter_calc(Grid &grd) {
                          grd.nodesX[indCur + grd.nX] +
                          grd.nodesX[indCur + 1 + grd.nX]) / 4;
 
-            grd.Xcenter.push_back(value);
+            grd.cellsX.push_back(value);
         }
 
-    return grd.Xcenter;
+    return grd.cellsX;
 }
 
 std::vector<double> Ycenter_calc(Grid &grd) {
@@ -31,10 +31,10 @@ std::vector<double> Ycenter_calc(Grid &grd) {
                          grd.nodesY[indCur + grd.nX] +
                          grd.nodesY[indCur + 1 + grd.nX]) / 4;
 
-            grd.Ycenter.push_back(value);
+            grd.cellsY.push_back(value);
         }
 
-    return grd.Ycenter;
+    return grd.cellsY;
 
 }
 
@@ -78,7 +78,7 @@ std::vector<double> Left_dL_calc(Grid &grd) {
 
             indCur = i * (grd.nX - 1) + j;
             value = fabs(
-                    grd.Xcenter[indCur] - grd.Xcenter[indCur - 1]);
+                    grd.cellsX[indCur] - grd.cellsX[indCur - 1]);
 
             grd.getLeft_dL.push_back(value);
         }
@@ -95,7 +95,7 @@ std::vector<double> Right_dL_calc(Grid &grd) {
 
             indCur = i * (grd.nX - 1) + j;
             value = fabs(
-                    grd.Xcenter[indCur] - grd.Xcenter[indCur + 1]);
+                    grd.cellsX[indCur] - grd.cellsX[indCur + 1]);
 
             grd.getRight_dL.push_back(value);
         }
@@ -112,7 +112,7 @@ std::vector<double> Top_dL_calc(Grid &grd) {
 
             indCur = i * (grd.nX - 1) + j;
             value = fabs(
-                    grd.Ycenter[indCur] - grd.Ycenter[indCur + (grd.nX - 1)]);
+                    grd.cellsY[indCur] - grd.cellsY[indCur + (grd.nX - 1)]);
 
             grd.getTop_dL.push_back(value);
         }
@@ -130,7 +130,7 @@ std::vector<double> Bot_dL_calc(Grid &grd) {
 
             indCur = i * (grd.nX - 1) + j;
             value = fabs(
-                    grd.Ycenter[indCur] - grd.Ycenter[indCur - (grd.nX - 1)]);
+                    grd.cellsY[indCur] - grd.cellsY[indCur - (grd.nX - 1)]);
 
             grd.getBot_dL.push_back(value);
         }

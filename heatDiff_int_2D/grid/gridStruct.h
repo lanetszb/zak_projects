@@ -27,10 +27,10 @@ struct Grid {
     std::vector<double> nodesY;
 
     // x coordinates of grid block centers.
-    std::vector<double> Xcenter;
+    std::vector<double> cellsX;
 
     // y coordinates of grid block centers.
-    std::vector<double> Ycenter;
+    std::vector<double> cellsY;
 
     // surface area j+.
     std::vector<double> omegaTop;

@@ -21,7 +21,8 @@ int main(int narg, char **arg) {
 
     char response;
 
-    std::cout << "Does your grid system regular (dx and dy are constants), Y/N?" << std::endl;
+    std::cout << "Does your grid system regular (dx and dy are constants), Y/N?"
+              << std::endl;
     std::cin >> response;
     if (response == 'Y') {
 
@@ -34,6 +35,11 @@ int main(int narg, char **arg) {
         for (int i = 1; i < Nx; i++)
             X_coord[i] = X_coord[i - 1] + dx;
 
+        std::cout<<Nx<<std::endl;
+        std::cout<<dx<<std::endl;
+
+
+
         auto dy = (YL - Y0) / (Ny - 1);
         std::vector<double> Y_coord(Nx * Ny, 0);
 
@@ -42,7 +48,7 @@ int main(int narg, char **arg) {
 
 
         for (int i = 1; i < Ny * Nx; i++) {
-            Y_coord[i] = Y_coord[i-1];
+            Y_coord[i] = Y_coord[i - 1];
             if (i % Nx == 0)
                 Y_coord[i] = Y_coord[i] + dy;
         }
@@ -55,17 +61,18 @@ int main(int narg, char **arg) {
 
         oStream << "Node_X" << std::endl;
 
-        for (int i = 0; i < Nx; i++)
+        for (int i = 0; i < Ny; i++)
             for (int j = 0; j < Nx; j++)
                 oStream << X_coord[j] << " ";
+
         oStream << std::endl;
         oStream << "/" << std::endl;
         oStream << std::endl << std::endl;
 
         oStream << "Node_Y" << std::endl;
 
-        for (int i = 0; i < Ny*Nx; i++)
-                oStream << Y_coord[i] << " ";
+        for (int i = 0; i < Ny * Nx; i++)
+            oStream << Y_coord[i] << " ";
         oStream << std::endl;
         oStream << "/" << std::endl;
         oStream << std::endl << std::endl;

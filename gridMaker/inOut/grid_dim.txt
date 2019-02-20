@@ -4,9 +4,9 @@ Y0              0 m
 
 XL              10 m
 
-YL              10 m
+YL              7 m
 
-NODES_NUM_X     5
+NODES_NUM_X     11
 
-NODES_NUM_Y     5
+NODES_NUM_Y     8
 

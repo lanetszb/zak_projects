@@ -12,69 +12,34 @@
 
 void makePlot(const Grid &grid, const std::vector<double> value) {
 
-    Plot plot;
+    double fictitiousValue = 0;
 
-    plot.nodesX = getNodesX(grid.nodesX, grid.nX, grid.dX);
-    plot.nodesY = getNodesY(grid.nodesY, grid.nX, grid.dY);
-    plot.value = getValue(value, grid.nX);
+    std::vector<double> plotValue = getPlotValue(value, grid.nX,
+                                                 fictitiousValue);
 
-    outputPlot(grid, plot);
+    outputPlot(grid, plotValue);
 
 }
 
-std::vector<double> getNodesX(const std::vector<double> &nodesX,
-                              const int &nX,
-                              const int &dX) {
-
-    std::vector<double> X_gnuplot(nodesX.size(), 0);
-    X_gnuplot[0] = nodesX[0];
-
-
-    for (int i = 1; i < X_gnuplot.size(); i++) {
-        X_gnuplot[i] = X_gnuplot[i - 1];
-        if (i % nX == 0)
-            X_gnuplot[i] = X_gnuplot[i] + dX;
-
-    }
-    return X_gnuplot;
-}
-
-std::vector<double> getNodesY(const std::vector<double> &nodesY, const int &nX,
-                              const int &dY) {
-
-    std::vector<double> Y_gnuplot(nodesY.size(), 0);
-
-    for (int i = 0; i < 1; i++)
-        Y_gnuplot[i] = nodesY[0];
-
-    for (int i = 1; i < Y_gnuplot.size(); i++) {
-
-        if (i < nX)
-            Y_gnuplot[i] = Y_gnuplot[i - 1] + dY;
-        else
-            Y_gnuplot[i] = Y_gnuplot[i - nX];
-    }
-    return Y_gnuplot;
-}
-
-std::vector<double> getValue(const std::vector<double> &value, const int &nX) {
+std::vector<double> getPlotValue(const std::vector<double> &value,
+                                 const int &nX,
+                                 const double &fictitiousValue) {
 
     std::vector<double> plotValue;
 
+    for (int i = 0; i < value.size(); i++) {
+        plotValue.push_back(value[i]);
+        if ((i + 1) % (nX - 1) == 0)
+            plotValue.push_back(fictitiousValue);
+    }
+
     for (int i = 0; i < nX; i++)
-        for (int j = 0; j < nX; j++)
-            plotValue.push_back(value[i + j * (nX - 1)]);
-
-    for (int i = nX - 1; i < plotValue.size(); i += nX)
-        plotValue[i] = 0;
-
-    for (int i = plotValue.size() - (nX); i < plotValue.size(); i++)
-        plotValue[i] = 0;
+        plotValue.push_back(fictitiousValue);
 
     return plotValue;
 }
 
-void outputPlot(const Grid &grid, const Plot &plot) {
+void outputPlot(const Grid &grid, const std::vector<double> plotValue) {
 
     std::ofstream oStream;
 
@@ -82,15 +47,15 @@ void outputPlot(const Grid &grid, const Plot &plot) {
 
     oStream.open("out.txt");
 
-    for (int i = 0; i < plot.nodesX.size(); i++) {
+    for (int i = 0; i < grid.nodesX.size(); i++) {
 
-        if (i % grid.nX == 0 && i != 0)
-            oStream << std::endl;
-
-        oStream << plot.nodesX[i] << "  ";
-        oStream << plot.nodesY[i] << "  ";
-        oStream << plot.value[i] << "  ";
+        oStream << grid.nodesX[i] << "  ";
+        oStream << grid.nodesY[i] << "  ";
+        oStream << plotValue[i] << "  ";
         oStream << std::endl;
+
+        if ((i + 1) % grid.nX == 0)
+            oStream << std::endl;
     }
 
     oStream.close();
@@ -108,11 +73,10 @@ void outputPlot(const Grid &grid, const Plot &plot) {
     oStream << "set size square" << std::endl;
     oStream << "set pm3d map" << std::endl;
     oStream << "set cntrparam levels auto 7" << std::endl;
-    // oStream << "set cbtics 2000" << std::endl;
     oStream << "set zrange [0:]" << std::endl;
     oStream << "set palette rgbformulae 7,5,15" << std::endl;
-    oStream << "set samples 10" << std::endl;
-    oStream << "set isosamples 10" << std::endl;
+    oStream << "set samples " << grid.nX << std::endl;
+    oStream << "set isosamples " << grid.nY << std::endl;
 
     oStream << "splot 'out.txt' notitle" << std::endl;
 
