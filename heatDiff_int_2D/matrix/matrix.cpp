@@ -2,6 +2,8 @@
 #include <matrix/matrixVect.h>
 #include <matrix/matrixCoeff.h>
 
+#include <iostream>
+
 void computeMatrix(Matrix &matrix,
                    const Grid &grid,
                    const Param &param,
@@ -20,11 +22,11 @@ void computeMatrix(Matrix &matrix,
 
     computeC(matrix, grid, param, properties);
 
-    computeVal(matrix, grid);
+    fillVal(matrix, grid);
 
-    col_calc(grid, matrix);
+    fillCol(matrix, grid);
 
-    poi_calc(grid, matrix);
+    fillPoi(matrix, grid);
 }
 
 
@@ -40,6 +42,12 @@ Matrix initiateMatrix(const Grid &grid) {
     matrix.D = templateVector;
     matrix.E = templateVector;
     matrix.F = templateVector;
+
+    double valSize = grid.gridN + 4 * ((grid.nX - 3) * (grid.nY - 3));
+
+    matrix.val = std::vector<double>(valSize, 0);
+    matrix.col = std::vector<int>(valSize, 0);
+    matrix.poi = std::vector<int>(grid.gridN + 1, 0);
 
     return matrix;
 }

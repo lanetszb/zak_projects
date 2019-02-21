@@ -4,8 +4,8 @@
 #include <grid/gridStruct.h>
 #include <matrix/matrixStruct.h>
 
-void computeVal(Matrix &matrix, const Grid &grid);
-void col_calc(const Grid &grd, Matrix &mtr);
-void poi_calc(const Grid &grd, Matrix &mtr);
+void fillVal(Matrix &matrix, const Grid &grid);
+void fillCol(Matrix &matrix, const Grid &grid);
+void fillPoi(Matrix &matrix, const Grid &grid);
 
 #endif

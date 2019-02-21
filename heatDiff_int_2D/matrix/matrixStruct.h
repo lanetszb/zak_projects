@@ -8,9 +8,9 @@ struct Matrix {
 
     std::vector<double> val;
 
-    std::vector<double> col;
+    std::vector<int> col;
 
-    std::vector<double> poi;
+    std::vector<int> poi;
 
     std::vector<double> A;
 

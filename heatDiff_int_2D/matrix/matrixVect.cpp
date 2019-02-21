@@ -4,167 +4,151 @@
 #include <iostream>
 #include <iomanip>
 
-void computeVal(Matrix &matrix, const Grid &grid) {
+void fillVal(Matrix &matrix, const Grid &grid) {
 
-    matrix.val.clear();
+    int iCell = 0;
+    int iMatrix = 0;
 
-    double valSize = grid.gridN + 4 * ((grid.nX - 3) * (grid.nY - 3));
-
-    for (int i = 0; i < grid.nX - 1; i++)
-        matrix.val.push_back(matrix.C[i]);
-
-    int index = 0;
-    for (int i = 1; i < grid.nY - 2; i++)
-        for (int j = 0; j < grid.nX - 1; j++) {
-
-            if (j == 0) {
-                index = (i - 1) * (grid.nX - 1) + (grid.nX - 1);
-                matrix.val.push_back(matrix.C[index]);
-
-            } else if ((j > 0) && (j < grid.nX - 2) &&
-                       (j % ((i - 1) * (grid.nX - 1) + (grid.nX - 1) -
-                             i * (grid.nX - 1) + j) == 0)) {
-
-                index = ((i - 1) * (grid.nX - 1) + (grid.nX - 1) + j);
-
-                matrix.val.push_back(matrix.B[index]);
-                matrix.val.push_back(matrix.A[index]);
-                matrix.val.push_back(matrix.C[index]);
-                matrix.val.push_back(matrix.D[index]);
-                matrix.val.push_back(matrix.E[index]);
-
-            } else if (j == grid.nX - 2) {
-                index = (i - 1) * (grid.nX - 1) + (grid.nX - 1) + j;
-                matrix.val.push_back(matrix.C[index]);
-            }
-        }
 
     for (int i = 0; i < grid.nX - 1; i++) {
-        index = grid.gridN - (grid.nX - 1) + i;
-        matrix.val.push_back(matrix.C[index]);
+        iCell++;
+        iMatrix++;
+        matrix.val[iMatrix - 1] = matrix.C[iCell - 1];
     }
 
-}
 
-// Vector Col
-void col_calc(const Grid &grd, Matrix &mtr) {
+    for (int i = 1; i < grid.nY - 2; i++) {
 
-    mtr.col.clear();
+        iCell++;
+        iMatrix++;
+        matrix.val[iMatrix - 1] = matrix.C[iCell - 1];
 
-    double valSize = 0;
-    valSize = grd.gridN + 4 * ((grd.nX - 3) * (grd.nY - 3));
-    int calSize = valSize;
+        for (int j = 1; j < grid.nX - 2; j++) {
 
-    double indCur = 0;
-    double value = 0;
+            iCell++;
 
-    std::vector<double> cal_mid;
+            iMatrix++;
+            matrix.val[iMatrix - 1] = matrix.B[iCell - 1];
+            iMatrix++;
+            matrix.val[iMatrix - 1] = matrix.A[iCell - 1];
+            iMatrix++;
+            matrix.val[iMatrix - 1] = matrix.C[iCell - 1];
+            iMatrix++;
+            matrix.val[iMatrix - 1] = matrix.D[iCell - 1];
+            iMatrix++;
+            matrix.val[iMatrix - 1] = matrix.E[iCell - 1];
 
-    for (int i = 1; i < grd.nX - 2; i++)
-        for (int j = 1; j < 6; j++) {
-
-            if (j == 1) {
-                indCur = grd.nX - (grd.nX - 1) + (i - 1);
-                value = indCur;
-                cal_mid.push_back(value);
-            } else if (j == 5) {
-                indCur = grd.nX + (grd.nX - 1) + (i - 1);
-                value = indCur;
-                cal_mid.push_back(value);
-            } else if (j == 2) {
-                indCur = (grd.nX - 1) + (i - 1);
-                value = indCur;
-                cal_mid.push_back(value);
-            } else if (j == 3) {
-                indCur = grd.nX + (i - 1);
-                value = indCur;
-                cal_mid.push_back(value);
-            } else if (j == 4) {
-                indCur = grd.nX + 1 + (i - 1);
-                value = indCur;
-                cal_mid.push_back(value);
-            }
         }
 
-    std::vector<double> cal_mid_1;
+        iCell++;
+        iMatrix++;
+        matrix.val[iMatrix - 1] = matrix.C[iCell - 1];
 
-    for (int i = 1; i < grd.nY - 2; i++)
-        for (int j = 0; j < cal_mid.size(); j++) {
-            indCur = cal_mid[j] + (i - 1) * (grd.nX - 1);
-            value = indCur;
-            cal_mid_1.push_back(value);
-        }
-
-    value = 0;
-    for (int i = 0; i < grd.nX - 1; i++) {
-        value = i;
-        mtr.col.push_back(value);
     }
 
-    indCur = 0;
-    value = 0;
-    for (int i = 1; i < grd.nY - 2; i++)
-        for (int j = 0; j < 2 + 5 * (grd.nX - 3); j++) {
 
-            if (j == 0) {
-                indCur = i * (grd.nX - 1);
-                value = indCur;
-                mtr.col.push_back(value);
-
-            } else if ((j > 0) && (j < 2 + 5 * (grd.nX - 3) - 1)) {
-
-                indCur = cal_mid_1[(i - 1) * 5 * (grd.nX - 3) + j - 1];
-                value = indCur;
-                mtr.col.push_back(value);
-
-
-            } else if (j == 2 + 5 * (grd.nX - 3) - 1) {
-
-                indCur = i * (grd.nX - 1) + grd.nX - 2;
-                value = indCur;
-                mtr.col.push_back(value);
-            }
-        }
-
-    value = 0;
-    for (int i = grd.gridN - (grd.nX - 1); i < grd.gridN; i++) {
-        value = i;
-        mtr.col.push_back(value);
+    for (int i = 0; i < grid.nX - 1; i++) {
+        iCell++;
+        iMatrix++;
+        matrix.val[iMatrix - 1] = matrix.C[iCell - 1];
     }
 
 }
 
 
-// Vector Poi
-void poi_calc(const Grid &grd, Matrix &mtr) {
+void fillCol(Matrix &matrix, const Grid &grid) {
 
-    mtr.poi.clear();
+    int iCell = 0;
+    int iMatrix = 0;
 
-    double value = 0;
-    double indCur = 0;
 
-    for (int i = 0; i < grd.nX - 1; i++) {
-        value = i;
-        mtr.poi.push_back(value);
+    for (int i = 0; i < grid.nX - 1; i++) {
+        iCell++;
+        iMatrix++;
+        matrix.col[iMatrix - 1] = iCell - 1;
     }
 
-    for (int i = 1; i < grd.nY - 2; i++)
-        for (int j = 0; j < 5 * (grd.nX - 1); j += 5) {
 
-            if (j == 0) {
-                value = (grd.nX - 1) + (i - 1) * (2 + 5 * (grd.nX - 3));
-                indCur = value;
-                mtr.poi.push_back(value);
-            } else if ((j > 0) && (j < 5 * (grd.nX - 1))) {
-                value = (grd.nX + (j - 5)) + (i - 1) * (2 + 5 * (grd.nX - 3));
-                mtr.poi.push_back(value);
-            }
+    for (int i = 1; i < grid.nY - 2; i++) {
+
+        iCell++;
+        iMatrix++;
+        matrix.col[iMatrix - 1] = iCell - 1;
+
+        for (int j = 1; j < grid.nX - 2; j++) {
+
+            iCell++;
+
+            iMatrix++;
+            matrix.col[iMatrix - 1] = iCell - (grid.nX - 1) - 1;
+            iMatrix++;
+            matrix.col[iMatrix - 1] = iCell - 1 - 1;
+            iMatrix++;
+            matrix.col[iMatrix - 1] = iCell - 1;
+            iMatrix++;
+            matrix.col[iMatrix - 1] = iCell + 1 - 1;
+            iMatrix++;
+            matrix.col[iMatrix - 1] = iCell + (grid.nX - 1) - 1;
+
         }
 
-    value = 0;
-    for (int i = 1; i < grd.nX + 1; i++) {
-        value = mtr.poi[grd.gridN - (grd.nX - 1) - 1] + i;
-        mtr.poi.push_back(value);
+        iCell++;
+        iMatrix++;
+        matrix.col[iMatrix - 1] = iCell - 1;
+
+    }
+
+
+    for (int i = 0; i < grid.nX - 1; i++) {
+        iCell++;
+        iMatrix++;
+        matrix.col[iMatrix - 1] = iCell - 1;
+    }
+}
+
+
+void fillPoi(Matrix &matrix, const Grid &grid) {
+
+    int iCell = 0;
+    int iMatrix = 0;
+
+    matrix.poi[0] = 0;
+
+    for (int i = 0; i < grid.nX - 1; i++) {
+        iCell++;
+        iMatrix++;
+        matrix.poi[iCell] = iMatrix;
+    }
+
+    for (int i = 1; i < grid.nY - 2; i++) {
+
+        iCell++;
+        iMatrix++;
+        matrix.poi[iCell] = iMatrix;
+
+        for (int j = 1; j < grid.nX - 2; j++) {
+
+            iCell++;
+
+            iMatrix++;
+            iMatrix++;
+            iMatrix++;
+            iMatrix++;
+            iMatrix++;
+
+            matrix.poi[iCell] = iMatrix;
+        }
+
+        iCell++;
+        iMatrix++;
+        matrix.poi[iCell] = iMatrix;
+
+    }
+
+    for (int i = 0; i < grid.nX - 1; i++) {
+        iCell++;
+        iMatrix++;
+        matrix.poi[iCell] = iMatrix;
     }
 
 
