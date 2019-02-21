@@ -6,18 +6,23 @@
 #include <properties/properties.h>
 #include <param/param.h>
 
-void A_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Properties &lmb);
+void computeA(Matrix &matrix, const Grid &grid, const Param &param,
+              const Properties &properties);
 
-void B_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Properties &lmb);
+void computeB(Matrix &matrix, const Grid &grid, const Param &param,
+              const Properties &properties);
 
-void C_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Properties &lmb,
-            const double &dt);
+void computeC(Matrix &matrix, const Grid &grid, const Param &param,
+              const Properties &properties);
 
-void D_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Properties &lmb);
+void computeD(Matrix &matrix, const Grid &grid, const Param &param,
+              const Properties &properties);
 
-void E_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Properties &lmb);
+void computeE(Matrix &matrix, const Grid &grid, const Param &param,
+              const Properties &properties);
 
-void F_calc(const Grid &grd, Matrix &mtr, const Param &prm, const Properties &lmb,
-            const std::vector<double> &Xprev, const double &dt);
+void computeF(Matrix &matrix, const Grid &grid, const Param &param,
+              const Properties &properties,
+              const std::vector<double> &TPrevious);
 
 #endif

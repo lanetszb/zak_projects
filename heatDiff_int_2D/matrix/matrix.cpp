@@ -1,28 +1,45 @@
 #include <matrix/matrix.h>
 #include <matrix/matrixVect.h>
 #include <matrix/matrixCoeff.h>
-#include <iostream>
 
-void computeMatrix(const Grid &grd, Matrix &mtr, const Param &prm,
-                   const Properties &lmb,
-                   const std::vector<double> &Xprev,
-                   const double &dt) {
+void computeMatrix(Matrix &matrix,
+                   const Grid &grid,
+                   const Param &param,
+                   const Properties &properties,
+                   const std::vector<double> &TPrevious) {
 
-    A_calc(grd, mtr, prm, lmb);
+    computeA(matrix, grid, param, properties);
 
-    E_calc(grd, mtr, prm, lmb);
+    computeE(matrix, grid, param, properties);
 
-    B_calc(grd, mtr, prm, lmb);
+    computeB(matrix, grid, param, properties);
 
-    D_calc(grd, mtr, prm, lmb);
+    computeD(matrix, grid, param, properties);
 
-    F_calc(grd, mtr, prm, lmb, Xprev, dt);
+    computeF(matrix, grid, param, properties, TPrevious);
 
-    C_calc(grd, mtr, prm, lmb, dt);
+    computeC(matrix, grid, param, properties);
 
-    val_calc(grd, mtr);
+    computeVal(matrix, grid);
 
-    col_calc(grd, mtr);
+    col_calc(grid, matrix);
 
-    poi_calc(grd, mtr);
+    poi_calc(grid, matrix);
+}
+
+
+Matrix initiateMatrix(const Grid &grid) {
+
+    Matrix matrix;
+
+    auto templateVector = std::vector<double>(grid.gridN, 0);
+
+    matrix.A = templateVector;
+    matrix.B = templateVector;
+    matrix.C = templateVector;
+    matrix.D = templateVector;
+    matrix.E = templateVector;
+    matrix.F = templateVector;
+
+    return matrix;
 }

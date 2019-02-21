@@ -4,66 +4,44 @@
 #include <iostream>
 #include <iomanip>
 
-void val_calc(const Grid &grd, Matrix &mtr) {
-// Vector Val
-    mtr.val.clear();
+void computeVal(Matrix &matrix, const Grid &grid) {
 
-    double valSize = 0;
-    valSize = grd.gridN + 4 * ((grd.nX - 3) * (grd.nY - 3));
+    matrix.val.clear();
 
+    double valSize = grid.gridN + 4 * ((grid.nX - 3) * (grid.nY - 3));
 
-    double value = 0;
+    for (int i = 0; i < grid.nX - 1; i++)
+        matrix.val.push_back(matrix.C[i]);
 
-    for (int i = 0; i < grd.nX - 1; i++) {
-        value = mtr.C[i];
-        mtr.val.push_back(value);
-    }
-
-    int indCur = 0;
-    value = 0;
-    for (int i = 1; i < grd.nY - 2; i++)
-        for (int j = 0; j < grd.nX - 1; j++) {
+    int index = 0;
+    for (int i = 1; i < grid.nY - 2; i++)
+        for (int j = 0; j < grid.nX - 1; j++) {
 
             if (j == 0) {
-                indCur = (i - 1) * (grd.nX - 1) + (grd.nX - 1);
-                value = mtr.C[indCur];
-                mtr.val.push_back(value);
+                index = (i - 1) * (grid.nX - 1) + (grid.nX - 1);
+                matrix.val.push_back(matrix.C[index]);
 
-            } else if ((j > 0) && (j < grd.nX - 2) &&
-                       (j % ((i - 1) * (grd.nX - 1) + (grd.nX - 1) -
-                             i * (grd.nX - 1) + j) == 0)) {
+            } else if ((j > 0) && (j < grid.nX - 2) &&
+                       (j % ((i - 1) * (grid.nX - 1) + (grid.nX - 1) -
+                             i * (grid.nX - 1) + j) == 0)) {
 
-                indCur = ((i - 1) * (grd.nX - 1) + (grd.nX - 1) + j);
+                index = ((i - 1) * (grid.nX - 1) + (grid.nX - 1) + j);
 
-                value = mtr.B[indCur];
-                mtr.val.push_back(value);
+                matrix.val.push_back(matrix.B[index]);
+                matrix.val.push_back(matrix.A[index]);
+                matrix.val.push_back(matrix.C[index]);
+                matrix.val.push_back(matrix.D[index]);
+                matrix.val.push_back(matrix.E[index]);
 
-                value = mtr.A[indCur];
-                mtr.val.push_back(value);
-
-                value = mtr.C[indCur];
-                mtr.val.push_back(value);
-
-                value = mtr.D[indCur];
-                mtr.val.push_back(value);
-
-                value = mtr.E[indCur];
-                mtr.val.push_back(value);
-
-            } else if (j == grd.nX - 2) {
-                indCur = (i - 1) * (grd.nX - 1) + (grd.nX - 1) + j;
-                value = mtr.C[indCur];
-                mtr.val.push_back(value);
+            } else if (j == grid.nX - 2) {
+                index = (i - 1) * (grid.nX - 1) + (grid.nX - 1) + j;
+                matrix.val.push_back(matrix.C[index]);
             }
         }
 
-    indCur = 0;
-    value = 0;
-    for (int i = 0; i < grd.nX - 1; i++) {
-        indCur = grd.gridN - (grd.nX - 1) + i;
-        value = mtr.C[indCur];
-        mtr.val.push_back(value);
-
+    for (int i = 0; i < grid.nX - 1; i++) {
+        index = grid.gridN - (grid.nX - 1) + i;
+        matrix.val.push_back(matrix.C[index]);
     }
 
 }

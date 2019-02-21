@@ -26,25 +26,24 @@ struct Properties {
 };
 
 void computeProperties(Properties &properties, const PropertyTables &propertyTables,
-                       const Grid &grid, std::vector<double> &T);
+                       const std::vector<double> &TPrevious, const Grid &grid);
 
-void computeLambLeft(Properties &properties,
-                     const PropertyTables &propertyTables,
-                     const Grid &grd, const std::vector<double> &T);
+void computeLambLeft(Properties &properties, const PropertyTables &propertyTables,
+                     const std::vector<double> &T, const Grid &grid);
 
 void computeLambRight(Properties &properties, const PropertyTables &propertyTables,
-                      const Grid &grd, const std::vector<double> &T);
+                      const std::vector<double> &T, const Grid &grid);
 
 void computeLambTop(Properties &properties, const PropertyTables &propertyTables,
-                    const Grid &grd, const std::vector<double> &T);
+                    const std::vector<double> &T, const Grid &grid);
 
 void computeLambBot(Properties &properties, const PropertyTables &propertyTables,
-                    const Grid &grd, const std::vector<double> &T);
+                    const std::vector<double> &T, const Grid &grid);
 
 void computeDensity(Properties &properties, const PropertyTables &propertyTables,
-                    const Grid &grd, const std::vector<double> &T);
+                    const std::vector<double> &T, const Grid &grid);
 
 void computeCapacity(Properties &properties, const PropertyTables &propertyTables,
-                     const Grid &grd, const std::vector<double> &T);
+                     const std::vector<double> &T, const Grid &grid);
 
 #endif

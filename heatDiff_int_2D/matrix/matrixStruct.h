@@ -3,6 +3,7 @@
 
 #include <vector>
 
+
 struct Matrix {
 
     std::vector<double> val;

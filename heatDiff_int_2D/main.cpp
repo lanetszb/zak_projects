@@ -21,15 +21,15 @@ int main(int narg, char **arg) {
 
     auto T = computeTInitial(grid, param);
 
-    Matrix matrix;
+    Matrix matrix = initiateMatrix(grid);
 
     Properties properties;
 
     for (double t = param.dt; t <= param.time; t += param.dt) {
 
-        computeProperties(properties, propertyTables, grid, T);
+        computeProperties(properties, propertyTables, T, grid);
 
-        computeMatrix(grid, matrix, param, properties, T, param.dt);
+        computeMatrix(matrix, grid, param, properties, T);
 
         computeLSJacobi(matrix, param, T);
     }

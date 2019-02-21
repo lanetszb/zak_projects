@@ -6,9 +6,10 @@
 #include <param/param.h>
 #include <properties/properties.h>
 
-void computeMatrix(const Grid &grd, Matrix &mtr, const Param &prm,
-                   const Properties &lmb,
-                   const std::vector<double> &Xprev,
-                   const double &dt);
+void computeMatrix(Matrix &matrix, const Grid &grid, const Param &param,
+                   const Properties &properties,
+                   const std::vector<double> &TPrevious);
+
+Matrix initiateMatrix(const Grid & grid);
 
 #endif
