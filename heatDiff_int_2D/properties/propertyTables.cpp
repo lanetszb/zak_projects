@@ -2,6 +2,7 @@
 
 #include <properties/propertyTables.h>
 
+
 PropertyTables getTables(const std::string &fileName) {
 
     PropertyTables propertyTables;
@@ -19,6 +20,7 @@ PropertyTables getTables(const std::string &fileName) {
     return propertyTables;
 }
 
+
 void getTable(std::vector<std::vector<double>> &table,
               const std::string &tableName) {
 
@@ -34,4 +36,51 @@ void getTable(std::vector<std::vector<double>> &table,
                     vec1DFor2D[i * vec2DCol + j]);
     }
 
+
+    std::cout << "value " << getValue(table, 15);
+    exit(0);
+
+}
+
+
+double getValue(const std::vector<std::vector<double>> &table,
+                const double &T) {
+
+    double value = 0;
+
+
+    double TCurrent = 0;
+    double valueCurrent = 0;
+
+    double TNext = 0;
+    double valueNext = 0;
+
+
+    if (T <= table[0][0])
+        value = table[0][1];
+
+    else if (T > table[table.size() - 1][0])
+        value = table[table.size() - 1][1];
+
+    else
+        for (int i = 0; i < table.size() - 1; i++) {
+
+            TCurrent = table[i][0];
+            valueCurrent = table[i][1];
+
+            TNext = table[i + 1][0];
+            valueNext = table[i + 1][1];
+
+            if (T <= TNext) {
+
+                value = valueCurrent +
+                        (valueNext - valueCurrent) / (TNext - TCurrent) *
+                        (T - TCurrent);
+
+                break;
+
+            }
+        }
+
+    return value;
 }

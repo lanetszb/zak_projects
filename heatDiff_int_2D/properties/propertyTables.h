@@ -19,4 +19,7 @@ void getTable(std::vector<std::vector<double>> &table,
 
 PropertyTables getTables(const std::string &fileName);
 
+double getValue(const std::vector<std::vector<double>> &table,
+                const double &T);
+
 #endif
