@@ -16,7 +16,7 @@ Coefficients initiateCoefficients(const Grid &grid) {
     coefficients.D = templateVector;
     coefficients.E = templateVector;
     coefficients.F = templateVector;
-    
+
     return coefficients;
 }
 
@@ -36,6 +36,7 @@ void computeCoefficients(Coefficients &coefficients, const Grid &grid,
 
 }
 
+
 void computeA(Coefficients &coefficients,
               const Grid &grid,
               const Settings &settings,
@@ -43,31 +44,8 @@ void computeA(Coefficients &coefficients,
 
     for (int i = 0; i < grid.nCells; i++)
 
-        coefficients.A[i] = -properties.lambdaBottom[i] * grid.surfaceBottom[i] /
-                            grid.LBottom[i];
-
-
-    for (int i = 0; i < (grid.nX - 2); i++)
-
-        coefficients.A[i] = 0;
-
-
-    for (int i = (grid.nX - 1);
-         i < coefficients.A.size() - (grid.nX - 2); i += grid.nX - 1)
-
-        coefficients.A[i] = 0;
-
-
-    for (int i = coefficients.A.size() - (grid.nX - 2);
-         i < coefficients.A.size(); i++)
-
-        coefficients.A[i] = 0;
-
-
-    for (int i = (grid.nX - 2);
-         i < coefficients.A.size() - (grid.nX - 1); i += grid.nX - 1)
-
-        coefficients.A[i] = 0;
+        coefficients.A[i] = -properties.lambdaBottom[i] *
+                            grid.surfaceBottom[i] / grid.LBottom[i];
 
 }
 
@@ -77,35 +55,10 @@ void computeB(Coefficients &coefficients,
               const Settings &settings,
               const Properties &properties) {
 
-    for (int i = 0;
-         i < grid.nCells; i++)
+    for (int i = 0; i < grid.nCells; i++)
 
-        coefficients.B[i] = -properties.lambdaLeft[i] * grid.surfaceLeft[i] /
-                            grid.LLeft[i];
-
-
-    for (int i = 0;
-         i < (grid.nX - 2); i++)
-
-        coefficients.B[i] = 0;
-
-
-    for (int i = (grid.nX - 1);
-         i < coefficients.B.size() - (grid.nX - 2); i += grid.nX - 1)
-
-        coefficients.B[i] = 0;
-
-
-    for (int i = coefficients.B.size() - (grid.nX - 2);
-         i < coefficients.B.size(); i++)
-
-        coefficients.B[i] = 0;
-
-
-    for (int i = (grid.nX - 2);
-         i < coefficients.B.size() - (grid.nX - 1); i += grid.nX - 1)
-
-        coefficients.B[i] = 0;
+        coefficients.B[i] = -properties.lambdaLeft[i] *
+                            grid.surfaceLeft[i] / grid.LLeft[i];
 
 }
 
@@ -122,33 +75,6 @@ void computeC(Coefficients &coefficients,
                             - coefficients.A[i] - coefficients.B[i]
                             - coefficients.D[i] - coefficients.E[i];
 
-
-    for (int i = 0; i < (grid.nX - 2); i++)
-
-        coefficients.C[i] = grid.cellsVolume[i] * properties.density[i] *
-                            properties.capacity[i] / settings.dt;
-
-
-    for (int i = (grid.nX - 1);
-         i < coefficients.C.size() - (grid.nX - 2); i += grid.nX - 1)
-
-        coefficients.C[i] = grid.cellsVolume[i] * properties.density[i] *
-                            properties.capacity[i] / settings.dt;
-
-
-    for (int i = coefficients.C.size() - (grid.nX - 2);
-         i < coefficients.C.size(); i++)
-
-        coefficients.C[i] = grid.cellsVolume[i] * properties.density[i] *
-                            properties.capacity[i] / settings.dt;
-
-
-    for (int i = (grid.nX - 2);
-         i < coefficients.C.size() - (grid.nX - 1); i += grid.nX - 1)
-
-        coefficients.C[i] = grid.cellsVolume[i] * properties.density[i] *
-                            properties.capacity[i] / settings.dt;
-
 }
 
 
@@ -158,23 +84,10 @@ void computeD(Coefficients &coefficients,
               const Properties &properties) {
 
     for (int i = 0; i < grid.nCells; i++)
-        coefficients.D[i] = -properties.lambdaRight[i] * grid.surfaceRight[i] /
-                            grid.LRight[i];
 
-    for (int i = 0; i < (grid.nX - 2); i++)
-        coefficients.D[i] = 0;
+        coefficients.D[i] = -properties.lambdaRight[i] *
+                            grid.surfaceRight[i] / grid.LRight[i];
 
-    for (int i = (grid.nX - 1);
-         i < coefficients.D.size() - (grid.nX - 2); i += grid.nX - 1)
-        coefficients.D[i] = 0;
-
-    for (int i = coefficients.D.size() - (grid.nX - 2);
-         i < coefficients.D.size(); i++)
-        coefficients.D[i] = 0;
-
-    for (int i = (grid.nX - 2);
-         i < coefficients.D.size() - (grid.nX - 1); i += grid.nX - 1)
-        coefficients.D[i] = 0;
 }
 
 
@@ -183,35 +96,10 @@ void computeE(Coefficients &coefficients,
               const Settings &settings,
               const Properties &properties) {
 
-    for (int i = 0;
-         i < grid.nCells; i++)
+    for (int i = 0; i < grid.nCells; i++)
 
-        coefficients.E[i] = (-1 * properties.lambdaTop[i] * grid.surfaceTop[i]) /
-                            grid.LTop[i];
-
-
-    for (int i = 0;
-         i < (grid.nX - 2); i++)
-
-        coefficients.E[i] = 0;
-
-
-    for (int i = (grid.nX - 1);
-         i < coefficients.E.size() - (grid.nX - 2); i += grid.nX - 1)
-
-        coefficients.E[i] = 0;
-
-
-    for (int i = coefficients.E.size() - (grid.nX - 2);
-         i < coefficients.E.size(); i++)
-
-        coefficients.E[i] = 0;
-
-
-    for (int i = (grid.nX - 2);
-         i < coefficients.E.size() - (grid.nX - 1); i += grid.nX - 1)
-
-        coefficients.E[i] = 0;
+        coefficients.E[i] = -properties.lambdaTop[i] *
+                            grid.surfaceTop[i] / grid.LTop[i];
 
 }
 

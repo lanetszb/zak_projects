@@ -18,12 +18,14 @@ struct Matrix {
 Matrix initiateMatrix(const Grid &grid);
 
 void fillMatrix(Matrix &matrix, const Coefficients &coefficients,
-                const Grid &grid);
+                const Grid &grid, const std::vector<double> &T);
 
-void fillMatrixExternalCell(Matrix &matrix, const Coefficients &coefficients,
-                            int &iCell, int &iMatrix);
+void fillMatrixExternalCell(Matrix &matrix, int &iCell, int &iMatrix,
+                            const Coefficients &coefficients,
+                            const std::vector<double> &T);
 
-void fillMatrixInternalCell(Matrix &matrix, const Coefficients &coefficients,
-                            int &iCell, int &iMatrix, const Grid &grid);
+void fillMatrixInternalCell(Matrix &matrix, int &iCell, int &iMatrix,
+                            const Coefficients &coefficients,
+                            const Grid &grid);
 
 #endif

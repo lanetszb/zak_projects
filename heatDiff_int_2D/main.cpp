@@ -24,7 +24,7 @@ int main(int narg, char **arg) {
 
         computeProperties(properties, propertyTables, T, grid);
         computeCoefficients(coefficients, grid, settings, properties, T);
-        fillMatrix(matrix, coefficients, grid);
+        fillMatrix(matrix, coefficients, grid, T);
 
         solveJacobiLS(matrix, coefficients, settings, T);
 

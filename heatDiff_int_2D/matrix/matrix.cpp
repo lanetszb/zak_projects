@@ -18,42 +18,46 @@ Matrix initiateMatrix(const Grid &grid) {
 
 
 void fillMatrix(Matrix &matrix, const Coefficients &coefficients,
-                const Grid &grid) {
+                const Grid &grid, const std::vector<double> &T) {
 
     int iCell = 0;
     int iMatrix = 0;
 
     for (int i = 0; i < grid.nX - 1; i++)
-        fillMatrixExternalCell(matrix, coefficients, iCell, iMatrix);
+        fillMatrixExternalCell(matrix, iCell, iMatrix, coefficients, T);
 
     for (int i = 1; i < grid.nY - 2; i++) {
-        fillMatrixExternalCell(matrix, coefficients, iCell, iMatrix);
+
+        fillMatrixExternalCell(matrix, iCell, iMatrix, coefficients, T);
+
         for (int j = 1; j < grid.nX - 2; j++)
-            fillMatrixInternalCell(matrix, coefficients, iCell, iMatrix, grid);
-        fillMatrixExternalCell(matrix, coefficients, iCell, iMatrix);
+            fillMatrixInternalCell(matrix, iCell, iMatrix, coefficients, grid);
+
+        fillMatrixExternalCell(matrix, iCell, iMatrix, coefficients, T);
     }
 
     for (int i = 0; i < grid.nX - 1; i++)
-        fillMatrixExternalCell(matrix, coefficients, iCell, iMatrix);
+        fillMatrixExternalCell(matrix, iCell, iMatrix, coefficients, T);
 
 }
 
 
-void fillMatrixExternalCell(Matrix &matrix, const Coefficients &coefficients,
-                            int &iCell, int &iMatrix) {
+void fillMatrixExternalCell(Matrix &matrix, int &iCell, int &iMatrix,
+                            const Coefficients &coefficients,
+                            const std::vector<double> &T) {
 
     iCell++;
     iMatrix++;
 
-    matrix.val[iMatrix - 1] = coefficients.C[iCell - 1];
+    matrix.val[iMatrix - 1] = -coefficients.F[iCell - 1] / T[iCell - 1];
     matrix.col[iMatrix - 1] = iCell - 1;
     matrix.poi[iCell] = iMatrix;
 
 }
 
 
-void fillMatrixInternalCell(Matrix &matrix, const Coefficients &coefficients,
-                            int &iCell, int &iMatrix,
+void fillMatrixInternalCell(Matrix &matrix, int &iCell, int &iMatrix,
+                            const Coefficients &coefficients,
                             const Grid &grid) {
 
     iCell++;
