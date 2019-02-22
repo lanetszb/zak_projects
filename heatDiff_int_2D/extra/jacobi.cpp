@@ -1,7 +1,8 @@
 #include <extra/jacobi.h>
 #include <cmath>
 
-void computeLSJacobi(const Matrix &mtr, const Param &prm,
+void computeLSJacobi(const Matrix &matrix, const Coefficients &coefficients,
+                     const Param &param,
                      std::vector<double> &X) {
 
     double curTolerance = 0;
@@ -9,9 +10,9 @@ void computeLSJacobi(const Matrix &mtr, const Param &prm,
     std::vector<std::vector<double>> Xcur{2, X};
 
     std::vector<int> dgInd;
-    for (int i = 0; i < mtr.poi.size() - 1; i++)
-        for (int j = mtr.poi[i]; j < mtr.poi[i + 1]; j++)
-            if (i == mtr.col[j]) {
+    for (int i = 0; i < matrix.poi.size() - 1; i++)
+        for (int j = matrix.poi[i]; j < matrix.poi[i + 1]; j++)
+            if (i == matrix.col[j]) {
                 dgInd.push_back(j);
                 break;
             }
@@ -20,20 +21,20 @@ void computeLSJacobi(const Matrix &mtr, const Param &prm,
 
     do {
 
-        for (int i = 0; i < mtr.poi.size() - 1; i++)
+        for (int i = 0; i < matrix.poi.size() - 1; i++)
             Xcur[(k + 1) % 2][i] =
-                    -mtr.F[i] + Xcur[k % 2][i] * mtr.val[dgInd[i]];
+                    -coefficients.F[i] + Xcur[k % 2][i] * matrix.val[dgInd[i]];
 
-        for (int i = 0; i < mtr.poi.size() - 1; i++)
-            for (int j = mtr.poi[i]; j < mtr.poi[i + 1]; j++)
+        for (int i = 0; i < matrix.poi.size() - 1; i++)
+            for (int j = matrix.poi[i]; j < matrix.poi[i + 1]; j++)
                 Xcur[(k + 1) % 2][i] -=
-                        mtr.val[j] * Xcur[k % 2][mtr.col[j]];
+                        matrix.val[j] * Xcur[k % 2][matrix.col[j]];
 
-        for (int i = 0; i < mtr.poi.size() - 1; i++)
-            Xcur[(k + 1) % 2][i] /= mtr.val[dgInd[i]];
+        for (int i = 0; i < matrix.poi.size() - 1; i++)
+            Xcur[(k + 1) % 2][i] /= matrix.val[dgInd[i]];
 
         curTolerance = 0;
-        for (int i = 0; i < mtr.poi.size() - 1; i++)
+        for (int i = 0; i < matrix.poi.size() - 1; i++)
             curTolerance +=
                     fabs(2. * (Xcur[(k + 1) % 2][i] - Xcur[k % 2][i]) /
                          (Xcur[(k + 1) % 2][i] + Xcur[k % 2][i])) /
@@ -41,7 +42,7 @@ void computeLSJacobi(const Matrix &mtr, const Param &prm,
         k++;
 
 
-    } while (curTolerance > prm.maxTolerance);
+    } while (curTolerance > param.maxTolerance);
 
 
     X = Xcur[k % 2];

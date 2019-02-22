@@ -11,12 +11,12 @@ set(SOURCE_FILES
 
         grid/gridCell.cpp grid/gridSurf.cpp grid/grid.cpp
 
-        matrix/matrix.cpp matrix/matrixCoeff.cpp matrix/matrixVect.cpp
+        matrix/matrix.cpp
 
         param/param.cpp
 
         extra/computeTInitial.cpp extra/computeTInitial.h extra/jacobi.cpp
 
-        properties/propertyTables.cpp properties/properties.cpp)
+        properties/propertyTables.cpp properties/properties.cpp coefficients/coefficients.cpp coefficients/coefficients.h)
 
 add_executable(heatDiff_int_2D ${SOURCE_FILES})

@@ -6,7 +6,6 @@
 #include <properties/properties.h>
 #include <properties/propertyTables.h>
 #include <grid/gridStruct.h>
-#include <matrix/matrixStruct.h>
 #include <param/param_struct.h>
 
 struct Properties {

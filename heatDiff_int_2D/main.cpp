@@ -1,5 +1,6 @@
 #include <string>
 
+#include <coefficients/coefficients.h>
 #include <grid/grid.h>
 #include <plot/plot.h>
 #include <properties/properties.h>
@@ -23,15 +24,17 @@ int main(int narg, char **arg) {
 
     Matrix matrix = initiateMatrix(grid);
 
+    Coefficients coefficients = initiateCoefficients(grid);
+
     Properties properties;
 
     for (double t = param.dt; t <= param.time; t += param.dt) {
 
         computeProperties(properties, propertyTables, T, grid);
+        computeCoefficients(coefficients, grid, param, properties, T);
+        fillMatrix(matrix, coefficients, grid);
 
-        computeMatrix(matrix, grid, param, properties, T);
-
-        computeLSJacobi(matrix, param, T);
+        computeLSJacobi(matrix, coefficients, param, T);
     }
 
     makePlot(grid, T);
