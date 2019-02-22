@@ -6,11 +6,11 @@
 
 struct PropertyTables {
 
-    std::vector<std::vector<double>> lambdaTable;
+    std::vector<std::vector<double>> lambda;
 
-    std::vector<std::vector<double>> densityTable;
+    std::vector<std::vector<double>> density;
 
-    std::vector<std::vector<double>> capacityTable;
+    std::vector<std::vector<double>> capacity;
 
 };
 

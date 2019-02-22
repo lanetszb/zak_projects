@@ -13,9 +13,9 @@ PropertyTables getTables(const std::string &fileName) {
     auto densityTableName = dataFile.getWord<std::string>("DENSITY_TABLE");
     auto capacityTableName = dataFile.getWord<std::string>("CAPACITY_TABLE");
 
-    getTable(propertyTables.lambdaTable, lambdaTableName);
-    getTable(propertyTables.densityTable, densityTableName);
-    getTable(propertyTables.capacityTable, capacityTableName);
+    getTable(propertyTables.lambda, lambdaTableName);
+    getTable(propertyTables.density, densityTableName);
+    getTable(propertyTables.capacity, capacityTableName);
 
     return propertyTables;
 }
@@ -35,10 +35,6 @@ void getTable(std::vector<std::vector<double>> &table,
             table.back().push_back(
                     vec1DFor2D[i * vec2DCol + j]);
     }
-
-
-    std::cout << "value " << getValue(table, 15);
-    exit(0);
 
 }
 

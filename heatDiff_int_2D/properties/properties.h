@@ -10,46 +10,35 @@
 
 struct Properties {
 
+    std::vector<double> lambda;
+    std::vector<double> density;
+    std::vector<double> capacity;
+
     std::vector<double> lambdaLeft;
     std::vector<double> lambdaRight;
     std::vector<double> lambdaTop;
     std::vector<double> lambdaBottom;
-    std::vector<double> density;
-    std::vector<double> capacity;
 
 };
 
-
 Properties initializeProperties(const Grid &grid);
+
+
+void computeCellsProperty(std::vector<double> &property,
+                          const std::vector<double> &T,
+                          const std::vector<std::vector<double>> &table);
+
+void computeCellsProperties(Properties &properties,
+                            const PropertyTables &propertyTables,
+                            const std::vector<double> &T);
+
+
+void computeSurfaceLambda(Properties &properties, const Grid &grid);
 
 
 void computeProperties(Properties &properties,
                        const PropertyTables &propertyTables,
                        const std::vector<double> &T, const Grid &grid);
 
-
-void computeLambLeft(Properties &properties,
-                     const PropertyTables &propertyTables,
-                     const std::vector<double> &T, const Grid &grid);
-
-void computeLambRight(Properties &properties,
-                      const PropertyTables &propertyTables,
-                      const std::vector<double> &T, const Grid &grid);
-
-void computeLambTop(Properties &properties,
-                    const PropertyTables &propertyTables,
-                    const std::vector<double> &T, const Grid &grid);
-
-void computeLambBot(Properties &properties,
-                    const PropertyTables &propertyTables,
-                    const std::vector<double> &T, const Grid &grid);
-
-void computeDensity(Properties &properties,
-                    const PropertyTables &propertyTables,
-                    const std::vector<double> &T, const Grid &grid);
-
-void computeCapacity(Properties &properties,
-                     const PropertyTables &propertyTables,
-                     const std::vector<double> &T, const Grid &grid);
 
 #endif
