@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include <grid/gridStruct.h>
+#include <grid/grid.h>
 #include <properties/properties.h>
 #include <settings/settings.h>
 

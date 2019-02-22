@@ -6,7 +6,7 @@ XL              10 m
 
 YL              7 m
 
-NODES_NUM_X     11
+N_NODES_X     11
 
-NODES_NUM_Y     8
+N_NODES_Y     8
 

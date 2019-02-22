@@ -43,8 +43,8 @@ void computeA(Coefficients &coefficients,
 
     for (int i = 0; i < grid.nCells; i++)
 
-        coefficients.A[i] = -properties.lambdaBottom[i] * grid.omegaBot[i] /
-                            grid.getBot_dL[i];
+        coefficients.A[i] = -properties.lambdaBottom[i] * grid.surfaceBottom[i] /
+                            grid.LBottom[i];
 
 
     for (int i = 0; i < (grid.nX - 2); i++)
@@ -80,8 +80,8 @@ void computeB(Coefficients &coefficients,
     for (int i = 0;
          i < grid.nCells; i++)
 
-        coefficients.B[i] = -properties.lambdaLeft[i] * grid.omegaLeft[i] /
-                            grid.getLeft_dL[i];
+        coefficients.B[i] = -properties.lambdaLeft[i] * grid.surfaceLeft[i] /
+                            grid.LLeft[i];
 
 
     for (int i = 0;
@@ -117,7 +117,7 @@ void computeC(Coefficients &coefficients,
 
     for (int i = 0; i < grid.nCells; i++)
 
-        coefficients.C[i] = grid.gridVolume[i] * properties.density[i] *
+        coefficients.C[i] = grid.cellsVolume[i] * properties.density[i] *
                             properties.capacity[i] / settings.dt
                             - coefficients.A[i] - coefficients.B[i]
                             - coefficients.D[i] - coefficients.E[i];
@@ -125,28 +125,28 @@ void computeC(Coefficients &coefficients,
 
     for (int i = 0; i < (grid.nX - 2); i++)
 
-        coefficients.C[i] = grid.gridVolume[i] * properties.density[i] *
+        coefficients.C[i] = grid.cellsVolume[i] * properties.density[i] *
                             properties.capacity[i] / settings.dt;
 
 
     for (int i = (grid.nX - 1);
          i < coefficients.C.size() - (grid.nX - 2); i += grid.nX - 1)
 
-        coefficients.C[i] = grid.gridVolume[i] * properties.density[i] *
+        coefficients.C[i] = grid.cellsVolume[i] * properties.density[i] *
                             properties.capacity[i] / settings.dt;
 
 
     for (int i = coefficients.C.size() - (grid.nX - 2);
          i < coefficients.C.size(); i++)
 
-        coefficients.C[i] = grid.gridVolume[i] * properties.density[i] *
+        coefficients.C[i] = grid.cellsVolume[i] * properties.density[i] *
                             properties.capacity[i] / settings.dt;
 
 
     for (int i = (grid.nX - 2);
          i < coefficients.C.size() - (grid.nX - 1); i += grid.nX - 1)
 
-        coefficients.C[i] = grid.gridVolume[i] * properties.density[i] *
+        coefficients.C[i] = grid.cellsVolume[i] * properties.density[i] *
                             properties.capacity[i] / settings.dt;
 
 }
@@ -158,8 +158,8 @@ void computeD(Coefficients &coefficients,
               const Properties &properties) {
 
     for (int i = 0; i < grid.nCells; i++)
-        coefficients.D[i] = -properties.lambdaRight[i] * grid.omegaRight[i] /
-                            grid.getRight_dL[i];
+        coefficients.D[i] = -properties.lambdaRight[i] * grid.surfaceRight[i] /
+                            grid.LRight[i];
 
     for (int i = 0; i < (grid.nX - 2); i++)
         coefficients.D[i] = 0;
@@ -186,8 +186,8 @@ void computeE(Coefficients &coefficients,
     for (int i = 0;
          i < grid.nCells; i++)
 
-        coefficients.E[i] = (-1 * properties.lambdaTop[i] * grid.omegaTop[i]) /
-                            grid.getTop_dL[i];
+        coefficients.E[i] = (-1 * properties.lambdaTop[i] * grid.surfaceTop[i]) /
+                            grid.LTop[i];
 
 
     for (int i = 0;
@@ -223,7 +223,7 @@ void computeF(Coefficients &coefficients,
               const std::vector<double> &T) {
 
     for (int i = 0; i < grid.nCells; i++)
-        coefficients.F[i] = -T[i] * grid.gridVolume[i] * properties.density[i]
+        coefficients.F[i] = -T[i] * grid.cellsVolume[i] * properties.density[i]
                             * properties.capacity[i] / settings.dt;
 
 }

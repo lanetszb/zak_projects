@@ -12,7 +12,7 @@ tempTop 10 deg
 
 tempIni 0.00001 deg
 
-NODES_NUM  grid_dim.txt
+N_NODES_FILE  grid_dim.txt
 
 density 10 kg/m3
 
@@ -22,7 +22,7 @@ heatCapac 460 J/(kg*C)
 
 MAX_TOLERANCE 1.E-10
 
-GRID_DATA grid_nodes.txt
+GRID_FILE grid_nodes.txt
 
 THERMALCOND_TABLE tableLamb.txt
 

@@ -9,7 +9,7 @@ set(SOURCE_FILES
 
         plot/plot.cpp
 
-        grid/gridCell.cpp grid/gridSurf.cpp grid/grid.cpp
+        grid/gridCells.cpp grid/gridSurface.cpp grid/grid.cpp
 
         matrix/matrix.cpp
 

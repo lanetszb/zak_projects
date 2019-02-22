@@ -5,7 +5,7 @@
 
 #include <properties/properties.h>
 #include <properties/propertyTables.h>
-#include <grid/gridStruct.h>
+#include <grid/grid.h>
 #include <settings/settings.h>
 
 struct Properties {

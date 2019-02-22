@@ -5,4 +5,10 @@
 *.PNG
 **/out.plt
 **/out.txt
+*.aux
+*.log
+*.nlo
+*.out
+*.pdf
+
 

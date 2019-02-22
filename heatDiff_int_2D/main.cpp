@@ -10,7 +10,7 @@
 
 int main(int narg, char **arg) {
 
-    auto grid = getGrid(arg[1]);
+    auto grid = processGrid(arg[1]);
     auto settings = getSettings(arg[1]);
     auto propertyTables = getTables(arg[1]);
 

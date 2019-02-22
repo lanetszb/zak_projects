@@ -1,7 +1,7 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
-#include <grid/gridStruct.h>
+#include <grid/grid.h>
 #include <settings/settings.h>
 #include <properties/properties.h>
 #include <coefficients/coefficients.h>
