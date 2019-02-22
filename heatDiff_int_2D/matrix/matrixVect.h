@@ -4,8 +4,9 @@
 #include <grid/gridStruct.h>
 #include <matrix/matrixStruct.h>
 
-void fillVal(Matrix &matrix, const Grid &grid);
-void fillCol(Matrix &matrix, const Grid &grid);
-void fillPoi(Matrix &matrix, const Grid &grid);
+void fillMatrixExternalCell(Matrix &matrix, int &iCell, int &iMatrix);
+void fillMatrixInternalCell(Matrix &matrix, int &iCell, int &iMatrix,
+                            const Grid &grid);
+void fillMatrix(Matrix &matrix, const Grid &grid);
 
 #endif

@@ -40,7 +40,7 @@ std::vector<double> Ycenter_calc(Grid &grd) {
 
 std::vector<double> gridVolume_calc(Grid &grd) {
 
-    std::vector<double> semiPerimeter(grd.gridN, 0);
+    std::vector<double> semiPerimeter(grd.nCells, 0);
 
     double value = 0;
 
@@ -49,7 +49,7 @@ std::vector<double> gridVolume_calc(Grid &grd) {
                 (grd.omegaRight[i] + grd.omegaLeft[i] + grd.omegaTop[i] +
                  grd.omegaBot[i]) / 2;
 
-    std::vector<double> gridArea(grd.gridN, 0);
+    std::vector<double> gridArea(grd.nCells, 0);
 
     for (int i = 0; i < gridArea.size(); i++)
         gridArea[i] = sqrt((semiPerimeter[i] - grd.omegaRight[i]) *
@@ -59,7 +59,7 @@ std::vector<double> gridVolume_calc(Grid &grd) {
 
     // Grid volume
 
-    std::vector<double> gridZheight(grd.gridN, 1);
+    std::vector<double> gridZheight(grd.nCells, 1);
 
     for (int i = 0; i < gridArea.size(); i++) {
         value = gridArea[i] * gridZheight[i];

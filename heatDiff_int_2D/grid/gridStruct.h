@@ -12,7 +12,7 @@ struct Grid {
     int nY;
 
     // total number of grid blocks.
-    int gridN;
+    int nCells;
 
     // dX
     double dX;

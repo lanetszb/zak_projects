@@ -25,7 +25,7 @@ Grid getGrid(const std::string &fileName) {
 
     // ***Numerical solution for heat diffusion begins here***
 
-    grid.gridN = (grid.nX - 1) * (grid.nY - 1);
+    grid.nCells = (grid.nX - 1) * (grid.nY - 1);
 
     grid.dX = (grid.nodesX[grid.nX - 1] - grid.nodesX[0]) / (grid.nX - 1);
 

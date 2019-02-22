@@ -11,22 +11,14 @@ void computeMatrix(Matrix &matrix,
                    const std::vector<double> &TPrevious) {
 
     computeA(matrix, grid, param, properties);
-
     computeE(matrix, grid, param, properties);
-
     computeB(matrix, grid, param, properties);
-
     computeD(matrix, grid, param, properties);
-
     computeF(matrix, grid, param, properties, TPrevious);
-
     computeC(matrix, grid, param, properties);
 
-    fillVal(matrix, grid);
+    fillMatrix(matrix, grid);
 
-    fillCol(matrix, grid);
-
-    fillPoi(matrix, grid);
 }
 
 
@@ -34,7 +26,9 @@ Matrix initiateMatrix(const Grid &grid) {
 
     Matrix matrix;
 
-    auto templateVector = std::vector<double>(grid.gridN, 0);
+    int matrixSize = grid.nCells;
+    int valSize = grid.nCells + 4 * ((grid.nX - 3) * (grid.nY - 3));
+    auto templateVector = std::vector<double>(matrixSize, 0);
 
     matrix.A = templateVector;
     matrix.B = templateVector;
@@ -43,11 +37,9 @@ Matrix initiateMatrix(const Grid &grid) {
     matrix.E = templateVector;
     matrix.F = templateVector;
 
-    double valSize = grid.gridN + 4 * ((grid.nX - 3) * (grid.nY - 3));
-
     matrix.val = std::vector<double>(valSize, 0);
     matrix.col = std::vector<int>(valSize, 0);
-    matrix.poi = std::vector<int>(grid.gridN + 1, 0);
+    matrix.poi = std::vector<int>(matrixSize + 1, 0);
 
     return matrix;
 }

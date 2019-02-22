@@ -10,7 +10,7 @@ void computeA(Matrix &matrix,
               const Param &param,
               const Properties &properties) {
 
-    for (int i = 0; i < grid.gridN; i++)
+    for (int i = 0; i < grid.nCells; i++)
         matrix.A[i] = (-1 * properties.lambdaBottom[i] * grid.omegaBot[i]) /
                       grid.getBot_dL[i];
 
@@ -36,7 +36,7 @@ void computeB(Matrix &matrix,
               const Param &param,
               const Properties &properties) {
 
-    for (int j = 0, i = 0; i < grid.gridN; i++)
+    for (int j = 0, i = 0; i < grid.nCells; i++)
         matrix.B[i] =
                 (-1 * properties.lambdaLeft[i] * grid.omegaLeft[i]) /
                 grid.getLeft_dL[i];
@@ -64,7 +64,7 @@ void computeC(Matrix &matrix,
               const Param &param,
               const Properties &properties) {
 
-    for (int i = 0; i < grid.gridN; i++)
+    for (int i = 0; i < grid.nCells; i++)
         matrix.C[i] = (grid.gridVolume[i] * properties.density[i] *
                        properties.capacity[i] / param.dt) +
                       (-1 * matrix.A[i]) + (-1 * matrix.B[i]) +
@@ -97,7 +97,7 @@ void computeD(Matrix &matrix,
               const Param &param,
               const Properties &properties) {
 
-    for (int i = 0; i < grid.gridN; i++)
+    for (int i = 0; i < grid.nCells; i++)
         matrix.D[i] = (-1 * properties.lambdaRight[i] * grid.omegaRight[i]) /
                       grid.getRight_dL[i];
 
@@ -123,7 +123,7 @@ void computeE(Matrix &matrix,
               const Param &param,
               const Properties &properties) {
 
-    for (int i = 0; i < grid.gridN; i++)
+    for (int i = 0; i < grid.nCells; i++)
         matrix.E[i] = (-1 * properties.lambdaTop[i] * grid.omegaTop[i]) /
                       grid.getTop_dL[i];
 
@@ -151,7 +151,7 @@ void computeF(Matrix &matrix,
               const Properties &properties,
               const std::vector<double> &TPrevious) {
 
-    for (int i = 0; i < grid.gridN; i++)
+    for (int i = 0; i < grid.nCells; i++)
         matrix.F[i] = TPrevious[i] *
                       (-1 * grid.gridVolume[i] * properties.density[i] *
                        properties.capacity[i]) /
