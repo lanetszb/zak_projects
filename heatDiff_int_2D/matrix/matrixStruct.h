@@ -7,21 +7,14 @@
 struct Matrix {
 
     std::vector<double> val;
-
     std::vector<int> col;
-
     std::vector<int> poi;
 
     std::vector<double> A;
-
     std::vector<double> B;
-
     std::vector<double> C;
-
     std::vector<double> D;
-
     std::vector<double> E;
-
     std::vector<double> F;
 
 };

@@ -23,6 +23,6 @@ void computeE(Matrix &matrix, const Grid &grid, const Param &param,
 
 void computeF(Matrix &matrix, const Grid &grid, const Param &param,
               const Properties &properties,
-              const std::vector<double> &TPrevious);
+              const std::vector<double> &T);
 
 #endif
