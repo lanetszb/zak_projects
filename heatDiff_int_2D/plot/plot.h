@@ -1,6 +1,9 @@
 #ifndef PLOT_H
 #define PLOT_H
 
+#include <vector>
+#include <grid/grid.h>
+
 
 std::vector<double> getPlotValue(const std::vector<double> &value,
                                  const int &nX,

@@ -1,6 +1,7 @@
+#include <vector>
+
 #include <properties/properties.h>
 #include <grid/grid.h>
-#include <iostream>
 
 Properties initializeProperties(const Grid &grid) {
 
@@ -14,7 +15,6 @@ Properties initializeProperties(const Grid &grid) {
     properties.lambdaRight = std::vector<double>(grid.nCells, 0);
     properties.lambdaTop = std::vector<double>(grid.nCells, 0);
     properties.lambdaBottom = std::vector<double>(grid.nCells, 0);
-
 
     return properties;
 
@@ -40,6 +40,7 @@ void computeCellsProperties(Properties &properties,
     computeCellsProperty(properties.capacity, T, propertyTables.capacity);
 
 }
+
 
 
 void computeSurfaceLambda(Properties &properties, const Grid &grid) {

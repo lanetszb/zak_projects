@@ -1,3 +1,6 @@
+#include <vector>
+#include <string>
+
 #include <GetFromFile.h>
 
 #include <grid/grid.h>

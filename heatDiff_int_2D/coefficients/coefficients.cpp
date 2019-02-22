@@ -1,6 +1,9 @@
 #include <vector>
 
 #include <coefficients/coefficients.h>
+#include <grid/grid.h>
+#include <properties/properties.h>
+#include <settings/settings.h>
 
 
 Coefficients initiateCoefficients(const Grid &grid) {

@@ -1,6 +1,8 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
+#include <vector>
+
 #include <grid/grid.h>
 #include <settings/settings.h>
 #include <properties/properties.h>

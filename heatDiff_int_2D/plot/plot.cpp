@@ -1,14 +1,11 @@
-#include <iostream>
-#include <cmath>
 #include <vector>
-#include <GetFromFile.h>
 #include <iomanip>
-#include <iostream>
+
+#include <GetFromFile.h>
+
 #include <grid/grid.h>
 #include <plot/plot.h>
 
-
-// data output
 
 void makePlot(const Grid &grid, const std::vector<double> value) {
 

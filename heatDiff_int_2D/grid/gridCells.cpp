@@ -1,4 +1,5 @@
 #include <cmath>
+#include <vector>
 
 #include <grid/grid.h>
 #include <grid/gridCells.h>

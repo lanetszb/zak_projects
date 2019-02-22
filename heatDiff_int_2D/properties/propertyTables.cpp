@@ -1,3 +1,5 @@
+#include <vector>
+
 #include <GetFromFile.h>
 
 #include <properties/propertyTables.h>

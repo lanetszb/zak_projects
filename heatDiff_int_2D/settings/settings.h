@@ -8,7 +8,6 @@ struct Settings {
 
     double dt;
     double time;
-    double lambda;
 
     double TLeft;
     double TRight;

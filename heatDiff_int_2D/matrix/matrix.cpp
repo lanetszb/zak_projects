@@ -1,4 +1,9 @@
+#include <vector>
+
 #include <matrix/matrix.h>
+#include <grid/grid.h>
+#include <settings/settings.h>
+#include <properties/properties.h>
 #include <coefficients/coefficients.h>
 
 

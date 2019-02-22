@@ -2,6 +2,7 @@
 #define GRID_H
 
 #include <vector>
+#include <string>
 
 struct Grid {
 
