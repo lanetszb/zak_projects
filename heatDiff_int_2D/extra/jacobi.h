@@ -2,11 +2,11 @@
 #define JACOBI_H
 
 #include <coefficients/coefficients.h>
-#include <param/param.h>
+#include <settings/settings.h>
 #include <matrix/matrix.h>
 
 void solveJacobiLS(const Matrix &matrix, const Coefficients &coefficients,
-                   const Param &param,
+                   const Settings &settings,
                    std::vector<double> &X);
 
 #endif

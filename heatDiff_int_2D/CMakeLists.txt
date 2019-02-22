@@ -13,10 +13,12 @@ set(SOURCE_FILES
 
         matrix/matrix.cpp
 
-        param/param.cpp
+        settings/settings.cpp
 
         extra/computeTInitial.cpp extra/computeTInitial.h extra/jacobi.cpp
 
-        properties/propertyTables.cpp properties/properties.cpp coefficients/coefficients.cpp coefficients/coefficients.h)
+        properties/propertyTables.cpp properties/properties.cpp
+
+        coefficients/coefficients.cpp)
 
 add_executable(heatDiff_int_2D ${SOURCE_FILES})

@@ -2,7 +2,7 @@
 #include <extra/computeTInitial.h>
 #include <iostream>
 
-Properties initialiseProperties(const Grid &grid) {
+Properties initializeProperties(const Grid &grid) {
 
     Properties properties;
 
@@ -12,15 +12,15 @@ Properties initialiseProperties(const Grid &grid) {
 
 void computeProperties(Properties &properties,
                        const PropertyTables &propertyTables,
-                       const std::vector<double> &TPrevious,
+                       const std::vector<double> &T,
                        const Grid &grid) {
 
-    computeLambLeft(properties, propertyTables, TPrevious, grid);
-    computeLambRight(properties, propertyTables, TPrevious, grid);
-    computeLambTop(properties, propertyTables, TPrevious, grid);
-    computeLambBot(properties, propertyTables, TPrevious, grid);
-    computeDensity(properties, propertyTables, TPrevious, grid);
-    computeCapacity(properties, propertyTables, TPrevious, grid);
+    computeLambLeft(properties, propertyTables, T, grid);
+    computeLambRight(properties, propertyTables, T, grid);
+    computeLambTop(properties, propertyTables, T, grid);
+    computeLambBot(properties, propertyTables, T, grid);
+    computeDensity(properties, propertyTables, T, grid);
+    computeCapacity(properties, propertyTables, T, grid);
 }
 
 void computeLambLeft(Properties &properties,

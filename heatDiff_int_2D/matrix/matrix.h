@@ -2,7 +2,7 @@
 #define MATRIX_H
 
 #include <grid/gridStruct.h>
-#include <param/param.h>
+#include <settings/settings.h>
 #include <properties/properties.h>
 #include <coefficients/coefficients.h>
 
@@ -24,7 +24,6 @@ void fillMatrixExternalCell(Matrix &matrix, const Coefficients &coefficients,
                             int &iCell, int &iMatrix);
 
 void fillMatrixInternalCell(Matrix &matrix, const Coefficients &coefficients,
-                            int &iCell, int &iMatrix,
-                            const Grid &grid);
+                            int &iCell, int &iMatrix, const Grid &grid);
 
 #endif

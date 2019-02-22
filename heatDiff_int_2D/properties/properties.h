@@ -6,7 +6,7 @@
 #include <properties/properties.h>
 #include <properties/propertyTables.h>
 #include <grid/gridStruct.h>
-#include <param/param.h>
+#include <settings/settings.h>
 
 struct Properties {
 
@@ -19,27 +19,37 @@ struct Properties {
 
 };
 
-Properties initialiseProperties(const Grid &grid);
 
-void computeProperties(Properties &properties, const PropertyTables &propertyTables,
-                       const std::vector<double> &TPrevious, const Grid &grid);
+Properties initializeProperties(const Grid &grid);
 
-void computeLambLeft(Properties &properties, const PropertyTables &propertyTables,
+
+void computeProperties(Properties &properties,
+                       const PropertyTables &propertyTables,
+                       const std::vector<double> &T, const Grid &grid);
+
+
+void computeLambLeft(Properties &properties,
+                     const PropertyTables &propertyTables,
                      const std::vector<double> &T, const Grid &grid);
 
-void computeLambRight(Properties &properties, const PropertyTables &propertyTables,
+void computeLambRight(Properties &properties,
+                      const PropertyTables &propertyTables,
                       const std::vector<double> &T, const Grid &grid);
 
-void computeLambTop(Properties &properties, const PropertyTables &propertyTables,
+void computeLambTop(Properties &properties,
+                    const PropertyTables &propertyTables,
                     const std::vector<double> &T, const Grid &grid);
 
-void computeLambBot(Properties &properties, const PropertyTables &propertyTables,
+void computeLambBot(Properties &properties,
+                    const PropertyTables &propertyTables,
                     const std::vector<double> &T, const Grid &grid);
 
-void computeDensity(Properties &properties, const PropertyTables &propertyTables,
+void computeDensity(Properties &properties,
+                    const PropertyTables &propertyTables,
                     const std::vector<double> &T, const Grid &grid);
 
-void computeCapacity(Properties &properties, const PropertyTables &propertyTables,
+void computeCapacity(Properties &properties,
+                     const PropertyTables &propertyTables,
                      const std::vector<double> &T, const Grid &grid);
 
 #endif

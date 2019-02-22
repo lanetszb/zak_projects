@@ -5,7 +5,7 @@
 
 #include <grid/gridStruct.h>
 #include <properties/properties.h>
-#include <param/param.h>
+#include <settings/settings.h>
 
 
 struct Coefficients {
@@ -20,32 +20,33 @@ struct Coefficients {
 };
 
 
-Coefficients initiateCoefficients(const Grid & grid);
+Coefficients initiateCoefficients(const Grid &grid);
+
 
 void computeCoefficients(Coefficients &coefficients,
                          const Grid &grid,
-                         const Param &param,
+                         const Settings &settings,
                          const Properties &properties,
                          const std::vector<double> &T);
 
-void computeA(Coefficients &coefficients, const Grid &grid, const Param &param,
-              const Properties &properties);
 
-void computeB(Coefficients &coefficients, const Grid &grid, const Param &param,
-              const Properties &properties);
+void computeA(Coefficients &coefficients, const Grid &grid,
+              const Settings &settings, const Properties &properties);
 
-void computeC(Coefficients &coefficients, const Grid &grid, const Param &param,
-              const Properties &properties);
+void computeB(Coefficients &coefficients, const Grid &grid,
+              const Settings &settings, const Properties &properties);
 
-void computeD(Coefficients &coefficients, const Grid &grid, const Param &param,
-              const Properties &properties);
+void computeC(Coefficients &coefficients, const Grid &grid,
+              const Settings &settings, const Properties &properties);
 
-void computeE(Coefficients &coefficients, const Grid &grid, const Param &param,
-              const Properties &properties);
+void computeD(Coefficients &coefficients, const Grid &grid,
+              const Settings &settings, const Properties &properties);
 
-void computeF(Coefficients &coefficients, const Grid &grid, const Param &param,
-              const Properties &properties,
+void computeE(Coefficients &coefficients, const Grid &grid,
+              const Settings &settings, const Properties &properties);
+
+void computeF(Coefficients &coefficients, const Grid &grid,
+              const Settings &settings, const Properties &properties,
               const std::vector<double> &T);
-
 
 #endif

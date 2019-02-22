@@ -2,7 +2,7 @@
 #include <cmath>
 
 void solveJacobiLS(const Matrix &matrix, const Coefficients &coefficients,
-                   const Param &param,
+                   const Settings &settings,
                    std::vector<double> &X) {
 
     double curTolerance = 0;
@@ -42,7 +42,7 @@ void solveJacobiLS(const Matrix &matrix, const Coefficients &coefficients,
         k++;
 
 
-    } while (curTolerance > param.maxTolerance);
+    } while (curTolerance > settings.maxTolerance);
 
 
     X = Xcur[k % 2];

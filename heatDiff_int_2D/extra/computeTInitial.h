@@ -5,7 +5,7 @@
 
 #include <properties/properties.h>
 
-std::vector<double> computeTInitial(const Grid &grid, const Param &param);
+std::vector<double> computeTInitial(const Grid &grid, const Settings &settings);
 
 
 #endif

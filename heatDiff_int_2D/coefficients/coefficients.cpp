@@ -1,7 +1,4 @@
 #include <vector>
-#include <cmath>
-#include <iostream>
-#include <iomanip>
 
 #include <coefficients/coefficients.h>
 
@@ -25,23 +22,23 @@ Coefficients initiateCoefficients(const Grid &grid) {
 
 
 void computeCoefficients(Coefficients &coefficients, const Grid &grid,
-                         const Param &param,
+                         const Settings &settings,
                          const Properties &properties,
                          const std::vector<double> &T) {
 
-    computeA(coefficients, grid, param, properties);
-    computeE(coefficients, grid, param, properties);
-    computeB(coefficients, grid, param, properties);
-    computeD(coefficients, grid, param, properties);
-    computeF(coefficients, grid, param, properties, T);
-    computeC(coefficients, grid, param, properties);
+    computeA(coefficients, grid, settings, properties);
+    computeE(coefficients, grid, settings, properties);
+    computeB(coefficients, grid, settings, properties);
+    computeD(coefficients, grid, settings, properties);
+    computeF(coefficients, grid, settings, properties, T);
+    computeC(coefficients, grid, settings, properties);
 
 
 }
 
 void computeA(Coefficients &coefficients,
               const Grid &grid,
-              const Param &param,
+              const Settings &settings,
               const Properties &properties) {
 
     for (int i = 0; i < grid.nCells; i++)
@@ -77,7 +74,7 @@ void computeA(Coefficients &coefficients,
 
 void computeB(Coefficients &coefficients,
               const Grid &grid,
-              const Param &param,
+              const Settings &settings,
               const Properties &properties) {
 
     for (int i = 0;
@@ -115,13 +112,13 @@ void computeB(Coefficients &coefficients,
 
 void computeC(Coefficients &coefficients,
               const Grid &grid,
-              const Param &param,
+              const Settings &settings,
               const Properties &properties) {
 
     for (int i = 0; i < grid.nCells; i++)
 
         coefficients.C[i] = grid.gridVolume[i] * properties.density[i] *
-                            properties.capacity[i] / param.dt
+                            properties.capacity[i] / settings.dt
                             - coefficients.A[i] - coefficients.B[i]
                             - coefficients.D[i] - coefficients.E[i];
 
@@ -129,35 +126,35 @@ void computeC(Coefficients &coefficients,
     for (int i = 0; i < (grid.nX - 2); i++)
 
         coefficients.C[i] = grid.gridVolume[i] * properties.density[i] *
-                            properties.capacity[i] / param.dt;
+                            properties.capacity[i] / settings.dt;
 
 
     for (int i = (grid.nX - 1);
          i < coefficients.C.size() - (grid.nX - 2); i += grid.nX - 1)
 
         coefficients.C[i] = grid.gridVolume[i] * properties.density[i] *
-                            properties.capacity[i] / param.dt;
+                            properties.capacity[i] / settings.dt;
 
 
     for (int i = coefficients.C.size() - (grid.nX - 2);
          i < coefficients.C.size(); i++)
 
         coefficients.C[i] = grid.gridVolume[i] * properties.density[i] *
-                            properties.capacity[i] / param.dt;
+                            properties.capacity[i] / settings.dt;
 
 
     for (int i = (grid.nX - 2);
          i < coefficients.C.size() - (grid.nX - 1); i += grid.nX - 1)
 
         coefficients.C[i] = grid.gridVolume[i] * properties.density[i] *
-                            properties.capacity[i] / param.dt;
+                            properties.capacity[i] / settings.dt;
 
 }
 
 
 void computeD(Coefficients &coefficients,
               const Grid &grid,
-              const Param &param,
+              const Settings &settings,
               const Properties &properties) {
 
     for (int i = 0; i < grid.nCells; i++)
@@ -183,7 +180,7 @@ void computeD(Coefficients &coefficients,
 
 void computeE(Coefficients &coefficients,
               const Grid &grid,
-              const Param &param,
+              const Settings &settings,
               const Properties &properties) {
 
     for (int i = 0;
@@ -221,12 +218,12 @@ void computeE(Coefficients &coefficients,
 
 void computeF(Coefficients &coefficients,
               const Grid &grid,
-              const Param &param,
+              const Settings &settings,
               const Properties &properties,
               const std::vector<double> &T) {
 
     for (int i = 0; i < grid.nCells; i++)
         coefficients.F[i] = -T[i] * grid.gridVolume[i] * properties.density[i]
-                            * properties.capacity[i] / param.dt;
+                            * properties.capacity[i] / settings.dt;
 
 }

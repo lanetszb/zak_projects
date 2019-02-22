@@ -1,10 +1,10 @@
-#ifndef PARAM_H
-#define PARAM_H
+#ifndef SETTINGS_H
+#define SETTINGS_H
 
 #include <string>
 
 
-struct Param {
+struct Settings {
 
     double dt;
     double time;
@@ -19,6 +19,6 @@ struct Param {
     double maxTolerance;
 };
 
-Param getParam(const std::string &fileName);
+Settings getSettings(const std::string &fileName);
 
 #endif
