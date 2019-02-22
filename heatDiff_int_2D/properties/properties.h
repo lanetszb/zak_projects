@@ -6,20 +6,15 @@
 #include <properties/properties.h>
 #include <properties/propertyTables.h>
 #include <grid/gridStruct.h>
-#include <param/param_struct.h>
+#include <param/param.h>
 
 struct Properties {
 
     std::vector<double> lambdaLeft;
-
     std::vector<double> lambdaRight;
-
     std::vector<double> lambdaTop;
-
     std::vector<double> lambdaBottom;
-
     std::vector<double> density;
-
     std::vector<double> capacity;
 
 };
