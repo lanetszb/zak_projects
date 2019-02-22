@@ -1,33 +1,24 @@
-#include <string>
-
-#include <coefficients/coefficients.h>
 #include <grid/grid.h>
-#include <plot/plot.h>
 #include <properties/properties.h>
-#include <extra/computeTInitial.h>
-#include <matrix/matrix.h>
 #include <param/param.h>
+#include <coefficients/coefficients.h>
+#include <matrix/matrix.h>
+#include <extra/computeTInitial.h>
 #include <extra/jacobi.h>
+#include <plot/plot.h>
 
 
 int main(int narg, char **arg) {
 
-    auto inputFileName = std::string(arg[1]);
+    auto grid = getGrid(arg[1]);
+    auto param = getParam(arg[1]);
+    auto propertyTables = getTables(arg[1]);
 
-    Grid grid = getGrid(inputFileName);
-
-    Param param = getParam(inputFileName);
-
-    PropertyTables propertyTables = getTables(inputFileName);
+    auto matrix = initiateMatrix(grid);
+    auto coefficients = initiateCoefficients(grid);
+    auto properties = initialiseProperties(grid);
 
     auto T = computeTInitial(grid, param);
-
-    Matrix matrix = initiateMatrix(grid);
-
-    Coefficients coefficients = initiateCoefficients(grid);
-
-    Properties properties = initialiseProperties(grid);
-
 
     for (double t = param.dt; t <= param.time; t += param.dt) {
 
@@ -35,12 +26,14 @@ int main(int narg, char **arg) {
         computeCoefficients(coefficients, grid, param, properties, T);
         fillMatrix(matrix, coefficients, grid);
 
-        computeLSJacobi(matrix, coefficients, param, T);
+        solveJacobiLS(matrix, coefficients, param, T);
+
     }
 
     makePlot(grid, T);
 
     return 0;
+
 }
 
 

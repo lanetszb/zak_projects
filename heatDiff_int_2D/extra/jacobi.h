@@ -5,8 +5,8 @@
 #include <param/param.h>
 #include <matrix/matrix.h>
 
-void computeLSJacobi(const Matrix &matrix, const Coefficients &coefficients,
-                     const Param &param,
-                     std::vector<double> &X);
+void solveJacobiLS(const Matrix &matrix, const Coefficients &coefficients,
+                   const Param &param,
+                   std::vector<double> &X);
 
 #endif

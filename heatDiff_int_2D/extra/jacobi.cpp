@@ -1,9 +1,9 @@
 #include <extra/jacobi.h>
 #include <cmath>
 
-void computeLSJacobi(const Matrix &matrix, const Coefficients &coefficients,
-                     const Param &param,
-                     std::vector<double> &X) {
+void solveJacobiLS(const Matrix &matrix, const Coefficients &coefficients,
+                   const Param &param,
+                   std::vector<double> &X) {
 
     double curTolerance = 0;
 
