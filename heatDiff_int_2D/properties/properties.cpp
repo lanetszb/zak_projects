@@ -42,7 +42,7 @@ void computeCellsProperties(Properties &properties,
 }
 
 
-
+// TODO It is not correct!
 void computeSurfaceLambda(Properties &properties, const Grid &grid) {
 
     for (int i = 0; i < grid.nCells; i++) {
