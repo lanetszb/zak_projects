@@ -26,7 +26,8 @@ int main(int narg, char **arg) {
 
     Coefficients coefficients = initiateCoefficients(grid);
 
-    Properties properties;
+    Properties properties = initialiseProperties(grid);
+
 
     for (double t = param.dt; t <= param.time; t += param.dt) {
 

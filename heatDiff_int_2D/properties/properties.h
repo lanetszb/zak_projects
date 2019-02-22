@@ -19,6 +19,8 @@ struct Properties {
 
 };
 
+Properties initialiseProperties(const Grid &grid);
+
 void computeProperties(Properties &properties, const PropertyTables &propertyTables,
                        const std::vector<double> &TPrevious, const Grid &grid);
 

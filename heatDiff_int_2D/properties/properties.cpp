@@ -2,6 +2,14 @@
 #include <extra/computeTInitial.h>
 #include <iostream>
 
+Properties initialiseProperties(const Grid &grid) {
+
+    Properties properties;
+
+    return properties;
+
+}
+
 void computeProperties(Properties &properties,
                        const PropertyTables &propertyTables,
                        const std::vector<double> &TPrevious,
@@ -27,8 +35,8 @@ void computeLambLeft(Properties &properties,
     lambTemp = std::vector<double>(gridN, 0);
 
 
-    for (int i = 1; i < gridN; i++)
-        lambTemp[i] = 2 * T[i - 1] * T[i] / (T[i] + T[i - 1]);
+    /*for (int i = 1; i < gridN; i++)
+        lambTemp[i] = 2 * T[i - 1] * T[i] / (T[i] + T[i - 1]);*/
 
     properties.lambdaLeft.clear();
 
