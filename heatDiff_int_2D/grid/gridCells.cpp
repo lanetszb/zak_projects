@@ -73,8 +73,6 @@ void processCellsVolume(Grid &grid) {
                            (semiPerimeter[i] - grid.surfaceTop[i]) *
                            (semiPerimeter[i] - grid.surfaceBottom[i]));
 
-    // Grid volume
-
     std::vector<double> gridZheight(grid.nCells, 1);
 
     for (int i = 0; i < gridArea.size(); i++) {

@@ -18,14 +18,15 @@ Grid processGrid(const std::string &fileName) {
     GetFromFile nodesFile(nodesFileName);
     GetFromFile gridFile(gridFileName);
 
+
     grid.nX = nodesFile.getWord<int>("N_NODES_X");
     grid.nY = nodesFile.getWord<int>("N_NODES_Y");
     grid.nCells = (grid.nX - 1) * (grid.nY - 1);
 
     grid.nodesX = gridFile.getVector<double>("NODES_X");
-    grid.nodesY = gridFile.getVector<double>("NODES_Y");    
+    grid.nodesY = gridFile.getVector<double>("NODES_Y");
 
-    processSurface(grid);    
+    processSurface(grid);
     processCells(grid);
 
     return grid;

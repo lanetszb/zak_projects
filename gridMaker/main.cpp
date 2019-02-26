@@ -14,8 +14,8 @@ int main(int narg, char **arg) {
     auto Y0 = dataFile.getWord<double>("Y0");
     auto XL = dataFile.getWord<double>("XL");
     auto YL = dataFile.getWord<double>("YL");
-    int Nx = dataFile.getWord<double>("NODES_NUM_X");
-    int Ny = dataFile.getWord<double>("NODES_NUM_Y");
+    int Nx = dataFile.getWord<double>("N_NODES_X");
+    int Ny = dataFile.getWord<double>("N_NODES_Y");
 
     // ***Numerical solution for heat diffusion begins here***
 
@@ -55,7 +55,7 @@ int main(int narg, char **arg) {
 
         oStream.open("grid_nodes.txt");
 
-        oStream << "Node_X" << std::endl;
+        oStream << "NODES_X" << std::endl;
 
         for (int i = 0; i < Ny; i++)
             for (int j = 0; j < Nx; j++)
@@ -65,7 +65,7 @@ int main(int narg, char **arg) {
         oStream << "/" << std::endl;
         oStream << std::endl << std::endl;
 
-        oStream << "Node_Y" << std::endl;
+        oStream << "NODES_Y" << std::endl;
 
         for (int i = 0; i < Ny * Nx; i++)
             oStream << Y_coord[i] << " ";

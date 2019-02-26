@@ -7,8 +7,14 @@
 #include <extra/jacobi.h>
 #include <plot/plot.h>
 
+#include <iostream>
+
+
+
 
 int main(int narg, char **arg) {
+
+
 
     auto grid = processGrid(arg[1]);
     auto settings = getSettings(arg[1]);
