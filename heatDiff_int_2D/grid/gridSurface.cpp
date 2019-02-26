@@ -4,10 +4,13 @@
 #include <grid/grid.h>
 #include <grid/gridSurface.h>
 
+#include <iostream>
 
-void processSurface(Grid &grid){    
+
+void processSurface(Grid &grid) {
 
     processSurfaceLeft(grid);
+
     processSurfaceRight(grid);
     processSurfaceTop(grid);
     processSurfaceBottom(grid);
@@ -72,10 +75,15 @@ void processSurfaceRight(Grid &grid) {
 
 void processSurfaceLeft(Grid &grid) {
 
+
     double value = 0;
     int indCur = 0;
+
     for (int i = 0; i < grid.nY - 1; i++)
         for (int j = 0; j < grid.nX - 1; j++) {
+
+
+
 
             indCur = i * grid.nX + j;
             value = fabs(grid.nodesY[indCur] - grid.nodesY[indCur + grid.nX]);
@@ -185,7 +193,7 @@ void processSurfaceBottomX(Grid &grid) {
         }
 }
 
-void  processSurfaceBottomY(Grid &grid) {
+void processSurfaceBottomY(Grid &grid) {
 
     double value = 0;
     int indCur = 0;
