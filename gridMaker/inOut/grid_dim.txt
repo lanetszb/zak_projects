@@ -2,11 +2,11 @@ X0              0 m
 
 Y0              0 m
 
-XL              10 m
+XL              12 m
 
-YL              7 m
+YL              12 m
 
-NODES_NUM_X     11
+NODES_NUM_X     5
 
-NODES_NUM_Y     8
+NODES_NUM_Y     5
 

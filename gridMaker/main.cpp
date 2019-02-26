@@ -35,10 +35,6 @@ int main(int narg, char **arg) {
         for (int i = 1; i < Nx; i++)
             X_coord[i] = X_coord[i - 1] + dx;
 
-        std::cout<<Nx<<std::endl;
-        std::cout<<dx<<std::endl;
-
-
 
         auto dy = (YL - Y0) / (Ny - 1);
         std::vector<double> Y_coord(Nx * Ny, 0);
