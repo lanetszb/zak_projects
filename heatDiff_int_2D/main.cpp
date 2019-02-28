@@ -10,10 +10,7 @@
 #include <iostream>
 
 
-
-
 int main(int narg, char **arg) {
-
 
 
     auto grid = processGrid(arg[1]);

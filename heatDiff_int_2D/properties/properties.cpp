@@ -3,6 +3,8 @@
 #include <properties/properties.h>
 #include <grid/grid.h>
 
+#include <iostream>
+
 Properties initializeProperties(const Grid &grid) {
 
     Properties properties;
@@ -15,6 +17,11 @@ Properties initializeProperties(const Grid &grid) {
     properties.lambdaRight = std::vector<double>(grid.nCells, 0);
     properties.lambdaTop = std::vector<double>(grid.nCells, 0);
     properties.lambdaBottom = std::vector<double>(grid.nCells, 0);
+
+    properties.TLambdaLeft = std::vector<double>(grid.nCells, 0);
+    properties.TLambdaRight = std::vector<double>(grid.nCells, 0);
+    properties.TLambdaTop = std::vector<double>(grid.nCells, 0);
+    properties.TLambdaBottom = std::vector<double>(grid.nCells, 0);
 
     return properties;
 
@@ -42,17 +49,48 @@ void computeCellsProperties(Properties &properties,
 }
 
 
-// TODO It is not correct!
-void computeSurfaceLambda(Properties &properties, const Grid &grid) {
+void computeSurfaceLambda(Properties &properties,
+                          const Grid &grid,
+                          const std::vector<double> &T,
+                          const PropertyTables &propertyTables) {
 
-    for (int i = 0; i < grid.nCells; i++) {
+    for (int i = 1; i < grid.nCells; i++) {
+        properties.TLambdaLeft[i] = 2 * T[i] * T[i - 1] / (T[i] +
+                                                           T[i - 1]);
 
-        properties.lambdaLeft[i] = properties.lambda[i];
-        properties.lambdaRight[i] = properties.lambda[i];
-        properties.lambdaTop[i] = properties.lambda[i];
-        properties.lambdaBottom[i] = properties.lambda[i];
+        properties.lambdaLeft[i] = getValue(propertyTables.lambda,
+                                            properties.TLambdaLeft[i]);
 
     }
+
+    for (int i = 0; i < grid.nCells - 1; i++) {
+        properties.TLambdaRight[i] = 2 * T[i] * T[i + 1] / (T[i] +
+                                                            T[i + 1]);
+
+        properties.lambdaRight[i] = getValue(propertyTables.lambda,
+                                             properties.TLambdaRight[i]);
+
+    }
+
+    for (int i = 0; i < grid.nCells - (grid.nX - 1); i++) {
+
+        properties.TLambdaTop[i] =
+                2 * T[i] * T[i + (grid.nX - 1)] / (T[i] + T[i + (grid.nX - 1)]);
+
+        properties.lambdaTop[i] = getValue(propertyTables.lambda,
+                                           properties.TLambdaTop[i]);
+
+    }
+
+    for (int i = grid.nX - 1; i < grid.nCells; i++) {
+
+        properties.TLambdaBottom[i] =
+                2 * T[i] * T[i - (grid.nX - 1)] / (T[i] + T[i - (grid.nX - 1)]);
+
+        properties.lambdaBottom[i] = getValue(propertyTables.lambda,
+                                              properties.TLambdaBottom[i]);
+    }
+
 
 }
 
@@ -63,7 +101,7 @@ void computeProperties(Properties &properties,
                        const Grid &grid) {
 
     computeCellsProperties(properties, propertyTables, T);
-    computeSurfaceLambda(properties, grid);
+    computeSurfaceLambda(properties, grid, T, propertyTables);
 
 }
 

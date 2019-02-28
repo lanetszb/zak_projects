@@ -1,6 +1,6 @@
 timeStep 10 sec
 
-time 50000 sec
+time 500000 sec
 
 tempLeft 100 deg
 
