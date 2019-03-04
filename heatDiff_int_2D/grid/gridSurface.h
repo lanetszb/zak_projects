@@ -3,6 +3,12 @@
 
 #include <grid/grid.h>
 
+/*!
+\file
+\brief This file allows to process grid surface' parameters, such as surface
+ area and faces X and Y coordinates
+*/
+
 /**
 Processes all grid surface' parameters
 @param[in] grid - executes all the functions related to grid surfaces processing
