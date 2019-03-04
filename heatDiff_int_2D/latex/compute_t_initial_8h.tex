@@ -1,0 +1,38 @@
+\hypertarget{compute_t_initial_8h}{}\section{extra/compute\+T\+Initial.h File Reference}
+\label{compute_t_initial_8h}\index{extra/computeTInitial.h@{extra/computeTInitial.h}}
+
+
+This function computes the initial temperature distribution at all cells.  
+
+
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$properties/properties.\+h$>$}\newline
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{compute_t_initial_8h_a5edc68aa9e0371e05ba88ec53a70a8f9}{compute\+T\+Initial}} (const \mbox{\hyperlink{struct_grid}{Grid}} \&grid, const Settings \&settings)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This function computes the initial temperature distribution at all cells. 
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{compute_t_initial_8h_a5edc68aa9e0371e05ba88ec53a70a8f9}\label{compute_t_initial_8h_a5edc68aa9e0371e05ba88ec53a70a8f9}} 
+\index{computeTInitial.h@{computeTInitial.h}!computeTInitial@{computeTInitial}}
+\index{computeTInitial@{computeTInitial}!computeTInitial.h@{computeTInitial.h}}
+\subsubsection{\texorpdfstring{computeTInitial()}{computeTInitial()}}
+{\footnotesize\ttfamily std\+::vector$<$double$>$ compute\+T\+Initial (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_grid}{Grid}} \&}]{grid,  }\item[{const Settings \&}]{settings }\end{DoxyParamCaption})}
+
+Creates inittial temperature distribution 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em grid} & -\/ takes total number of nodes in X and Y directions \\
+\hline
+\mbox{\texttt{ in}}  & {\em settings} & -\/ initial temperature at boundaries and in the center \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+initial temperature distribution 
+\end{DoxyReturn}

@@ -8,8 +8,8 @@
 void processSurface(Grid &grid) {
 
     processSurfaceLeft(grid);
-
     processSurfaceRight(grid);
+
     processSurfaceTop(grid);
     processSurfaceBottom(grid);
 
@@ -28,6 +28,35 @@ void processSurface(Grid &grid) {
 
 }
 
+
+void processSurfaceLeft(Grid &grid) {
+
+
+    double value = 0;
+    int indCur = 0;
+    for (int i = 0; i < grid.nY - 1; i++)
+        for (int j = 0; j < grid.nX - 1; j++) {
+
+            indCur = i * grid.nX + j;
+            value = fabs(grid.nodesY[indCur] - grid.nodesY[indCur + grid.nX]);
+            grid.surfaceLeft.push_back(value);
+
+        }
+}
+
+void processSurfaceRight(Grid &grid) {
+
+    double value = 0;
+    int indCur = 0;
+    for (int i = 0; i < grid.nY - 1; i++)
+        for (int j = 1; j < grid.nX; j++) {
+
+            indCur = i * grid.nX + j;
+            value = fabs(grid.nodesY[indCur] - grid.nodesY[indCur + grid.nX]);
+            grid.surfaceRight.push_back(value);
+
+        }
+}
 
 void processSurfaceTop(Grid &grid) {
 
@@ -56,36 +85,6 @@ void processSurfaceBottom(Grid &grid) {
 
         }
 }
-
-void processSurfaceRight(Grid &grid) {
-
-    double value = 0;
-    int indCur = 0;
-    for (int i = 0; i < grid.nY - 1; i++)
-        for (int j = 1; j < grid.nX; j++) {
-
-            indCur = i * grid.nX + j;
-            value = fabs(grid.nodesY[indCur] - grid.nodesY[indCur + grid.nX]);
-            grid.surfaceRight.push_back(value);
-
-        }
-}
-
-void processSurfaceLeft(Grid &grid) {
-
-
-    double value = 0;
-    int indCur = 0;
-    for (int i = 0; i < grid.nY - 1; i++)
-        for (int j = 0; j < grid.nX - 1; j++) {
-
-            indCur = i * grid.nX + j;
-            value = fabs(grid.nodesY[indCur] - grid.nodesY[indCur + grid.nX]);
-            grid.surfaceLeft.push_back(value);
-
-        }
-}
-
 
 void processSurfaceRightX(Grid &grid) {
 

@@ -1,0 +1,41 @@
+\hypertarget{jacobi_8h}{}\section{extra/jacobi.h File Reference}
+\label{jacobi_8h}\index{extra/jacobi.h@{extra/jacobi.h}}
+
+
+This function the system of linear differential equations using Jacobi approach.  
+
+
+{\ttfamily \#include $<$coefficients/coefficients.\+h$>$}\newline
+{\ttfamily \#include $<$settings/settings.\+h$>$}\newline
+{\ttfamily \#include $<$matrix/matrix.\+h$>$}\newline
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{jacobi_8h_ac189acb60f623e6f3759e28fe42ed705}{solve\+Jacobi\+LS}} (const Matrix \&matrix, const \mbox{\hyperlink{struct_coefficients}{Coefficients}} \&coefficients, const Settings \&settings, std\+::vector$<$ double $>$ \&X)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This function the system of linear differential equations using Jacobi approach. 
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{jacobi_8h_ac189acb60f623e6f3759e28fe42ed705}\label{jacobi_8h_ac189acb60f623e6f3759e28fe42ed705}} 
+\index{jacobi.h@{jacobi.h}!solveJacobiLS@{solveJacobiLS}}
+\index{solveJacobiLS@{solveJacobiLS}!jacobi.h@{jacobi.h}}
+\subsubsection{\texorpdfstring{solveJacobiLS()}{solveJacobiLS()}}
+{\footnotesize\ttfamily void solve\+Jacobi\+LS (\begin{DoxyParamCaption}\item[{const Matrix \&}]{matrix,  }\item[{const \mbox{\hyperlink{struct_coefficients}{Coefficients}} \&}]{coefficients,  }\item[{const Settings \&}]{settings,  }\item[{std\+::vector$<$ double $>$ \&}]{X }\end{DoxyParamCaption})}
+
+Solves the system of linear differential equations and computes the Temperature at next time step 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em matrix} & -\/ takes values, pointer and columns for matrix reconstruction \\
+\hline
+\mbox{\texttt{ in}}  & {\em coefficients} & -\/ takes F coefficient \\
+\hline
+\mbox{\texttt{ in}}  & {\em coefficients} & -\/ takes value of maximum acceptable error for convergence \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+temperature at next time step 
+\end{DoxyReturn}

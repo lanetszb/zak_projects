@@ -1,0 +1,173 @@
+\hypertarget{coefficients_8h}{}\section{coefficients/coefficients.h File Reference}
+\label{coefficients_8h}\index{coefficients/coefficients.h@{coefficients/coefficients.h}}
+
+
+This structure consists of coefficients required for matrix calculation.  
+
+
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$grid/grid.\+h$>$}\newline
+{\ttfamily \#include $<$properties/properties.\+h$>$}\newline
+{\ttfamily \#include $<$settings/settings.\+h$>$}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_coefficients}{Coefficients}}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_coefficients}{Coefficients}} \mbox{\hyperlink{coefficients_8h_ab252b79cf14aa1079570817d01863557}{initiate\+Coefficients}} (const \mbox{\hyperlink{struct_grid}{Grid}} \&grid)
+\item 
+void \mbox{\hyperlink{coefficients_8h_a4d0b4b216ef16d84009dc5a606502c36}{compute\+Coefficients}} (\mbox{\hyperlink{struct_coefficients}{Coefficients}} \&coefficients, const \mbox{\hyperlink{struct_grid}{Grid}} \&grid, const Settings \&settings, const Properties \&properties, const std\+::vector$<$ double $>$ \&T)
+\item 
+void \mbox{\hyperlink{coefficients_8h_a3c1c256a21831898f9c238a282fd2c86}{computeA}} (\mbox{\hyperlink{struct_coefficients}{Coefficients}} \&coefficients, const \mbox{\hyperlink{struct_grid}{Grid}} \&grid, const Properties \&properties)
+\item 
+void \mbox{\hyperlink{coefficients_8h_a20a8e99cd617f519b9c4e46e5c55655f}{computeB}} (\mbox{\hyperlink{struct_coefficients}{Coefficients}} \&coefficients, const \mbox{\hyperlink{struct_grid}{Grid}} \&grid, const Properties \&properties)
+\item 
+void \mbox{\hyperlink{coefficients_8h_a09af8a87caca5a9e12e176b5a8469eb9}{computeC}} (\mbox{\hyperlink{struct_coefficients}{Coefficients}} \&coefficients, const \mbox{\hyperlink{struct_grid}{Grid}} \&grid, const Settings \&settings, const Properties \&properties)
+\item 
+void \mbox{\hyperlink{coefficients_8h_a08b04ac12050ea656190760715fee217}{computeD}} (\mbox{\hyperlink{struct_coefficients}{Coefficients}} \&coefficients, const \mbox{\hyperlink{struct_grid}{Grid}} \&grid, const Properties \&properties)
+\item 
+void \mbox{\hyperlink{coefficients_8h_a91d1db7b28a34a88ae2fd08dfc2d9174}{computeE}} (\mbox{\hyperlink{struct_coefficients}{Coefficients}} \&coefficients, const \mbox{\hyperlink{struct_grid}{Grid}} \&grid, const Properties \&properties)
+\item 
+void \mbox{\hyperlink{coefficients_8h_a92c8a205398d9657471694e19a9bd843}{computeF}} (\mbox{\hyperlink{struct_coefficients}{Coefficients}} \&coefficients, const \mbox{\hyperlink{struct_grid}{Grid}} \&grid, const Settings \&settings, const Properties \&properties, const std\+::vector$<$ double $>$ \&T)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This structure consists of coefficients required for matrix calculation. 
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{coefficients_8h_a3c1c256a21831898f9c238a282fd2c86}\label{coefficients_8h_a3c1c256a21831898f9c238a282fd2c86}} 
+\index{coefficients.h@{coefficients.h}!computeA@{computeA}}
+\index{computeA@{computeA}!coefficients.h@{coefficients.h}}
+\subsubsection{\texorpdfstring{computeA()}{computeA()}}
+{\footnotesize\ttfamily void computeA (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_coefficients}{Coefficients}} \&}]{coefficients,  }\item[{const \mbox{\hyperlink{struct_grid}{Grid}} \&}]{grid,  }\item[{const Properties \&}]{properties }\end{DoxyParamCaption})}
+
+computes matrix coefficient A 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em coefficients} & -\/ takes already created coefficient A and computes it \\
+\hline
+\mbox{\texttt{ in}}  & {\em grid} & -\/ takes total number of Cells, correspondent Surface and Length from structure \mbox{\hyperlink{struct_grid}{Grid}} \\
+\hline
+\mbox{\texttt{ in}}  & {\em properties} & -\/ takes the correspondent Lambda from structure Properties \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{coefficients_8h_a20a8e99cd617f519b9c4e46e5c55655f}\label{coefficients_8h_a20a8e99cd617f519b9c4e46e5c55655f}} 
+\index{coefficients.h@{coefficients.h}!computeB@{computeB}}
+\index{computeB@{computeB}!coefficients.h@{coefficients.h}}
+\subsubsection{\texorpdfstring{computeB()}{computeB()}}
+{\footnotesize\ttfamily void computeB (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_coefficients}{Coefficients}} \&}]{coefficients,  }\item[{const \mbox{\hyperlink{struct_grid}{Grid}} \&}]{grid,  }\item[{const Properties \&}]{properties }\end{DoxyParamCaption})}
+
+computes matrix coefficient B 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em coefficients} & -\/ takes already created coefficient B and computes it \\
+\hline
+\mbox{\texttt{ in}}  & {\em grid} & -\/ takes total number of Cells, correspondent Surface and Length from structure \mbox{\hyperlink{struct_grid}{Grid}} \\
+\hline
+\mbox{\texttt{ in}}  & {\em properties} & -\/ takes the correspondent Lambda from structure Properties \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{coefficients_8h_a09af8a87caca5a9e12e176b5a8469eb9}\label{coefficients_8h_a09af8a87caca5a9e12e176b5a8469eb9}} 
+\index{coefficients.h@{coefficients.h}!computeC@{computeC}}
+\index{computeC@{computeC}!coefficients.h@{coefficients.h}}
+\subsubsection{\texorpdfstring{computeC()}{computeC()}}
+{\footnotesize\ttfamily void computeC (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_coefficients}{Coefficients}} \&}]{coefficients,  }\item[{const \mbox{\hyperlink{struct_grid}{Grid}} \&}]{grid,  }\item[{const Settings \&}]{settings,  }\item[{const Properties \&}]{properties }\end{DoxyParamCaption})}
+
+computes matrix coefficient C 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em coefficients} & -\/ takes already created coefficients C and A, B, D, E, and computes C \\
+\hline
+\mbox{\texttt{ in}}  & {\em grid} & -\/ takes total number of Cells, Cells Volumes and Length from structure \mbox{\hyperlink{struct_grid}{Grid}} \\
+\hline
+\mbox{\texttt{ in}}  & {\em settings} & -\/ takes time step dt from structure Settings \\
+\hline
+\mbox{\texttt{ in}}  & {\em properties} & -\/ takes the correspondent capacity from structure Properties \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{coefficients_8h_a4d0b4b216ef16d84009dc5a606502c36}\label{coefficients_8h_a4d0b4b216ef16d84009dc5a606502c36}} 
+\index{coefficients.h@{coefficients.h}!computeCoefficients@{computeCoefficients}}
+\index{computeCoefficients@{computeCoefficients}!coefficients.h@{coefficients.h}}
+\subsubsection{\texorpdfstring{computeCoefficients()}{computeCoefficients()}}
+{\footnotesize\ttfamily void compute\+Coefficients (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_coefficients}{Coefficients}} \&}]{coefficients,  }\item[{const \mbox{\hyperlink{struct_grid}{Grid}} \&}]{grid,  }\item[{const Settings \&}]{settings,  }\item[{const Properties \&}]{properties,  }\item[{const std\+::vector$<$ double $>$ \&}]{T }\end{DoxyParamCaption})}
+
+runs the computation of all matrix coefficients 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em coefficients} & -\/ takes already created coefficients from structure \mbox{\hyperlink{struct_coefficients}{Coefficients}} \\
+\hline
+\mbox{\texttt{ in}}  & {\em grid} & -\/ takes total number of Cells from structure \mbox{\hyperlink{struct_grid}{Grid}} \\
+\hline
+\mbox{\texttt{ in}}  & {\em settings} & -\/ takes the required settings from structure Settings \\
+\hline
+\mbox{\texttt{ in}}  & {\em properties} & -\/ takes the required settings from structure Properties \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+coefficients -\/ initiated coefficients are filled with 0 values 
+\end{DoxyReturn}
+\mbox{\Hypertarget{coefficients_8h_a08b04ac12050ea656190760715fee217}\label{coefficients_8h_a08b04ac12050ea656190760715fee217}} 
+\index{coefficients.h@{coefficients.h}!computeD@{computeD}}
+\index{computeD@{computeD}!coefficients.h@{coefficients.h}}
+\subsubsection{\texorpdfstring{computeD()}{computeD()}}
+{\footnotesize\ttfamily void computeD (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_coefficients}{Coefficients}} \&}]{coefficients,  }\item[{const \mbox{\hyperlink{struct_grid}{Grid}} \&}]{grid,  }\item[{const Properties \&}]{properties }\end{DoxyParamCaption})}
+
+computes matrix coefficient D 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em coefficients} & -\/ takes already created coefficient D and computes it\\
+\hline
+\mbox{\texttt{ in}}  & {\em grid} & -\/ takes total number of Cells, correspondent Surface and Length from structure \mbox{\hyperlink{struct_grid}{Grid}} \\
+\hline
+\mbox{\texttt{ in}}  & {\em properties} & -\/ takes the correspondent Lambda from structure Properties \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{coefficients_8h_a91d1db7b28a34a88ae2fd08dfc2d9174}\label{coefficients_8h_a91d1db7b28a34a88ae2fd08dfc2d9174}} 
+\index{coefficients.h@{coefficients.h}!computeE@{computeE}}
+\index{computeE@{computeE}!coefficients.h@{coefficients.h}}
+\subsubsection{\texorpdfstring{computeE()}{computeE()}}
+{\footnotesize\ttfamily void computeE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_coefficients}{Coefficients}} \&}]{coefficients,  }\item[{const \mbox{\hyperlink{struct_grid}{Grid}} \&}]{grid,  }\item[{const Properties \&}]{properties }\end{DoxyParamCaption})}
+
+computes matrix coefficient E 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em coefficients} & -\/ takes already created coefficient E and computes it \\
+\hline
+\mbox{\texttt{ in}}  & {\em grid} & -\/ takes total number of Cells, correspondent Surface and Length from structure \mbox{\hyperlink{struct_grid}{Grid}} \\
+\hline
+\mbox{\texttt{ in}}  & {\em properties} & -\/ takes the correspondent Lambda from structure Properties \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{coefficients_8h_a92c8a205398d9657471694e19a9bd843}\label{coefficients_8h_a92c8a205398d9657471694e19a9bd843}} 
+\index{coefficients.h@{coefficients.h}!computeF@{computeF}}
+\index{computeF@{computeF}!coefficients.h@{coefficients.h}}
+\subsubsection{\texorpdfstring{computeF()}{computeF()}}
+{\footnotesize\ttfamily void computeF (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_coefficients}{Coefficients}} \&}]{coefficients,  }\item[{const \mbox{\hyperlink{struct_grid}{Grid}} \&}]{grid,  }\item[{const Settings \&}]{settings,  }\item[{const Properties \&}]{properties,  }\item[{const std\+::vector$<$ double $>$ \&}]{T }\end{DoxyParamCaption})}
+
+computes matrix coefficient F 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em coefficients} & -\/ takes already created coefficient F and computes it \\
+\hline
+\mbox{\texttt{ in}}  & {\em grid} & -\/ takes total number of Cells and Cells Volumes from structure \mbox{\hyperlink{struct_grid}{Grid}} \\
+\hline
+\mbox{\texttt{ in}}  & {\em settings} & -\/ takes time step dt from structure Settings \\
+\hline
+\mbox{\texttt{ in}}  & {\em properties} & -\/ takes the correspondent Density and Capacity of cells from structure Properties \\
+\hline
+\mbox{\texttt{ in}}  & {\em T} & -\/ takes the correspondent Temperature at current time step \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{coefficients_8h_ab252b79cf14aa1079570817d01863557}\label{coefficients_8h_ab252b79cf14aa1079570817d01863557}} 
+\index{coefficients.h@{coefficients.h}!initiateCoefficients@{initiateCoefficients}}
+\index{initiateCoefficients@{initiateCoefficients}!coefficients.h@{coefficients.h}}
+\subsubsection{\texorpdfstring{initiateCoefficients()}{initiateCoefficients()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_coefficients}{Coefficients}} initiate\+Coefficients (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_grid}{Grid}} \&}]{grid }\end{DoxyParamCaption})}
+
+Creates matrix coefficients 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em grid} & -\/ takes total number of Cells from structure \mbox{\hyperlink{struct_grid}{Grid}} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+initiated coefficients with 0 values 
+\end{DoxyReturn}

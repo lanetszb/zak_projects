@@ -4,6 +4,12 @@
 #include <vector>
 #include <string>
 
+/*!
+\file
+\brief This structure consists of all the parameters correspondent to grid
+blocks
+*/
+
 struct Grid {
 
     int nX;
@@ -45,6 +51,13 @@ struct Grid {
     std::vector<double> LBottom;
 
 };
+
+/**
+Processes all grid properties
+@param[in] fileName - includes the data files with nodes X and Y corrdinates,
+and grid data
+@return processed grid parameters
+*/
 
 Grid processGrid(const std::string &fileName);
 

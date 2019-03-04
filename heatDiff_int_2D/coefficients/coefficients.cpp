@@ -29,10 +29,10 @@ void computeCoefficients(Coefficients &coefficients, const Grid &grid,
                          const Properties &properties,
                          const std::vector<double> &T) {
 
-    computeA(coefficients, grid, settings, properties);
-    computeE(coefficients, grid, settings, properties);
-    computeB(coefficients, grid, settings, properties);
-    computeD(coefficients, grid, settings, properties);
+    computeA(coefficients, grid, properties);
+    computeE(coefficients, grid, properties);
+    computeB(coefficients, grid, properties);
+    computeD(coefficients, grid, properties);
     computeF(coefficients, grid, settings, properties, T);
     computeC(coefficients, grid, settings, properties);
 
@@ -40,9 +40,7 @@ void computeCoefficients(Coefficients &coefficients, const Grid &grid,
 }
 
 
-void computeA(Coefficients &coefficients,
-              const Grid &grid,
-              const Settings &settings,
+void computeA(Coefficients &coefficients, const Grid &grid,
               const Properties &properties) {
 
     for (int i = 0; i < grid.nCells; i++)
@@ -53,9 +51,7 @@ void computeA(Coefficients &coefficients,
 }
 
 
-void computeB(Coefficients &coefficients,
-              const Grid &grid,
-              const Settings &settings,
+void computeB(Coefficients &coefficients, const Grid &grid,
               const Properties &properties) {
 
     for (int i = 0; i < grid.nCells; i++)
@@ -81,9 +77,7 @@ void computeC(Coefficients &coefficients,
 }
 
 
-void computeD(Coefficients &coefficients,
-              const Grid &grid,
-              const Settings &settings,
+void computeD(Coefficients &coefficients, const Grid &grid,
               const Properties &properties) {
 
     for (int i = 0; i < grid.nCells; i++)
@@ -94,9 +88,7 @@ void computeD(Coefficients &coefficients,
 }
 
 
-void computeE(Coefficients &coefficients,
-              const Grid &grid,
-              const Settings &settings,
+void computeE(Coefficients &coefficients, const Grid &grid,
               const Properties &properties) {
 
     for (int i = 0; i < grid.nCells; i++)
