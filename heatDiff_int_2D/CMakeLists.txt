@@ -3,6 +3,9 @@ project(heatDiff_int_2D)
 set(CMAKE_CXX_STANDARD 11)
 include_directories(.)
 
+include_directories(../colorconsole)
+include_directories(/usr/local/include)
+
 set(SOURCE_FILES
 
         main.cpp
@@ -22,3 +25,4 @@ set(SOURCE_FILES
         coefficients/coefficients.cpp)
 
 add_executable(heatDiff_int_2D ${SOURCE_FILES})
+add_executable(progressbar main.cpp)

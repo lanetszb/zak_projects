@@ -7,6 +7,10 @@
 #include <extra/jacobi.h>
 #include <plot/plot.h>
 
+#include <boost/progress.hpp>
+#include <ColorConsole.h>
+#include <iostream>
+
 
 int main(int narg, char **arg) {
 
@@ -22,7 +26,16 @@ int main(int narg, char **arg) {
     auto T = computeTInitial(grid, settings);
 
 
+    boost::progress_timer timer;
+
+    int number = settings.time / settings.dt;
+    std::cout << blue;
+    boost::progress_display progressBar(number);
+
+
+    std::cout << green;
     for (double t = settings.dt; t <= settings.time; t += settings.dt) {
+        ++progressBar;
 
         computeProperties(properties, propertyTables, T, grid);
         computeCoefficients(coefficients, grid, settings, properties, T);
@@ -31,6 +44,9 @@ int main(int narg, char **arg) {
         solveJacobiLS(matrix, coefficients, settings, T);
 
     }
+
+    std::cout << purple;
+    std::cout << std::endl << "calculation time is ";
 
 
     makePlot(grid, T);
