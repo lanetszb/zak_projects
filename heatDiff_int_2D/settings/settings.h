@@ -11,8 +11,8 @@ struct Settings {
 
     double TLeft;
     double TRight;
-    double Ttop;
-    double Tbot;
+    double TTop;
+    double TBot;
     double TInitial;
 
     double maxTolerance;

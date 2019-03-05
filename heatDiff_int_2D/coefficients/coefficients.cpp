@@ -45,8 +45,9 @@ void computeA(Coefficients &coefficients, const Grid &grid,
 
     for (int i = 0; i < grid.nCells; i++)
 
-        coefficients.A[i] = -properties.lambdaBottom[i] *
-                            grid.surfaceBottom[i] / grid.LBottom[i];
+
+        coefficients.A[i] = -properties.lambdaLeft[i] *
+                            grid.surfaceLeft[i] / grid.LLeft[i];
 
 }
 
@@ -56,8 +57,9 @@ void computeB(Coefficients &coefficients, const Grid &grid,
 
     for (int i = 0; i < grid.nCells; i++)
 
-        coefficients.B[i] = -properties.lambdaLeft[i] *
-                            grid.surfaceLeft[i] / grid.LLeft[i];
+
+     coefficients.B[i] = -properties.lambdaBottom[i] *
+                            grid.surfaceBottom[i] / grid.LBottom[i];
 
 }
 

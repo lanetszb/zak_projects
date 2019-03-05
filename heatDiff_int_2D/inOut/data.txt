@@ -1,24 +1,18 @@
-timeStep 10 sec
+timeStep 5 sec
 
-time 500000 sec
+time 100000 sec
 
-tempLeft 100 deg
+tempLeft 50 deg
 
-tempBot 100 deg
+tempBot 50 deg
 
-tempRight 10 deg
+tempRight 50 deg
 
-tempTop 10 deg
+tempTop 50 deg
 
-tempIni 0.00001 deg
+tempIni 5 deg
 
 N_NODES_FILE  grid_dim.txt
-
-density 10 kg/m3
-
-thermalCond 50 W/(m*C)
-
-heatCapac 460 J/(kg*C)
 
 MAX_TOLERANCE 1.E-10
 

@@ -11,8 +11,8 @@ Settings getSettings(const std::string &fileName) {
     settings.time = dataFile.getWord<double>("time");
     settings.TLeft = dataFile.getWord<double>("tempLeft");
     settings.TRight = dataFile.getWord<double>("tempRight");
-    settings.Ttop = dataFile.getWord<double>("tempTop");
-    settings.Tbot = dataFile.getWord<double>("tempBot");
+    settings.TTop = dataFile.getWord<double>("tempTop");
+    settings.TBot = dataFile.getWord<double>("tempBot");
     settings.TInitial = dataFile.getWord<double>("tempIni");
     settings.maxTolerance = dataFile.getWord<double>("MAX_TOLERANCE");
 

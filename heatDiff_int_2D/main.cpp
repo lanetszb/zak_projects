@@ -7,8 +7,6 @@
 #include <extra/jacobi.h>
 #include <plot/plot.h>
 
-#include <iostream>
-
 
 int main(int narg, char **arg) {
 
@@ -23,6 +21,7 @@ int main(int narg, char **arg) {
 
     auto T = computeTInitial(grid, settings);
 
+
     for (double t = settings.dt; t <= settings.time; t += settings.dt) {
 
         computeProperties(properties, propertyTables, T, grid);
@@ -32,6 +31,7 @@ int main(int narg, char **arg) {
         solveJacobiLS(matrix, coefficients, settings, T);
 
     }
+
 
     makePlot(grid, T);
 

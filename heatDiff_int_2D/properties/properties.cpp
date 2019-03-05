@@ -42,7 +42,7 @@ void computeCellsProperties(Properties &properties,
                             const PropertyTables &propertyTables,
                             const std::vector<double> &T) {
 
-    computeCellsProperty(properties.lambda, T, propertyTables.lambda);
+    /*computeCellsProperty(properties.lambda, T, propertyTables.lambda);*/
     computeCellsProperty(properties.density, T, propertyTables.density);
     computeCellsProperty(properties.capacity, T, propertyTables.capacity);
 
