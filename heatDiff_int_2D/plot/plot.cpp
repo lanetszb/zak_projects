@@ -71,9 +71,14 @@ void outputPlot(const Grid &grid, const std::vector<double> plotValue) {
     oStream << "set pm3d map" << std::endl;
     oStream << "set cntrparam levels auto 7" << std::endl;
     oStream << "set zrange [0:]" << std::endl;
-    oStream << "set palette rgbformulae 7,5,15" << std::endl;
+    /*oStream << "set palette rgbformulae 7,5,15" << std::endl;*/
     oStream << "set samples " << grid.nX << std::endl;
     oStream << "set isosamples " << grid.nY << std::endl;
+
+    oStream << "set palette model RGB" << std::endl;
+    oStream
+            << "set palette model RGB defined (0 'green', 98 'dark-green', 98 'white', 102 'white', 102 'yellow', 200 'dark-yellow')"
+            << std::endl;
 
     oStream << "splot 'out.txt' notitle" << std::endl;
 

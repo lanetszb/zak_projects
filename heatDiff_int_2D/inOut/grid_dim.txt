@@ -2,11 +2,11 @@ X0              0 m
 
 Y0              0 m
 
-XL              10 m
+XL              5 m
 
 YL              5 m
 
-N_NODES_X     21
+N_NODES_X     101
 
-N_NODES_Y     16
+N_NODES_Y     101
 

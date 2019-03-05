@@ -1,14 +1,14 @@
-timeStep 5 sec
+timeStep 20 sec
 
-time 100000 sec
+time 200000 sec
 
-tempLeft 50 deg
+tempLeft 20 deg
 
-tempBot 50 deg
+tempBot 20 deg
 
-tempRight 50 deg
+tempRight 200 deg
 
-tempTop 50 deg
+tempTop 200 deg
 
 tempIni 5 deg
 
