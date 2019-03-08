@@ -76,9 +76,9 @@ void outputPlot(const Grid &grid, const std::vector<double> plotValue) {
     oStream << "set isosamples " << grid.nY << std::endl;
 
     oStream << "set palette model RGB" << std::endl;
-    oStream
-            << "set palette model RGB defined (0 'green', 98 'dark-green', 98 'white', 102 'white', 102 'yellow', 200 'dark-yellow')"
-            << std::endl;
+    oStream << "set palette model RGB defined ";
+    oStream << "(0 'dark-green', 100 'green', 100 'yellow', 200 'dark-yellow')";
+    oStream << std::endl;
 
     oStream << "splot 'out.txt' notitle" << std::endl;
 
