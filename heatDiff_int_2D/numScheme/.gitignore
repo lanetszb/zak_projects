@@ -1,0 +1,6 @@
+*.gz
+*.out
+*.nlo
+*.log
+*.pdf
+!SPEInt.pdf

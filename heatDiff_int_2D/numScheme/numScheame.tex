@@ -109,14 +109,14 @@
 
 \begin{eqnarray}
 \label{eq:phys_TD}
-\int \limits_{V} \left( \partial{\rho c_{\rho} T} \right) d V - \oint \limits_{\Omega} \lambda \vec{\nabla}T d\vec{\Omega} = 0,
+\int \limits_{V} \frac{\partial}{\partial t} \rho c_{\rho} T d V - \oint \limits_{\Omega} \lambda \vec{\nabla}T d\vec{\Omega} = 0,
 \end{eqnarray}
 
 \begin{eqnarray}
 \label{eq:num_TD}
 \begin{gathered}
-\rho_{i,j} c_{\rho_{i,j}} \frac{T^{n+1}_{i,j} - T^{n}_{i,j}}{\Delta t} V_{i,j} + \lambda_{i,j-}\frac{T^{n+1}_{i,j} - T^{n}_{i,j-}}{L_{i,j-}} \Omega_{i,j-} + \lambda_{i-,j}\frac{T^{n+1}_{i,j} - T^{n}_{i-,j}}{L_{i-,j}} \Omega_{i-,j} - \\
-- \lambda_{i+,j}\frac{T^{n+1}_{i+,j} - T^{n}_{i,j}}{L_{i+,j}} \Omega_{i+,j} - \lambda_{i,j+}\frac{T^{n+1}_{i,j+} - T^{n}_{i,j+}}{L_{i,j+}} \Omega_{i,j+} = 0,
+\rho_{i,j} c_{\rho_{i,j}} \frac{T^{n+1}_{i,j} - T^{n}_{i,j}}{\Delta t} V_{i,j} + \lambda_{i,j-}\frac{T^{n+1}_{i,j} - T^{n+1}_{i,j-}}{L_{i,j-}} \Omega_{i,j-} + \lambda_{i-,j}\frac{T^{n+1}_{i,j} - T^{n+1}_{i-,j}}{L_{i-,j}} \Omega_{i-,j} - \\
+- \lambda_{i+,j}\frac{T^{n+1}_{i+,j} - T^{n+1}_{i,j}}{L_{i+,j}} \Omega_{i+,j} - \lambda_{i,j+}\frac{T^{n+1}_{i,j+} - T^{n+1}_{i,j+}}{L_{i,j+}} \Omega_{i,j+} = 0,
 \end{gathered}
 \end{eqnarray}
 
@@ -158,7 +158,7 @@ E = - \frac{\lambda_{i,j+}}{L_{i,j+}} \Omega_{i,j+}
 \begin{eqnarray}
 \begin{gathered}
 \label{eq:F_coeff}
-F = - \frac{\rho_{i,j} c_{\rho_{i,j}} V_{i,j}}{\Delta t}
+F = - \frac{\rho_{i,j} c_{\rho_{i,j}} V_{i,j}}{\Delta t} T_{i,j}^n
 \end{gathered}
 \end{eqnarray}
 
